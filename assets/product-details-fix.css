@@ -1,0 +1,81 @@
+/* Premium Button Fixes */
+#request-quote-btn {
+  width: 100% !important;
+  background: linear-gradient(135deg, #f4c025 0%, #ffd147 100%) !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px 24px !important;
+  font-size: 1.125rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  cursor: pointer !important;
+  transition: all 0.3s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  margin-bottom: 12px !important;
+  box-shadow: 0 0 20px rgba(244, 192, 37, 0.3) !important;
+}
+
+#request-quote-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 10px 40px rgba(244, 192, 37, 0.5) !important;
+}
+
+#request-quote-btn:active {
+  transform: scale(0.98) !important;
+}
+
+#request-quote-btn .material-symbols-outlined {
+  font-size: 24px !important;
+  transition: transform 0.3s !important;
+}
+
+#request-quote-btn:hover .material-symbols-outlined {
+  transform: rotate(12deg) !important;
+}
+
+#chat-btn {
+  width: 100% !important;
+  background: transparent !important;
+  color: #fff !important;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 14px 24px !important;
+  font-size: 1.125rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  cursor: pointer !important;
+  transition: all 0.3s !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+}
+
+#chat-btn:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #f4c025 !important;
+  transform: translateY(-2px) !important;
+}
+
+#chat-btn:active {
+  transform: scale(0.98) !important;
+}
+
+#chat-btn .material-symbols-outlined {
+  font-size: 20px !important;
+}
+
+.price-card {
+  background: linear-gradient(135deg, rgba(39, 36, 27, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  padding: 24px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3) !important;
+}
