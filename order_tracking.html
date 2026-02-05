@@ -1,0 +1,591 @@
+﻿<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Store | My Orders</title>
+    
+    <!-- Standardized Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+    
+    <style>
+        /* Additional Page Specific Styles - Merging with standard system */
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-white);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(244, 192, 37, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(244, 192, 37, 0.03) 0%, transparent 40%);
+        }
+
+        .glass-panel {
+            background: linear-gradient(135deg, rgba(34, 30, 16, 0.4) 0%, rgba(10, 10, 10, 0.6) 100%);
+            border: 1px solid rgba(244, 192, 37, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: var(--rounded-2xl);
+        }
+
+        .order-card {
+            background: var(--surface-dark);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--rounded-2xl);
+            padding: var(--spacing-6);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-bottom: var(--spacing-6);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .order-card:hover {
+            border-color: rgba(244, 192, 37, 0.3);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+            transform: translateY(-4px);
+        }
+        
+        .order-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .order-card:hover::before {
+            opacity: 1;
+        }
+
+        .progress-track {
+            position: relative;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            margin: 3rem 0;
+            width: 100%;
+        }
+        
+        .progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, #ffe066 100%);
+            border-radius: 4px;
+            box-shadow: 0 0 15px rgba(244, 192, 37, 0.3);
+            width: 0%; /* Animated via GSAP */
+        }
+        
+        .progress-steps {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0;
+        }
+        
+        .step-node {
+            width: 32px;
+            height: 32px;
+            background: var(--background-dark);
+            border: 2px solid var(--border-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.4s;
+            position: relative;
+        }
+        
+        .step-node.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--background-dark);
+            box-shadow: 0 0 20px rgba(244, 192, 37, 0.4);
+            transform: scale(1.1);
+        }
+        
+        .step-node.completed {
+            background: var(--surface-dark);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .step-label {
+            position: absolute;
+            top: 140%;
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-gray-500);
+            transition: color 0.3s;
+        }
+        
+        .step-node.active .step-label,
+        .step-node.completed .step-label {
+            color: var(--text-white);
+        }
+
+        .btn-track {
+            background: var(--primary);
+            color: var(--background-dark);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--rounded-lg);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-track:hover {
+            background: #ffe066;
+            box-shadow: 0 0 20px rgba(244, 192, 37, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary-action {
+            background: transparent;
+            border: 1px solid var(--border-dark);
+            color: var(--text-gray-300);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--rounded-lg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary-action:hover {
+            border-color: var(--text-white);
+            color: var(--text-white);
+            background: rgba(255,255,255,0.02);
+        }
+        
+        .img-container {
+            position: relative;
+            border-radius: var(--rounded-xl);
+            overflow: hidden;
+        }
+        
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .order-card:hover .img-container img {
+            transform: scale(1.05);
+        }
+        
+        .shimmer-overlay {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: skewX(-20deg);
+            pointer-events: none;
+        }
+
+        /* Responsive Layouts */
+        @media (min-width: 1024px) {
+            .order-content-grid {
+                display: grid;
+                grid-template-columns: 280px 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-background-dark">
+
+    <!-- Header -->
+    <div class="main-header-wrapper">
+        <header class="main-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 30px;">directions_car</span>
+                </div>
+                <h2 class="logo-text">Car Store</h2>
+            </div>
+            
+            <nav class="desktop-nav">
+                <a class="nav-link" href="./user_dashboard.html">Dashboard</a>
+                <a class="nav-link active" href="./order_tracking.html" style="color: var(--primary);">My Orders</a>
+                <a class="nav-link" href="./cartegory.html">Garage</a>
+                <a class="nav-link" href="./contact.html">Support</a>
+            </nav>
+            
+            <div class="header-actions">
+                 <div class="search-container" style="position: relative; margin-right: 1rem; display: none;"> 
+                    <span class="material-symbols-outlined" style="position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--text-gray-500); font-size: 18px;">search</span>
+                    <input type="text" placeholder="Search orders..." style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-dark); padding: 0.5rem 1rem 0.5rem 2.25rem; border-radius: 2rem; color: white; font-size: 0.875rem; width: 220px;">
+                    <style>@media(min-width: 768px){ .search-container { display: block !important; } }</style>
+                </div>
+                
+                <button class="icon-btn mobile-menu-toggle" title="Menu">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+                </button>
+                    <!-- Notification Bell -->
+                <div class="notification-container">
+                    <button class="icon-btn btn-icon-animate" title="Notifications">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-title">Notifications (2)</span>
+                            <span class="mark-read">Mark all as read</span>
+                        </div>
+                        <div class="dropdown-list">
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">local_shipping</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">Order Shipped</p>
+                                    <p class="item-desc">Your GT-Series Heritage is on the way.</p>
+                                    <span class="item-time">1 hour ago</span>
+                                </div>
+                            </div>
+                             <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">verified</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">Delivery Complete</p>
+                                    <p class="item-desc">V12 Hybrid Vision delivered successfully.</p>
+                                    <span class="item-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; overflow: hidden; border: 2px solid rgba(244, 192, 37, 0.3); padding: 2px;">
+                    <img src="./assets/images/downloaded_asset_30.jpg" alt="Profile" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
+            </div>
+        </header>
+        
+        <nav class="mobile-nav hidden">
+             <a class="mobile-nav-link" href="./user_dashboard.html">Dashboard</a>
+            <a class="mobile-nav-link" href="./order_tracking.html">My Orders</a>
+            <a class="mobile-nav-link" href="./cartegory.html">Garage</a>
+            <a class="mobile-nav-link" href="./contact.html">Support</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content" style="max-width: 1200px; margin: 0 auto; padding: 6rem 1.5rem;">
+        
+        <!-- Page Header -->
+        <div id="page-header" style="margin-bottom: 4rem; opacity: 0; transform: translateY(20px);">
+            <nav style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--text-gray-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 1rem;">
+                <a href="./user_dashboard.html" class="hover-text-white transition">Dashboard</a>
+                <span class="material-symbols-outlined" style="font-size: 12px;">arrow_forward_ios</span>
+                <span style="color: var(--text-white);">Order Tracking</span>
+            </nav>
+            <h1 style="font-size: 3rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; margin-bottom: 1rem;">
+                Vehicle <span class="text-primary italic">Logistics</span>
+            </h1>
+            <p style="color: var(--text-gray-400); max-width: 600px; font-size: 1.125rem;">
+                Real-time telemetry and global delivery tracking for your premium automotive acquisitions.
+            </p>
+        </div>
+
+        <!-- Orders Container -->
+        <div id="order-container">
+            
+            <!-- Order Card 1: In Transit -->
+            <div class="order-card">
+                <div class="order-content-grid">
+                    <div class="img-container" style="height: 220px;">
+                        <img src="./assets/images/downloaded_asset_31.jpg" alt="GT-Series Heritage">
+                        <div class="shimmer-overlay"></div>
+                        <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1);">
+                            <span class="text-primary text-xs font-bold uppercase tracking-wider">In Transit</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <p style="color: var(--primary); font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(244,192,37,0.3); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem;">ORDER #CS-9110482</p>
+                                <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem;">GT-Series Heritage</h3>
+                                <p style="color: var(--text-gray-500); font-size: 0.875rem;">Acquired on October 12, 2023</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="color: var(--text-gray-500); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Value</p>
+                                <p style="font-size: 1.5rem; font-weight: 700; color: var(--text-white);">$264,500</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress Tracker -->
+                        <div>
+                            <div class="progress-track">
+                                <div class="progress-fill" data-width="66%"></div>
+                                <div class="progress-steps">
+                                    <!-- Step 1 -->
+                                    <div class="step-container" style="position: relative;">
+                                        <div class="step-node active completed">
+                                            <span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+                                        </div>
+                                        <div class="step-label">Ordered</div>
+                                    </div>
+                                    <!-- Step 2 -->
+                                    <div class="step-container" style="position: relative;">
+                                        <div class="step-node active completed">
+                                            <span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+                                        </div>
+                                        <div class="step-label">Processing</div>
+                                    </div>
+                                    <!-- Step 3 -->
+                                    <div class="step-container" style="position: relative;">
+                                        <div class="step-node active">
+                                            <span class="material-symbols-outlined" style="font-size: 18px;">local_shipping</span>
+                                        </div>
+                                        <div class="step-label">In Transit</div>
+                                    </div>
+                                    <!-- Step 4 -->
+                                    <div class="step-container" style="position: relative;">
+                                        <div class="step-node">
+                                            <span class="material-symbols-outlined" style="font-size: 16px;">flag</span>
+                                        </div>
+                                        <div class="step-label">Delivered</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                             <a href="./product_details.html"><button class="btn-track">
+                               <span class="material-symbols-outlined">location_on</span>
+                                Product Detail
+                            </button></a>
+                            <a href="./invoice.html"><button class="btn-secondary-action">
+                                <span class="material-symbols-outlined">description</span>
+                                Invoice
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Card 2: Delivered -->
+            <div class="order-card">
+                <div class="order-content-grid">
+                    <div class="img-container" style="height: 220px;">
+                        <img src="./assets/images/downloaded_asset_32.jpg" alt="V12 Hybrid Vision">
+                         <div style="position: absolute; bottom: 10px; left: 10px; background: rgba(34, 197, 94, 0.2); backdrop-filter: blur(4px); padding: 4px 10px; border-radius: 4px; border: 1px solid rgba(34, 197, 94, 0.3);">
+                            <span style="color: #4ade80; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">Delivered</span>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+                            <div>
+                                <p style="color: var(--primary); font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(244,192,37,0.3); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 0.5rem;">ORDER #CS-REV4022</p>
+                                <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 0.25rem;">V12 Hybrid Vision</h3>
+                                <p style="color: var(--text-gray-500); font-size: 0.875rem;">Acquired on September 28, 2023</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="color: var(--text-gray-500); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem;">Value</p>
+                                <p style="font-size: 1.5rem; font-weight: 700; color: var(--text-white);">$608,350</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Progress Tracker -->
+                        <div>
+                            <div class="progress-track" style="background: rgba(34, 197, 94, 0.1);">
+                                <div class="progress-fill" data-width="100%" style="background: linear-gradient(90deg, #22c55e 0%, #4ade80 100%); box-shadow: 0 0 15px rgba(74, 222, 128, 0.3);"></div>
+                                <div class="progress-steps">
+                                    <!-- Step 1 -->
+                                    <div class="step-container" style="position: relative;">
+                                        <div class="step-node completed" style="background: #22c55e; border-color: #22c55e; color: black;">
+                                            <span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+                                        </div>
+                                    </div>
+                                    <!-- Step 2 -->
+                                    <div class="step-container" style="position: relative;">
+                                       <div class="step-node completed" style="background: #22c55e; border-color: #22c55e; color: black;">
+                                            <span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+                                        </div>
+                                    </div>
+                                    <!-- Step 3 -->
+                                    <div class="step-container" style="position: relative;">
+                                       <div class="step-node completed" style="background: #22c55e; border-color: #22c55e; color: black;">
+                                            <span class="material-symbols-outlined" style="font-size: 16px;">check</span>
+                                        </div>
+                                    </div>
+                                    <!-- Step 4 -->
+                                    <div class="step-container" style="position: relative;">
+                                        <div class="step-node active" style="background: #22c55e; border-color: #22c55e; color: black; box-shadow: 0 0 20px rgba(74, 222, 128, 0.4);">
+                                            <span class="material-symbols-outlined" style="font-size: 18px;">verified</span>
+                                        </div>
+                                        <div class="step-label" style="color: white;">Complete</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button class="btn-secondary-action" style="cursor: not-allowed; opacity: 0.6;">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                Delivery Complete
+                            </button>
+                            <a href="invoice.html"><button class="btn-secondary-action">
+                                <span class="material-symbols-outlined">description</span>
+                                Invoice
+                            </button></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2024 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html">Privacy Policy</a>
+                    <a href="./legal.html">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // GSAP Animations
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+            // Animate Page Header
+            tl.to("#page-header", {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                delay: 0.2
+            });
+
+            // Animate Order Cards
+            tl.to(".order-card", {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2
+            }, "-=0.5");
+
+            // Animate Progress Bars
+            const progressFills = document.querySelectorAll('.progress-fill');
+            progressFills.forEach(fill => {
+                const targetWidth = fill.getAttribute('data-width');
+                gsap.to(fill, {
+                    width: targetWidth,
+                    duration: 1.5,
+                    ease: "power2.inOut",
+                    delay: 1.2
+                });
+            });
+            
+            // Continuous Shimmer Animation
+            gsap.to(".shimmer-overlay", {
+                x: "200%",
+                duration: 2,
+                ease: "power2.inOut",
+                repeat: -1,
+                repeatDelay: 3
+            });
+        });
+    </script>
+
+</body>
+</html>

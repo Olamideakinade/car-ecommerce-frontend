@@ -1,0 +1,461 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Store - Shopping Cart</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+</head>
+<body>
+    <!-- Standard Header -->
+    <div class="main-header-wrapper">
+        <header class="main-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 30px;">directions_car</span>
+                </div>
+                <h2 class="logo-text">Car Store</h2>
+            </div>
+            
+            <nav class="desktop-nav">
+                <a class="nav-link" href="./cartegory.html">Garage</a>
+                <a class="nav-link" href="./order_tracking.html">Order Tracking</a>
+                <a class="nav-link" href="#" style="color:goldenrod">Shopping Cart</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="icon-btn mobile-menu-toggle" title="Menu">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+                </button>
+                <a href="./shopping_cart.html" style="position: relative; display: inline-block;">
+                    <button class="icon-btn group" title="Shopping Cart">
+                         <!-- Highlighted Cart Icon -->
+                        <span class="material-symbols-outlined" style="color: var(--primary);">shopping_bag</span>
+                    </button>
+                    <!-- Badge usually managed by JS, but keeping structure -->
+                    <span class="cart-badge cart-count-badge" style="display: none;">0</span>
+                </a>
+                
+            </div>
+        </header>
+        
+        <!-- Mobile Nav -->
+        <nav class="mobile-nav hidden">
+            <a class="mobile-nav-link" href="./user_dashboard.html">Dashboard</a>
+            <a class="mobile-nav-link" href="./cartegory.html">Garage</a>
+            <a class="mobile-nav-link" href="./profile_setting.html">Profile Setting</a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="cart-grid-layout" style="width: 100%; max-width: 1440px; padding: 0 var(--spacing-6);">
+            
+            <!-- Cart Items Column -->
+            <div class="cart-items-column">
+                <div class="cart-header-section">
+                    <a href="./cartegory.html" style="display: flex; align-items: center; gap: 0.5rem; color: var(--text-gray-400); font-size: 0.875rem; font-weight: 500; margin-bottom: 1rem; transition: color 0.3s;" class="hover:text-primary">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">arrow_back</span> Back to Shop
+                    </a>
+                    <h1 style="color: var(--text-white); font-size: 3rem; font-weight: 700; text-transform: uppercase; line-height: 1;">Shopping Cart</h1>
+                    <p style="color: var(--text-gray-400);">Review your selected configuration and accessories.</p>
+                </div>
+
+                <div class="cart-table-container">
+                    <div class="cart-table-header hidden md:grid">
+                        <div>Product</div>
+                        <div style="text-align: center;">Quantity</div>
+                        <div style="text-align: right;">Total</div>
+                    </div>
+                    <!-- Item 1 -->
+                    <div class="cart-item-row">
+                        <div class="cart-product-info">
+                            <div class="cart-product-image">
+                                <img src="./assets/images/downloaded_asset_16.jpg" alt="Car Store Model X-900">
+                            </div>
+                            <div class="cart-details">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+                                    <span style="font-size: 0.625rem; font-weight: 700; text-transform: uppercase; background-color: rgba(244, 192, 37, 0.1); color: var(--primary); padding: 0.125rem 0.375rem; border-radius: 0.125rem; border: 1px solid rgba(244, 192, 37, 0.2);">Vehicle</span>
+                                </div>
+                                <h3 class="cart-product-name">Car Store Model X-900</h3>
+                                <div class="cart-product-meta">Matte Obsidian Black</div>
+                                <div class="cart-product-meta">Dual Motor AWD â€¢ 22" Turbine Wheels</div>
+                            </div>
+                        </div>
+                        <div class="cart-quantity-control">
+                            <span style="color: var(--text-white); font-weight: 500;">1</span>
+                        </div>
+                        <div class="cart-price-col">
+                            <span class="cart-item-price">$85,000</span>
+                            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                <button class="cart-action-btn edit"><span class="material-symbols-outlined" style="font-size: 16px;">edit</span> Configure</button>
+                                <button class="cart-action-btn"><span class="material-symbols-outlined" style="font-size: 16px;">delete</span> Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="cart-item-row">
+                         <div class="cart-product-info">
+                            <div class="cart-product-image">
+                                <img src="./assets/images/downloaded_asset_17.jpg" alt="Autonomy Package">
+                                  <div style="position: absolute; bottom: 0.5rem; left: 0.5rem; font-size: 0.625rem; font-weight: 700; text-transform: uppercase; color: var(--text-white); z-index: 10; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">Digital</div>
+                            </div>
+                            <div class="cart-details">
+                                <h3 class="cart-product-name">Autonomy Package</h3>
+                                <div class="cart-product-meta">Software Upgrade</div>
+                                <div class="cart-product-meta">Lidar Integration â€¢ Neural Net V4</div>
+                            </div>
+                        </div>
+                         <div class="cart-quantity-control">
+                            <span style="color: var(--text-white); font-weight: 500;">1</span>
+                        </div>
+                        <div class="cart-price-col">
+                            <span class="cart-item-price">$5,000</span>
+                             <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                <button class="cart-action-btn"><span class="material-symbols-outlined" style="font-size: 16px;">delete</span> Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="cart-item-row">
+                         <div class="cart-product-info">
+                            <div class="cart-product-image">
+                                <img src="./assets/images/downloaded_asset_18.jpg" alt="Carbon Spoiler">
+                            </div>
+                            <div class="cart-details">
+                                <h3 class="cart-product-name">Carbon Spoiler</h3>
+                                <div class="cart-product-meta">Exterior Accessory</div>
+                                <div class="cart-product-meta" style="color: #4ade80;">In Stock</div>
+                            </div>
+                        </div>
+                         <div class="cart-quantity-control">
+                            <div class="quantity-wrapper">
+                                <button class="qty-btn"><span class="material-symbols-outlined" style="font-size: 16px;">remove</span></button>
+                                <input type="text" value="1" readonly class="qty-input">
+                                <button class="qty-btn"><span class="material-symbols-outlined" style="font-size: 16px;">add</span></button>
+                            </div>
+                        </div>
+                        <div class="cart-price-col">
+                            <span class="cart-item-price">$3,500</span>
+                             <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                <button class="cart-action-btn"><span class="material-symbols-outlined" style="font-size: 16px;">delete</span> Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Recommended Add-ons -->
+                <div style="margin-top: 3rem; opacity: 0; animation: modalSlideIn 0.5s ease-out 0.3s forwards;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+                        <h2 style="font-size: 1.5rem; font-weight: 700; text-transform: uppercase; color: var(--text-white);">Recommended Add-Ons</h2>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <!-- Simple navigation placeholders -->
+                        </div>
+                    </div>
+                    
+                    <div class="recommended-grid">
+                        <!-- Addon 1 -->
+                        <div class="car-card">
+                             <div class="car-image-wrapper">
+                                <div class="car-bg" style="background-image: url('./assets/images/downloaded_asset_14.jpg');"></div>
+                                <div class="badge-new" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); top: 0.75rem; right: 0.75rem; left: auto; color: var(--text-white); animation: none; box-shadow: none;">Charging</div>
+                             </div>
+                             <div class="car-content" style="padding: 1.25rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <h3 class="car-title" style="font-size: 1.125rem; margin-bottom: 0;">Home Charger</h3>
+                                    <span style="color: var(--text-white); font-weight: 700;">$1,200</span>
+                                </div>
+                                <p style="color: var(--text-gray-400); font-size: 0.75rem; margin-bottom: 1rem;">Level 3 Fast Charging Station for residential installation. Includes 25ft cable.</p>
+                                <button class="btn-add-cart" style="margin-top: auto;">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add to Order
+                                </button>
+                             </div>
+                        </div>
+                        
+                         <!-- Addon 2 -->
+                        <div class="car-card">
+                             <div class="car-image-wrapper">
+                                <div class="car-bg" style="background-image: url('./assets/images/downloaded_asset_15.jpg');"></div>
+                                <div class="badge-new" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); top: 0.75rem; right: 0.75rem; left: auto; color: var(--text-white); animation: none; box-shadow: none;">Care</div>
+                             </div>
+                             <div class="car-content" style="padding: 1.25rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <h3 class="car-title" style="font-size: 1.125rem; margin-bottom: 0;">Premium Care Kit</h3>
+                                    <span style="color: var(--text-white); font-weight: 700;">$250</span>
+                                </div>
+                                <p style="color: var(--text-gray-400); font-size: 0.75rem; margin-bottom: 1rem;">Exclusive leather care and matte paint protection solutions.</p>
+                                <button class="btn-add-cart" style="margin-top: auto;">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add to Order
+                                </button>
+                             </div>
+                        </div>
+
+                        <!-- Addon 3 -->
+                        <div class="car-card">
+                             <div class="car-image-wrapper">
+                                <div style="width: 100%; height: 100%; background: var(--surface-dark); display: flex; align-items: center; justify-content: center; color: var(--border-dark);">
+                                    <span class="material-symbols-outlined" style="font-size: 64px;">extension</span>
+                                </div>
+                                <div class="badge-new" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); top: 0.75rem; right: 0.75rem; left: auto; color: var(--text-white); animation: none; box-shadow: none;">Lifestyle</div>
+                             </div>
+                             <div class="car-content" style="padding: 1.25rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <h3 class="car-title" style="font-size: 1.125rem; margin-bottom: 0;">Travel Set</h3>
+                                    <span style="color: var(--text-white); font-weight: 700;">$850</span>
+                                </div>
+                                <p style="color: var(--text-gray-400); font-size: 0.75rem; margin-bottom: 1rem;">Custom fitted luggage set designed specifically for the X-900 frunk.</p>
+                                <button class="btn-add-cart" style="margin-top: auto;">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">add</span> Add to Order
+                                </button>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Summary Sidebar -->
+            <div class="cart-summary-column">
+                <div class="cart-summary-box">
+                    <h3 class="summary-title">
+                        <span class="material-symbols-outlined" style="color: var(--primary);">receipt_long</span> Order Summary
+                    </h3>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal (3 items)</span>
+                        <span>$93,500</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Estimated Tax</span>
+                        <span>$7,480</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery & Handling</span>
+                        <span style="color: #4ade80;">Free</span>
+                    </div>
+
+                    <div style="position: relative; margin-top: 1.5rem; margin-bottom: 0.5rem;">
+                        <input type="text" placeholder="Promo Code" class="promo-code-input">
+                        <button class="promo-apply-btn">Apply</button>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <div class="summary-total-price">
+                            <span class="currency">USD</span>
+                            <span class="amount">$100,980</span>
+                        </div>
+                    </div>
+
+                   <a href="./checkout.html"> <button class="cart-checkout-btn">
+                        Checkout <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    </a>
+
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem; opacity: 0.6;">
+                        <span style="color: var(--text-gray-500); font-size: 0.625rem;">Powered by Stripe</span>
+                        <div style="width: 1px; height: 10px; background-color: var(--border-dark);"></div>
+                        <span style="color: var(--text-gray-500); font-size: 0.625rem;">SSL Encrypted</span>
+                    </div>
+                </div>
+
+                <div class="trust-badges">
+                     <div class="trust-item">
+                        <div class="trust-icon"><span class="material-symbols-outlined" style="font-size: 18px;">local_shipping</span></div>
+                        <span class="trust-text">Fast<br>Delivery</span>
+                     </div>
+                     <div class="trust-item">
+                        <div class="trust-icon"><span class="material-symbols-outlined" style="font-size: 18px;">verified_user</span></div>
+                        <span class="trust-text">Secure<br>Payment</span>
+                     </div>
+                     <div class="trust-item">
+                        <div class="trust-icon"><span class="material-symbols-outlined" style="font-size: 18px;">support_agent</span></div>
+                        <span class="trust-text">24/7<br>Support</span>
+                     </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Standard Footer -->
+    <footer class="site-footer">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity: 1; transform: none;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between; @media(min-width:768px){ flex-direction:row !important; }">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2026 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html">Privacy Policy</a>
+                    <a href="./legal.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+     <script src="./assets/js/cart.js"></script>
+     <script src="./assets/js/main.js"></script>
+     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCartItems();
+            updateCartSummary();
+        });
+
+        function renderCartItems() {
+            const tableContainer = document.querySelector('.cart-table-container');
+            if (!tableContainer) return;
+            
+            const cartItems = window.cart.getItems();
+            
+            // Keep header
+            const headerHTML = `
+                <div class="cart-table-header hidden md:grid">
+                    <div>Product</div>
+                    <div style="text-align: center;">Quantity</div>
+                    <div style="text-align: right;">Total</div>
+                </div>`;
+            
+            if (cartItems.length === 0) {
+                tableContainer.innerHTML = headerHTML + `
+                    <div style="padding: 3rem; text-align: center; color: var(--text-gray-400);">
+                        <span class="material-symbols-outlined" style="font-size: 48px; margin-bottom: 1rem; opacity: 0.5;">remove_shopping_cart</span>
+                        <p>Your cart is empty.</p>
+                        <a href="./cartegory.html" style="color: var(--primary); text-decoration: underline; margin-top: 1rem; display: inline-block;">Browse Inventory</a>
+                    </div>
+                `;
+                return;
+            }
+            
+            let itemsHTML = headerHTML;
+            
+            cartItems.forEach(item => {
+                const price = parseFloat(item.price.replace(/[$,]/g, ''));
+                const total = price * item.quantity;
+                
+                itemsHTML += `
+                    <div class="cart-item-row" data-id="${item.id}">
+                        <div class="cart-product-info">
+                            <div class="cart-product-image">
+                                <img src="${item.image}" alt="${item.name}">
+                            </div>
+                            <div class="cart-details">
+                                <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
+                                    <span style="font-size: 0.625rem; font-weight: 700; text-transform: uppercase; background-color: rgba(244, 192, 37, 0.1); color: var(--primary); padding: 0.125rem 0.375rem; border-radius: 0.125rem; border: 1px solid rgba(244, 192, 37, 0.2);">Vehicle</span>
+                                </div>
+                                <h3 class="cart-product-name">${item.name}</h3>
+                                <div class="cart-product-meta">Pre-configured</div>
+                            </div>
+                        </div>
+                        <div class="cart-quantity-control">
+                            <div class="quantity-wrapper">
+                                <button class="qty-btn" onclick="updateItemQuantity(${item.id}, ${item.quantity - 1})"><span class="material-symbols-outlined" style="font-size: 16px;">remove</span></button>
+                                <input type="text" value="${item.quantity}" readonly class="qty-input">
+                                <button class="qty-btn" onclick="updateItemQuantity(${item.id}, ${item.quantity + 1})"><span class="material-symbols-outlined" style="font-size: 16px;">add</span></button>
+                            </div>
+                        </div>
+                        <div class="cart-price-col">
+                            <span class="cart-item-price">$${total.toLocaleString()}</span>
+                            <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                                <button class="cart-action-btn" onclick="removeItem(${item.id})"><span class="material-symbols-outlined" style="font-size: 16px;">delete</span> Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            tableContainer.innerHTML = itemsHTML;
+        }
+
+        function updateItemQuantity(id, newQty) {
+            window.cart.updateQuantity(id, newQty);
+            renderCartItems();
+            updateCartSummary();
+        }
+
+        function removeItem(id) {
+            window.cart.removeItem(id);
+            renderCartItems();
+            updateCartSummary();
+        }
+
+        function updateCartSummary() {
+            const total = window.cart.getTotal();
+            const tax = total * 0.08; // Estimated 8% tax
+            const finalTotal = total + tax;
+            
+            const summaryBox = document.querySelector('.cart-summary-box');
+            if (summaryBox) {
+                // Update specific elements if possible, or simpler logic here
+                // For now, I'll just update the total element if I can find it, or re-render part of summary.
+                // Looking at static HTML, it's hard to target rows without IDs.
+                // Let's just update the total amount for now.
+                
+                const totalEl = summaryBox.querySelector('.summary-total-price .amount');
+                if (totalEl) totalEl.textContent = '$' + finalTotal.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+                
+                // Update subtotal
+                const rows = summaryBox.querySelectorAll('.summary-row');
+                if (rows.length > 0) {
+                    const subtotalRow = rows[0];
+                    if (subtotalRow) subtotalRow.querySelector('span:last-child').textContent = '$' + total.toLocaleString();
+                    
+                     const taxRow = rows[1];
+                    if (taxRow) taxRow.querySelector('span:last-child').textContent = '$' + tax.toLocaleString(undefined, {minimumFractionDigits: 0, maximumFractionDigits: 0});
+                }
+            }
+        }
+    </script>
+</body>
+</html>

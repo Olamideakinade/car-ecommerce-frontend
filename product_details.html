@@ -1,0 +1,879 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Car Store - Porsche 911 GT3 RS</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="assets/style.css"/>
+</head>
+<body>
+<div style="position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.03;background-size:40px 40px;background-image:linear-gradient(to right, gray 1px, transparent 1px), linear-gradient(to bottom, gray 1px, transparent 1px);"></div>
+<style>
+  :root{
+    --color:rgb(254, 192, 21);
+  }
+</style>
+<header class="site-header">
+  <div class="header-inner container">
+    <div style="display:flex;align-items:center;gap:24px;">
+      <a class="brand" href="#">
+        <div class="logo-mark" aria-hidden="true" style="margin-left: 20px;"><span class="material-symbols-outlined">directions_car</span></div>
+        <h2 class="brand-title" style="color:var(--color)">Car Store</h2>
+      </a>
+      <nav class="primary-nav" aria-label="Main navigation">
+        <a href="./user_dashboard.html">Dashboard</a>
+        <a href="./used_cars.html">Used Cars</a>
+        <a href="./cartegory.html">Garage</a>
+        <a href="./product_details.html" style="color:var(--color)">Product Details</a>
+      </nav>
+    </div>
+    <div class="header-actions">
+      <div class="search-box" role="search" aria-label="Search">
+        <span class="material-symbols-outlined" style="color:var(--muted);font-size:20px;">search</span>
+        <input type="text" placeholder="Search model, make..." />
+      </div>
+      <div class="avatar"  style="background-image:url('./assets/images/downloaded_asset_20.jpg');" title="User profile avatar"></div>
+    </div>
+  </div>
+</header>
+
+<main class="main container">
+  <!-- <div class="breadcrumbs" style="margin-left: 30px;">
+    <a href="./user_dashboard.html" style="text-decoration:none;color:var(--muted);">Dashboard</a>
+    <span class="material-symbols-outlined" style="font-size:12px;color:var(--muted);">chevron_right</span>
+    <a href="./used_cars.html" style="text-decoration:none;color:var(--muted);">Used Cars</a>
+    <span class="material-symbols-outlined" style="font-size:12px;color:var(--muted);">chevron_right</span>
+    <a href="./cartegory.html" style="text-decoration:none;color:var(--muted);">Garage</a>
+    <span class="material-symbols-outlined" style="font-size:12px;color:var(--muted);">chevron_right</span>
+    <span style="font-weight:600;color:var(--color);">Product Details</span>
+  </div> -->
+
+  <div class="page-grid" role="region" aria-label="Product content" >
+    <div class="col-left" >
+      <div class="title-row" aria-hidden="false">
+        <div>
+          <div class="status-strip">
+            <span class="badge">New Arrival</span>
+            <span class="stock-text">Stock #8291A</span>
+          </div>
+          <h1 class="product-title" style="color:var(--color);">Porsche 911 GT3 RS</h1>
+          <p class="product-sub" style="color:var(--muted);">2024 Model â€¢ Weissach Package</p>
+        </div>
+        <div class="title-actions" aria-hidden="true">
+          <a class="icon-group" href="#">
+            <div class="icon-button"><span class="material-symbols-outlined">favorite</span></div>
+            <span class="icon-label">Save</span>
+          </a>
+          <a class="icon-group" href="#">
+            <div class="icon-button"><span class="material-symbols-outlined">share</span></div>
+            <span class="icon-label">Share</span>
+          </a>
+          <a class="icon-group" href="#">
+            <div class="icon-button"><span class="material-symbols-outlined">compare_arrows</span></div>
+            <span class="icon-label">Compare</span>
+          </a>
+        </div>
+      </div>
+      <style>
+        a:visited,a:focus,a,.icon-label{
+          color:var(--color);
+        }
+      </style>
+
+      <div class="gallery-container" aria-label="Gallery" style="margin-left: 10px;">
+        <input checked id="radio-1" name="car-view" type="radio"/>
+        <input id="radio-2" name="car-view" type="radio"/>
+        <input id="radio-3" name="car-view" type="radio"/>
+        <input id="radio-4" name="car-view" type="radio"/>
+
+        <div class="main-view" aria-hidden="false">
+          <div class="gradient-top" aria-hidden="true"></div>
+          <div class="scan" aria-hidden="true"></div>
+
+          <div class="corner-deco tl" aria-hidden="true"></div>
+          <div class="corner-deco tr" aria-hidden="true"></div>
+          <div class="corner-deco bl" aria-hidden="true"></div>
+          <div class="corner-deco br" aria-hidden="true"></div>
+
+          <button class="view-360" aria-label="favourite">
+            <span class="material-symbols-outlined spin" style="font-size:20px;display:inline-block;animation:paused">favorite</span> Best Quality
+          </button>
+
+         
+          <div class="gallery-overlay">
+            <div>
+              <div class="hot-badge"><span class="material-symbols-outlined" style="font-size:16px;">local_fire_department</span> HOT SELLER</div>
+              <div class="progress-dots">
+                <div class="bar"></div><div class="bar" style="width:8px;background:#4b5563;border-radius:6px;"></div><div class="bar" style="width:8px;background:#4b5563;border-radius:6px;"></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:8px;">
+              <button class="control-btn" aria-label="Previous"><span class="material-symbols-outlined">chevron_left</span></button>
+              <button class="control-btn" aria-label="Next"><span class="material-symbols-outlined">chevron_right</span></button>
+            </div>
+          </div>
+
+          <div class="gallery-image img-1 float fshow" style="background-image:url('./assets/images/downloaded_asset_21.jpg');"></div>
+          <div class="gallery-image img-2" style="background-image:url('./assets/images/downloaded_asset_22.jpg');"></div>
+          <div class="gallery-image img-3" style="background-image:url('./assets/images/downloaded_asset_23.jpg');"></div>
+          <div class="gallery-image img-4" style="background-image:url('./assets/images/downloaded_asset_24.jpg');"></div>
+        </div>
+
+
+
+<!-- Buggggg -->
+
+
+        <!-- <div class="thumbnails" role="tablist" aria-label="Image thumbnails" style="display: block;">
+          <label class="thumb thumb-1" for="radio-1" aria-label="View 1">
+            <div style="width:100%;height:100%;background-image:url('./assets/images/downloaded_asset_25.jpg');background-size:cover;background-position:center;opacity:0.7;"></div>
+          </label>
+          <label class="thumb thumb-2" for="radio-2" aria-label="View 2">
+            <div style="width:100%;height:100%;background-image:url('./assets/images/downloaded_asset_22.jpg');background-size:cover;background-position:center;opacity:0.7;"></div>
+          </label>
+          <label class="thumb thumb-3" for="radio-3" aria-label="View 3">
+            <div style="width:100%;height:100%;background-image:url('./assets/images/downloaded_asset_23.jpg');background-size:cover;background-position:center;opacity:0.7;"></div>
+          </label>
+          <label class="thumb thumb-4" for="radio-4" aria-label="View 4">
+            <div style="width:100%;height:100%;background-image:url('./assets/images/downloaded_asset_24.jpg');background-size:cover;background-position:center;opacity:0.7;"></div>
+          </label>
+          <div class="thumb" style="display:flex;align-items:center;justify-content:center;background:var(--card);color:var(--muted);"><span style="font-weight:700;font-size:12px;">+12 More</span></div>
+        </div>-->
+      </div> 
+
+      <div class="stats-grid" style="margin-top:8px; margin-left: 20px;">
+        <div class="stat">
+          <div class="meta"><span class="material-symbols-outlined" style="color: var(--color); font-size:20px;">speed</span><span style="font-size:12px;font-weight:600;letter-spacing:0.06em; left: 20px; color: var(--color);">Top Speed</span></div>
+          <div class="value" style="color:white;" >184 <span style="color: var(--color); font-size:12px;color:var(--muted);font-weight:400;">MPH</span></div>
+        </div>
+        <div class="stat">
+          <div class="meta"><span class="material-symbols-outlined" style="font-size:20px;">timer</span><span style="font-size:12px;font-weight:600; color: var(--color);">0-60 MPH</span></div>
+          <div class="value" style="color:white;">3.0 <span style="font-size:12px;color:var(--muted);font-weight:400;">Sec</span></div>
+        </div>
+        <div class="stat">
+          <div class="meta"><span class="material-symbols-outlined" style="font-size:20px;">bolt</span><span style="font-size:12px;font-weight:600; color: var(--color);">Power</span></div>
+          <div class="value"  style="color:white;" >518 <span style="font-size:12px;color:var(--muted);font-weight:400;">HP</span></div>
+        </div>
+        <div class="stat">
+          <div class="meta"><span class="material-symbols-outlined" style="font-size:20px;">settings_input_component</span><span style="font-size:12px;font-weight:600; color: var(--color);">Torque</span></div>
+          <div class="value"  style="color:white;" >342 <span style="font-size:12px;color:var(--muted);font-weight:400;">Lb-ft</span></div>
+        </div>
+      </div>
+<style>
+  .tab{
+    border-radius: 15px;
+  }
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease-out;
+  }
+  .tab-content.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+      <div style="margin-top:16px;">
+        <div class="tabs" style="margin-left: 20px;">
+          <button class="tab active" data-tab="specifications">Specifications</button>
+          <button class="tab" data-tab="features">Features</button>
+          <button class="tab" data-tab="reviews">Reviews (42)</button>
+        </div>
+
+        <!-- Specifications Tab -->
+        <div id="specifications" class="tab-content active">
+            <div class="spec-grid">
+              <div class="spec-card" style="background:transparent;">
+                <h3><span class="material-symbols-outlined" style="color:gold;">engineering</span><span style="color:gold;"> Engine &amp; Performance</span></h3>
+                <ul class="spec-list">
+                  <li class="spec-item"><span class="k">Engine Layout</span><span class="v" style="color:var(--color);">Rear-Engine</span></li>
+                  <li class="spec-item"><span class="k">Cylinders</span><span class="v" style="color:var(--color);">Flat-6</span></li>
+                  <li class="spec-item"><span class="k">Displacement</span><span class="v" style="color:var(--color);">4.0 Liters</span></li>
+                  <li class="spec-item"><span class="k">Transmission</span><span class="v" style="color:var(--color);">7-Speed PDK</span></li>
+                </ul>
+              </div>
+              <div class="spec-card" style="background:transparent;">
+                <h3><span class="material-symbols-outlined" style="color:var(--primary);">straighten</span> <span style="color:var(--color);">Dimensions &amp; Weight</h3></span>
+                <ul class="spec-list">
+                  <li class="spec-item"><span class="k">Length</span><span class="v" style="color:var(--color);">180.0 in</span></li>
+                  <li class="spec-item"><span class="k">Width</span><span class="v" style="color:var(--color);">74.8 in</span></li>
+                  <li class="spec-item"><span class="k">Wheelbase</span><span class="v" style="color:var(--color);">96.7 in</span></li>
+                  <li class="spec-item"><span class="k">Curb Weight</span><span class="v" style="color:var(--color);">3,268 lbs</span></li>
+                </ul>
+              </div>
+            </div>
+        </div>
+
+        <!-- Features Tab -->
+        <div id="features" class="tab-content">
+            <div class="spec-grid">
+                 <div class="spec-card" style="background:transparent;">
+                    <h3><span class="material-symbols-outlined" style="color:var(--primary);">palette</span> <span style="color:var(--color);">Exterior</span></h3>
+                    <ul class="spec-list">
+                        <li class="spec-item"><span class="k">Weissach Package</span><span class="v" style="color:var(--muted);">Included</span></li>
+                        <li class="spec-item"><span class="k">Carbon Fiber Hood</span><span class="v" style="color:var(--muted);">Standard</span></li>
+                        <li class="spec-item"><span class="k">Magnesium Wheels</span><span class="v" style="color:var(--muted);">Optional</span></li>
+                    </ul>
+                 </div>
+                 <div class="spec-card" style="background:transparent;">
+                    <h3><span class="material-symbols-outlined" style="color:var(--primary);">chair</span> <span style="color:var(--color);">Interior</span></h3>
+                    <ul class="spec-list">
+                        <li class="spec-item"><span class="k">Full Bucket Seats</span><span class="v" style="color:var(--muted);">Carbon Fiber</span></li>
+                        <li class="spec-item"><span class="k">Upholstery</span><span class="v" style="color:var(--muted);">Black / Guards Red</span></li>
+                        <li class="spec-item"><span class="k">Chrono Package</span><span class="v" style="color:var(--muted);">Standard</span></li>
+                    </ul>
+                 </div>
+            </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div id="reviews" class="tab-content">
+             <div style="padding: 0 1rem;">
+                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:2rem;">
+                    <h3 style="margin:0; font-size:3rem; font-weight:800; color:var(--color);">4.9</h3>
+                    <div style="display:flex; flex-direction:column;">
+                        <div style="color:var(--primary); display:flex; gap:0.25rem;">
+                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                             <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                        </div>
+                        <span style="color:var(--muted); font-size:0.875rem;">Based on 42 verified reviews</span>
+                    </div>
+                </div>
+
+                <div style="border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:1.5rem; margin-bottom:1.5rem;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                        <span style="font-weight:700; color:var(--color);">James H.</span>
+                        <span style="color:var(--muted); font-size:0.75rem;">2 weeks ago</span>
+                    </div>
+                    <div style="color:var(--primary); display:flex; gap:0.1rem; margin-bottom:0.5rem; transform:scale(0.8); transform-origin:left;">
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                    <p style="color:var(--muted); line-height:1.6;">Absolutely visceral driving experience. The downforce generated by the active aero is mind-bending on the track.</p>
+                </div>
+                
+                 <div style="border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:1.5rem; margin-bottom:1.5rem;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
+                        <span style="font-weight:700; color:var(--color);">Sarah C.</span>
+                        <span style="color:var(--muted); font-size:0.75rem;">1 month ago</span>
+                    </div>
+                     <div style="color:var(--primary); display:flex; gap:0.1rem; margin-bottom:0.5rem; transform:scale(0.8); transform-origin:left;">
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size:16px; font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                    <p style="color:var(--muted); line-height:1.6;">Surprisingly compliant on the road for a GT3 RS, but make no mistake, this is a race car with number plates.</p>
+                </div>
+             </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="col-right">
+      <div class="sticky-panel">
+        <div class="price-card">
+          <div style="position:absolute;left:0;top:0;width:100%;height:4px;background:linear-gradient(to right,transparent,var(--primary),transparent);opacity:0.5;transition:opacity 200ms var(--ease);"></div>
+          <div class="price-top">
+            <div>
+              <p>Total Purchase Price</p>
+              <h2 id="totalPrice" style="color:var(--color)">$223,800</h2>
+            </div>
+            <div class="instock">IN STOCK</div>
+          </div>
+
+          <div style="background:rgba(0,0,0,0.05);border-radius:10px;padding:10px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;border:1px solid rgba(0,0,0,0.06);">
+            <span style="color:var(--muted);">Est. Monthly Payment</span>
+            <span id="monthlyPayment" style="font-weight:800;color:var(--primary);">$3,200<span style="font-size:12px;color:var(--muted);font-weight:400;">/mo</span></span>
+          </div>
+
+          <div class="lease-box" style="padding:16px;margin-bottom:12px;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;"><span class="material-symbols-outlined" style="color:var(--primary);animation:spin-slow 8s linear infinite;">timelapse</span><p style="margin:0;font-weight:700;color:var(--text);text-transform:uppercase;font-size:12px;">Winter Lease Deal</p></div>
+            <div class="countdown">
+              <div class="unit"><div style="font-family:monospace;font-weight:800;color:#fff;">02</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Days</div></div>
+              <div class="unit"><div style="font-family:monospace;font-weight:800;color:#fff;">14</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Hrs</div></div>
+              <div class="unit"><div style="font-family:monospace;font-weight:800;color:#fff;">35</div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Min</div></div>
+              <div class="unit" style="border:1px solid rgba(244,192,37,0.3);position:relative;overflow:hidden;">
+                <div style="position:absolute;inset:0;background:rgba(244,192,37,0.08);animation:pulseGlow 2s infinite;"></div>
+                <div style="position:relative;z-index:1;font-family:monospace;font-weight:800;color:var(--primary);">12</div>
+                <div style="font-size:10px;color:var(--muted);text-transform:uppercase;">Sec</div>
+              </div>
+            </div>
+          </div>
+          <style>
+            .bbn{
+             color:var(--color); 
+            }
+          </style>
+          <button style ="border:none; border-radius: 5px;" id="request-quote-btn" class="bbn unit w-full bg-primary hover:bg-white text-black font-bold text-lg py-4 rounded-xl mb-3 transition-all duration-300 shadow-[0_0_20px_rgba(244,192,37,0.3)] hover:shadow-[0_0_30px_rgba(244,192,37,0.6)] flex items-center justify-center gap-2 group animate-pulse-glow active:scale-[0.98]" aria-haspopup="dialog">
+           <span  class="material-symbols-outlined group-hover:rotate-12 transition-transform">request_quote</span>
+                               Request Quote
+                           </button>
+                        <button id="chat-btn" class="bbn unit w-full bg-transparent hover:bg-white/5 text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 font-bold text-lg py-3 rounded-xl transition-all hover:border-primary/50 flex items-center justify-center gap-2 active:scale-[0.98]" aria-haspopup="dialog">
+                           <span class="material-symbols-outlined text-[20px]">chat</span>
+                               Chat with Specialist
+                           </button>
+        </div>
+
+        <div class="calc-card" style="padding:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <h3 style="margin:0;font-weight:800;color:var(--color);">Financing Calculator</h3>
+            <span class="material-symbols-outlined" style="color:var(--muted);">calculate</span>
+          </div>
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;color:var(--muted);"><span>Down Payment</span><span id="downPaymentDisplay" style="font-weight:600;color:var(--text);">$20,000</span></div>
+            <input id="downPaymentSlider" class="range" type="range" min="0" max="100000" step="1000" value="20000"/>
+          </div>
+          <div style="margin-bottom:12px;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;color:var(--muted);"><span>Term (Months)</span><span style="font-weight:600;color:var(--text);">60</span></div>
+            <div style="display:flex;gap:8px;">
+              <button class="term-btn" data-months="36" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;">36</button>
+              <button class="term-btn" data-months="48" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;">48</button>
+              <button class="term-btn active" data-months="60" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(244,192,37,0.6);background:rgba(244,192,37,0.08);color:var(--primary);font-weight:700;font-size:12px;">60</button>
+              <button class="term-btn" data-months="72" style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.12);background:transparent;color:var(--muted);font-size:12px;cursor:pointer;">72</button>
+            </div>
+          </div>
+          <div style="border-top:1px solid rgba(0,0,0,0.06);padding-top:12px;">
+            <a href="#" style="color:var(--primary);text-decoration:none;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;">Apply for Financing <span class="material-symbols-outlined" style="font-size:16px;transform:translateX(0);transition:transform 200ms var(--ease);">arrow_forward</span></a>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <section style="margin-top:24px;">
+    <div class="similar-head">
+      <h2 style="margin:0;font-size:20px;font-weight:800;color:var(--text);display:flex;align-items:center;gap:12px;"><span style="width:8px;height:36px;background:var(--primary);display:inline-block;border-radius:4px;"></span><span style="color: var(--color);"> Similar Vehicles</span></h2>
+      <div style="display:flex;gap:8px;">
+        <button class="size-8" style="border:1px solid rgba(0,0,0,0.12);background:transparent;cursor:pointer;"><span class="material-symbols-outlined" style="color: var(--color);">chevron_left</span></button>
+        <button class="size-8" style="border:1px solid rgba(0,0,0,0.12);background:transparent;cursor:pointer;"><span class="material-symbols-outlined" style="color: var(--color);">chevron_right</span></button>
+      </div>
+    </div>
+
+    <div class="similar-grid" style="margin-top:16px;">
+      <div class="vehicle">
+        <div style="aspect-ratio:16/9;background-image:url('./assets/images/downloaded_asset_26.jpg');background-size:cover;background-position:center;transition:transform 700ms var(--ease);"></div>
+        <div style="padding:16px;position:relative;">
+          <div style="position:absolute;right:16px;top:-12px;background:var(--primary);color:#000;font-size:12px;padding:6px 8px;border-radius:6px;opacity:0;transform:translateY(8px);transition:all 300ms var(--ease);">Fast</div>
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+            <div>
+              <h3 style="margin:0;font-weight:700;color:var(--color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" style="color: goldenrod">Porsche 911 Turbo S</h3>
+              <p style="margin:4px 0 0 0;color:var(--muted);font-size:12px;">2023 â€¢ AWD</p>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+            <span style="color:var(--primary);font-weight:700;">$216,100</span>
+                        <button style="background:rgba(255,255,255,0.08);border-radius:8px;padding:6px 12px;border:none;cursor:pointer;font-weight:700; color: var(--color);">View</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle">
+        <div style="aspect-ratio:16/9;background-image:url('./assets/images/downloaded_asset_27.jpg');background-size:cover;background-position:center;transition:transform 700ms var(--ease);"></div>
+        <div style="padding:16px;">
+          <h3 style="margin:0;font-weight:700;color:var(--color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Mercedes-AMG GT</h3>
+          <p style="margin:4px 0 0 0;color:var(--muted);font-size:12px;">2024 â€¢ RWD</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+            <span style="color:var(--primary);font-weight:700;">$175,900</span>
+                        <button style="background:rgba(255,255,255,0.08);border-radius:8px;padding:6px 12px;border:none;cursor:pointer;font-weight:700; color: var(--color);">View</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle">
+        <div style="aspect-ratio:16/9;background-image:url('./assets/images/downloaded_asset_28.jpg');background-size:cover;background-position:center;transition:transform 700ms var(--ease);"></div>
+        <div style="padding:16px;">
+          <h3 style="margin:0;font-weight:700;color:var(--color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Audi R8 V10</h3>
+          <p style="margin:4px 0 0 0;color:var(--muted);font-size:12px;">2023 â€¢ AWD</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+            <span style="color:var(--primary);font-weight:700;">$158,600</span>
+                        <button style="background:rgba(255,255,255,0.08);border-radius:8px;padding:6px 12px;border:none;cursor:pointer;font-weight:700; color: var(--color);">View</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle">
+        <div style="aspect-ratio:16/9;background-image:url('./assets/images/downloaded_asset_29.jpg');background-size:cover;background-position:center;transition:transform 700ms var(--ease);"></div>
+        <div style="padding:16px;">
+          <h3 style="margin:0;font-weight:700;color:var(--color);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">McLaren 720S</h3>
+          <p style="margin:4px 0 0 0;color:var(--muted);font-size:12px;">2023 â€¢ RWD</p>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
+            <span style="color:var(--primary);font-weight:700;">$310,500</span>
+            <button style="background:rgba(255,255,255,0.08);border-radius:8px;padding:6px 12px;border:none;cursor:pointer;font-weight:700; color: var(--color);">View</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<style>
+  a{
+    text-decoration: none;
+  }
+</style>
+<footer class="site-footer" style="margin-left: 20px;">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2024 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html">Privacy Policy</a>
+                    <a href="./legal.html">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+
+<!-- modal & chat markup -->
+<div id="quote-modal" class="modal" aria-hidden="true" style="display:none;">
+  <div class="modal-backdrop" tabindex="-1"></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="quote-title" tabindex="-1">
+    <button class="modal-close" aria-label="Close quote dialog">âœ•</button>
+    <h2 id="quote-title" style="color: var(--color);">Request a Quote</h2>
+    <form id="quote-form">
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px;">
+        <input name="name" placeholder="Full name" required style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);"/>
+        <input name="email" type="email" placeholder="Email" required style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);"/>
+        <input name="phone" placeholder="Phone" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);"/>
+        <textarea name="message" placeholder="Message" rows="4" style="padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);"></textarea>
+        <div style="display:flex;gap:8px;">
+          <button type="submit" style="flex:1;padding:10px;border-radius:8px;background:var(--primary);border:none;font-weight:700;cursor:pointer;">Submit</button>
+          <button type="button" class="modal-close" style="color:var(--color); flex:1;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);cursor:pointer;"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="chat-drawer" class="chat-drawer" aria-hidden="true" style="display:none;">
+  <div class="chat-header">
+    <h3 style="margin:0;font-weight:700; color:var(--color); ">Chat with Specialist</h3>
+    <button id="chat-close" aria-label="Close chat" style="cursor:pointer; width:20px; color:black; font-weight:600 ; background-color:var(--color); ">âœ•</button>
+  </div>
+  <div class="chat-body" role="log" aria-live="polite" style="padding:12px;overflow:auto;flex:1;display:flex;flex-direction:column;gap:8px;"></div>
+  <form id="chat-form" style="display:flex;gap:8px;padding:12px;border-top:1px solid rgba(0,0,0,0.06);">
+    <input name="message" placeholder="Write a message..." style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);" required />
+    <button type="submit" style="padding:10px;border-radius:8px;background:var(--primary);border:none;font-weight:700;cursor:pointer;">Send</button>
+  </form>
+</div>
+
+<style>
+.modal{ position:fixed; inset:0; z-index:1100; display:flex; align-items:flex-start; justify-content:center; padding:48px 16px; }
+.modal-backdrop{ position:absolute; inset:0; background:#000; opacity:0; transition:opacity .2s; }
+.modal-panel{ position:relative; background:var(--card); border-radius:12px; padding:20px; max-width:540px; width:100%; box-shadow:0 20px 40px rgba(0,0,0,0.3); transform:translateY(8px); }
+.modal-close{ position:absolute; right:12px; top:12px; background:transparent;border:0;font-size:18px;cursor:pointer; }
+.chat-drawer{ position:fixed; right:0; top:0; bottom:0; width:340px; background:var(--card); z-index:1200; display:flex; flex-direction:column; box-shadow:-20px 0 40px rgba(0,0,0,0.3); }
+.chat-header{ display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid rgba(0,0,0,0.06); }
+.chat-body .chat-msg{ padding:8px 10px; border-radius:8px; max-width:85%; }
+.chat-body .user{ background:var(--primary); color:#000; align-self:flex-end; }
+.chat-body .bot{ background:rgba(0,0,0,0.06); color:var(--text); align-self:flex-start; }
+</style>
+
+<!-- GSAP + App script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="assets/main.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+// Premium Page Load Animations
+gsap.registerPlugin(ScrollTrigger);
+
+// Header fade in
+gsap.from("header", {
+    y: -50,
+    opacity: 0,
+    duration: 0.8,
+    ease: "power3.out"
+});
+
+// Breadcrumbs slide in
+gsap.from(".breadcrumbs", {
+    x: -30,
+    opacity: 0,
+    duration: 0.6,
+    delay: 0.2,
+    ease: "power2.out"
+});
+
+// Title section cascade
+gsap.from(".product-title", {
+    y: 30,
+    opacity: 0,
+    duration: 0.8,
+    delay: 0.4,
+    ease: "power2.out"
+});
+
+gsap.from(".product-sub", {
+    y: 20,
+    opacity: 0,
+    duration: 0.6,
+    delay: 0.6,
+    ease: "power2.out"
+});
+
+// Badge pop in
+gsap.from(".badge", {
+    scale: 0,
+    opacity: 0,
+    duration: 0.5,
+    delay: 0.5,
+    ease: "back.out(2)"
+});
+
+// Icon actions stagger
+gsap.from(".icon-group", {
+    x: 20,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.1,
+    delay: 0.7,
+    ease: "power2.out"
+});
+
+// Gallery entrance with scale
+gsap.from(".gallery-container", {
+    scale: 0.95,
+    opacity: 0,
+    duration: 1,
+    delay: 0.8,
+    ease: "power2.out"
+});
+
+// Thumbnails slide up
+gsap.from(".thumb", {
+    y: 30,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.08,
+    delay: 1.2,
+    ease: "back.out(1.5)"
+});
+
+// Stats grid animation
+gsap.from(".stat", {
+    y: 40,
+    opacity: 0,
+    duration: 0.6,
+    stagger: 0.1,
+    delay: 1.4,
+    ease: "power2.out"
+});
+
+// Animated stat value counters
+document.querySelectorAll('.stat .value').forEach((el, index) => {
+    const text = el.textContent.trim();
+    const match = text.match(/(\d+)/);
+    if (match) {
+        const targetValue = parseInt(match[1]);
+        const obj = { val: 0 };
+        
+        gsap.to(obj, {
+            val: targetValue,
+            duration: 2,
+            delay: 1.6 + (index * 0.1),
+            ease: "power2.out",
+            onUpdate: function() {
+                el.innerHTML = Math.round(obj.val) + text.replace(match[1], '');
+            }
+        });
+    }
+});
+
+// Tabs fade in
+gsap.from(".tab", {
+    y: 20,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.1,
+    delay: 1.8,
+    ease: "power2.out"
+});
+
+// Spec cards
+gsap.from(".spec-card", {
+    x: -30,
+    opacity: 0,
+    duration: 0.6,
+    stagger: 0.2,
+    delay: 2,
+    ease: "power2.out"
+});
+
+// Price card slide in from right
+gsap.from(".price-card", {
+    x: 50,
+    opacity: 0,
+    duration: 0.8,
+    delay: 1.5,
+    ease: "power2.out"
+});
+
+// Action buttons stagger
+gsap.from(".price-card button", {
+    y: 20,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.15,
+    delay: 2.2,
+    ease: "back.out(1.5)"
+});
+
+// Hover animations for stats
+document.querySelectorAll('.stat').forEach(stat => {
+    stat.addEventListener('mouseenter', function() {
+        gsap.to(this, {
+            scale: 1.05,
+            y: -5,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+        
+        gsap.to(this.querySelector('.value'), {
+            color: 'var(--primary)',
+            duration: 0.3
+        });
+    });
+    
+    stat.addEventListener('mouseleave', function() {
+        gsap.to(this, {
+            scale: 1,
+            y: 0,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+        
+        gsap.to(this.querySelector('.value'), {
+            color: 'white',
+            duration: 0.3
+        });
+    });
+});
+
+// Icon button hover effects
+document.querySelectorAll('.icon-button').forEach(btn => {
+    btn.addEventListener('mouseenter', function() {
+        gsap.to(this.querySelector('.material-symbols-outlined'), {
+            rotation: 15,
+            scale: 1.2,
+            duration: 0.3,
+            ease: 'back.out(2)'
+        });
+    });
+    
+    btn.addEventListener('mouseleave', function() {
+        gsap.to(this.querySelector('.material-symbols-outlined'), {
+            rotation: 0,
+            scale: 1,
+            duration: 0.3,
+            ease: 'power2.out'
+        });
+    });
+});
+
+// Smooth scroll reveal for spec items
+gsap.utils.toArray('.spec-item').forEach((item, i) => {
+    gsap.from(item, {
+        scrollTrigger: {
+            trigger: item,
+            start: "top 90%",
+            toggleActions: "play none none none"
+        },
+        x: -20,
+        opacity: 0,
+        duration: 0.5,
+        delay: i * 0.05,
+        ease: "power2.out"
+    });
+});
+
+// Thumbnail active state animation
+document.querySelectorAll('.thumb').forEach(thumb => {
+    thumb.addEventListener('click', function() {
+        // Remove active from all
+        document.querySelectorAll('.thumb').forEach(t => {
+            gsap.to(t, {
+                scale: 1,
+                opacity: 0.7,
+                duration: 0.3
+            });
+        });
+        
+        // Animate clicked
+        gsap.to(this, {
+            scale: 1.05,
+            opacity: 1,
+            duration: 0.3,
+            ease: 'back.out(1.5)'
+        });
+    });
+});
+
+// Price card glow effect on scroll
+ScrollTrigger.create({
+    trigger: ".price-card",
+    start: "top 80%",
+    onEnter: () => {
+        gsap.to(".price-card", {
+            boxShadow: "0 20px 60px rgba(244, 192, 37, 0.2)",
+            duration: 0.8,
+            ease: "power2.out"
+        });
+    }
+});
+
+console.log('ðŸš— Product Details - Premium animations loaded!');
+
+// Financing Calculator Logic
+const totalPrice = 223800; // Base price
+const interestRate = 0.049; // 4.9% APR
+
+const downPaymentSlider = document.getElementById('downPaymentSlider');
+const downPaymentDisplay = document.getElementById('downPaymentDisplay');
+const monthlyPaymentDisplay = document.getElementById('monthlyPayment');
+const termButtons = document.querySelectorAll('.term-btn');
+
+let currentTerm = 60; // Default term
+
+function formatCurrency(value) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(value);
+}
+
+function calculatePayment() {
+    const downPayment = parseInt(downPaymentSlider.value);
+    const loanAmount = totalPrice - downPayment;
+    const monthlyRate = interestRate / 12;
+    
+    let monthlyPayment = 0;
+    
+    if (loanAmount > 0) {
+        // Standard amortization formula
+        monthlyPayment = loanAmount * monthlyRate * (Math.pow(1 + monthlyRate, currentTerm)) / (Math.pow(1 + monthlyRate, currentTerm) - 1);
+    }
+    
+    // Update displays
+    downPaymentDisplay.textContent = formatCurrency(downPayment);
+    monthlyPaymentDisplay.innerHTML = `${formatCurrency(monthlyPayment)}<span style="font-size:12px;color:var(--muted);font-weight:400;">/mo</span>`;
+    
+    // Animate the change slightly for "alive" feel
+    gsap.fromTo(monthlyPaymentDisplay, { scale: 1.1 }, { scale: 1, duration: 0.2, ease: "power2.out" });
+}
+
+// Slider Event Listener
+if (downPaymentSlider) {
+    downPaymentSlider.addEventListener('input', calculatePayment);
+}
+
+// Term Buttons Event Listeners
+termButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Update styling
+        termButtons.forEach(b => {
+            b.classList.remove('active');
+            b.style.border = '1px solid rgba(0,0,0,0.12)';
+            b.style.backgroundColor = 'transparent';
+            b.style.color = 'var(--muted)';
+            b.style.fontWeight = '400';
+        });
+        
+        btn.classList.add('active');
+        btn.style.border = '1px solid rgba(244,192,37,0.6)';
+        btn.style.backgroundColor = 'rgba(244,192,37,0.08)';
+        btn.style.color = 'var(--primary)';
+        btn.style.fontWeight = '700';
+        
+        // Update logic
+        currentTerm = parseInt(btn.dataset.months);
+        calculatePayment();
+    });
+});
+
+// Initial calculation
+calculatePayment();
+
+// Tab Switching Logic
+const tabs = document.querySelectorAll('.tab');
+const tabContents = document.querySelectorAll('.tab-content');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    // Styling for active tab
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    // Show content
+    const target = tab.dataset.tab;
+    tabContents.forEach(content => {
+      if (content.id === target) {
+        content.classList.add('active');
+        // Trigger GSAP animation for content entrance
+        gsap.fromTo(content, 
+          { opacity: 0, y: 10 }, 
+          { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }
+        );
+      } else {
+        content.classList.remove('active');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>

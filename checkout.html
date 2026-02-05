@@ -1,0 +1,1300 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Store - Secure Checkout</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./assets/checkout.css"/>
+
+    <style>
+        /* Additional Crypto Blockchain Animations */
+        @keyframes blockchain-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(244, 192, 37, 0.4); }
+            50% { box-shadow: 0 0 40px rgba(244, 192, 37, 0.8), 0 0 60px rgba(244, 192, 37, 0.4); }
+        }
+
+        @keyframes transaction-flow {
+            0% { transform: translateX(-100%) translateY(-50%); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(200%) translateY(-50%); opacity: 0; }
+        }
+
+        .crypto-processing-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+        }
+
+        .crypto-processing-overlay.active {
+            display: flex;
+        }
+
+        .blockchain-animation-container {
+            text-align: center;
+            max-width: 600px;
+            padding: 3rem;
+        }
+
+        .blockchain-circle {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            border: 3px solid rgba(244, 192, 37, 0.3);
+            border-radius: 50%;
+            position: relative;
+            animation: blockchain-pulse 2s infinite;
+        }
+
+        .blockchain-circle::before,
+        .blockchain-circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .blockchain-circle::before {
+            width: 150px;
+            height: 150px;
+            border: 2px solid rgba(244, 192, 37, 0.2);
+            animation: spin 3s linear infinite;
+        }
+
+        .blockchain-circle::after {
+            width: 100px;
+            height: 100px;
+            border: 2px solid rgba(244, 192, 37, 0.1);
+            animation: spin 2s linear reverse infinite;
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .blockchain-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem !important;
+            color: var(--primary, #f4c025);
+            z-index: 5;
+        }
+
+        .transaction-lines {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+        }
+
+        .transaction-line {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #f4c025, transparent);
+            position: absolute;
+            width: 100%;
+            animation: transaction-flow 3s infinite;
+        }
+
+        .transaction-line:nth-child(1) { animation-delay: 0s; top: -20px; }
+        .transaction-line:nth-child(2) { animation-delay: 1s; top: 0px; }
+        .transaction-line:nth-child(3) { animation-delay: 2s; top: 20px; }
+
+        .processing-status {
+            color: #f4c025;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .processing-detail {
+            color: #bab29c;
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 50px rgba(34, 197, 94, 0.5);
+            transform: scale(0);
+        }
+
+        .success-checkmark .material-symbols-outlined {
+            font-size: 3rem !important;
+            color: white;
+        }
+
+        .delivery-form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .delivery-form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-gradient">
+        <div class="gradient-circle-1"></div>
+        <div class="gradient-circle-2"></div>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <div class="logo-icon">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_6_535)">
+                        <path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <h2 class="logo-text">Car Store</h2>
+        </div>
+        <div class="header-right">
+            <div class="secure-badge">
+                <span class="material-symbols-outlined">lock</span>
+                <span>Blockchain Secured</span>
+            </div>
+            <a href="./user_dashboard.html" style="text-decoration: none;"><button class="help-btn">
+                <span>Dashboard</span>
+            </button></a>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-item">
+            <span class="material-symbols-outlined breadcrumb-icon">garage</span>
+            <a href="./cartegory.html" style="color: inherit; text-decoration: none;">Garage</a>
+        </div>
+        <span class="breadcrumb-separator">/</span>
+        <div class="breadcrumb-item">
+            <span class="material-symbols-outlined breadcrumb-icon">shopping_cart</span>
+            <span>Shopping Cart</span>
+        </div>
+        <span class="breadcrumb-separator">/</span>
+        <div class="breadcrumb-item active">
+            <span class="material-symbols-outlined breadcrumb-icon">credit_card</span>
+            <span>Checkout</span>
+        </div>
+
+        <div style="margin-left: auto;">
+            <div class="progress-badge" id="progress-badge">
+                <span class="material-symbols-outlined" style="font-size: 1rem;">hourglass_top</span>
+                <span id="step-indicator">Step 1 of 4</span>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <div class="grid-layout">
+            <!-- Form Section -->
+            <div class="form-section">
+                <!-- Stepper -->
+                <div class="stepper-container">
+                    <div class="stepper-line">
+                        <div class="progress-indicator" id="progress-bar" style="width: 0%;"></div>
+                    </div>
+
+                    <div class="step-item active" data-step="1">
+                        <div class="step-dot active">1</div>
+                        <p class="step-label">Contact</p>
+                    </div>
+                    <div class="step-item" data-step="2">
+                        <div class="step-dot inactive">2</div>
+                        <p class="step-label">Delivery</p>
+                    </div>
+                    <div class="step-item" data-step="3">
+                        <div class="step-dot inactive">3</div>
+                        <p class="step-label">Crypto Payment</p>
+                    </div>
+                    <div class="step-item" data-step="4">
+                        <div class="step-dot inactive">4</div>
+                        <p class="step-label">Confirm</p>
+                    </div>
+                </div>
+
+                <!-- Step Content Container -->
+                <div class="step-content-container" id="step-content-container">
+                    
+                    <!-- STEP 1: Contact Information -->
+                    <div class="step-content active" data-step="1">
+                        <div class="content-header">
+                            <h1>Contact Information</h1>
+                            <p>Please enter your details to proceed with the purchase.</p>
+                        </div>
+                        <style>
+                            
+                        </style>
+                        <form class="form-card" id="contact-form">
+                            <div class="form-grid">
+                                <label class="form-label">
+                                    <span class="label-text">First Name</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field"  name="firstName" type="text" placeholder="John" required>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">First Name is required</span>
+                                </label>
+                                <label class="form-label">
+                                    <span class="label-text">Last Name</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="lastName" type="text" placeholder="Doe" required>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">Last Name is required</span>
+                                </label>
+                            </div>
+
+                            <div class="form-grid">
+                                <label class="form-label">
+                                    <span class="label-text">Email Address</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="email" type="email" placeholder="john@example.com" style="padding-left: 2.5rem;" required>
+                                        <span class="material-symbols-outlined" style="position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); color: #bab29c; z-index: 5; font-size: 1.25rem !important;">mail</span>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">Please enter a valid email address</span>
+                                </label>
+                                <label class="form-label">
+                                    <span class="label-text">Phone Number</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="phone" type="tel" placeholder="+1 (555) 000-0000" style="padding-left: 2.5rem;" required>
+                                        <span class="material-symbols-outlined" style="position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); color: #bab29c; z-index: 5; font-size: 1.25rem !important;">call</span>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">Phone number is required</span>
+                                </label>
+                            </div>
+
+                            <div class="checkbox-wrapper">
+                                <input class="checkbox-input" id="offers" type="checkbox">
+                                <label class="checkbox-label" for="offers">Keep me updated on my order status via SMS and Email.</label>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="btn-back" type="button" onclick="window.location.href='./index.html'">
+                                    <span class="material-symbols-outlined">arrow_back</span>
+                                    Back to Shop
+                                </button>
+                                <button class="btn-next" id="next-step-1" type="button">
+                                    <span>
+                                        Continue to Delivery
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </span>
+                                    <div class="btn-next-overlay"></div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- STEP 2: Delivery Information -->
+                    <div class="step-content" data-step="2">
+                        <div class="content-header">
+                            <h1>Delivery Information</h1>
+                            <p>Where should we deliver your premium vehicle?</p>
+                        </div>
+                        <form class="form-card" id="delivery-form">
+                            <div class="delivery-form-grid">
+                                <label class="form-label full-width">
+                                    <span class="label-text">Street Address</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="address" type="text" placeholder="123 Main Street" required>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">Address is required</span>
+                                </label>
+
+                                <label class="form-label">
+                                    <span class="label-text">City</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="city" type="text" placeholder="Los Angeles" required>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">City is required</span>
+                                </label>
+
+                                <label class="form-label">
+                                    <span class="label-text">State</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="state" type="text" placeholder="California" required>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">State is required</span>
+                                </label>
+
+                                <label class="form-label">
+                                    <span class="label-text">ZIP Code</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="zip" type="text" placeholder="90210" required>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">ZIP code is required</span>
+                                </label>
+
+                                <label class="form-label">
+                                    <span class="label-text">Country</span>
+                                    <div class="form-input-wrapper">
+                                        <input class="form-input required-field" name="country" type="text" placeholder="United States" required>
+                                        <div class="form-input-focus-line"></div>
+                                        <span class="material-symbols-outlined validation-icon">check_circle</span>
+                                    </div>
+                                    <span class="error-message">Country is required</span>
+                                </label>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="btn-back" type="button" id="back-to-step-1">
+                                    <span class="material-symbols-outlined">arrow_back</span>
+                                    Back
+                                </button>
+                                <button class="btn-next" id="next-step-2" type="button">
+                                    <span>
+                                        Continue to Payment
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </span>
+                                    <div class="btn-next-overlay"></div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- STEP 3: Crypto Payment -->
+                    <div class="step-content" data-step="3">
+                        <div class="content-header">
+                            <h1>Cryptocurrency Payment</h1>
+                            <p>Select your preferred cryptocurrency and complete the transaction securely.</p>
+                        </div>
+                        <form class="form-card" id="payment-form">
+                            <div class="payment-methods">
+                                <label class="payment-option">
+                                    <input type="radio" name="crypto" value="bitcoin" required>
+                                    <div class="payment-card">
+                                        <div class="payment-icon crypto">â‚¿</div>
+                                        <div class="payment-info">
+                                            <div class="payment-name">Bitcoin (BTC)</div>
+                                            <div class="payment-description">Fastest & Most Secure</div>
+                                            <div class="payment-badge">Recommended</div>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="payment-option">
+                                    <input type="radio" name="crypto" value="ethereum">
+                                    <div class="payment-card">
+                                        <div class="payment-icon crypto">Îž</div>
+                                        <div class="payment-info">
+                                            <div class="payment-name">Ethereum (ETH)</div>
+                                            <div class="payment-description">Smart Contract Enabled</div>
+                                            <div class="payment-badge">Popular</div>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="payment-option">
+                                    <input type="radio" name="crypto" value="usdc">
+                                    <div class="payment-card">
+                                        <div class="payment-icon crypto">$</div>
+                                        <div class="payment-info">
+                                            <div class="payment-name">USDC (Stablecoin)</div>
+                                            <div class="payment-description">No Price Volatility</div>
+                                            <div class="payment-badge">Stable</div>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <label class="payment-option">
+                                    <input type="radio" name="crypto" value="polygon">
+                                    <div class="payment-card">
+                                        <div class="payment-icon crypto">â—‡</div>
+                                        <div class="payment-info">
+                                            <div class="payment-name">Polygon (MATIC)</div>
+                                            <div class="payment-description">Low Gas Fees</div>
+                                            <div class="payment-badge">Efficient</div>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <!-- Crypto Info Box -->
+                            <div class="crypto-info-box">
+                                <span class="material-symbols-outlined crypto-info-icon">security</span>
+                                <div class="crypto-info-content">
+                                    <div class="crypto-info-title">Blockchain Security</div>
+                                    <div class="crypto-info-text">Your transaction is protected by advanced blockchain encryption. All transfers are immutable and permanently recorded on the distributed ledger.</div>
+                                    <div class="crypto-features">
+                                        <div class="crypto-feature">
+                                            <span class="crypto-feature-icon">âœ“</span>
+                                            Zero counterparty risk - peer-to-peer transaction
+                                        </div>
+                                        <div class="crypto-feature">
+                                            <span class="crypto-feature-icon">âœ“</span>
+                                            Instant settlement - no middleman delays
+                                        </div>
+                                        <div class="crypto-feature">
+                                            <span class="crypto-feature-icon">âœ“</span>
+                                            Cryptographically signed - mathematically secure
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Crypto Payment Address -->
+                            <div class="crypto-address-section" id="crypto-address-section">
+                                <div class="crypto-address-label">Send Cryptocurrency To This Address</div>
+                                <div class="address-input-group">
+                                    <input class="crypto-address-input" id="crypto-address" type="text" readonly value="bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh" placeholder="Loading address...">
+                                    <button class="copy-btn" type="button" id="copy-btn">
+                                        <span class="material-symbols-outlined" style="font-size: 1rem !important;">content_copy</span>
+                                        Copy
+                                    </button>
+                                </div>
+
+                                <div class="qr-code-section">
+                                    <div class="qr-placeholder">
+                                        QR Code
+                                        <br>
+                                        (Load in production)
+                                    </div>
+                                </div>
+
+                                <div class="crypto-warning">
+                                    <span class="material-symbols-outlined crypto-warning-icon">warning</span>
+                                    <div class="crypto-warning-text">
+                                        <strong>Important:</strong> Only send the exact amount in the selected cryptocurrency. Transactions cannot be reversed. Always verify the address before sending.
+                                    </div>
+                                </div>
+
+                                <div class="crypto-payment-steps">
+                                    <div class="steps-title">How to Complete Payment</div>
+                                    <div class="step-list">
+                                        <div class="step-item-crypto">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content-crypto">
+                                                <div class="step-title-crypto">Copy Wallet Address</div>
+                                                <div class="step-description-crypto">Click the copy button to save the payment address to your clipboard.</div>
+                                            </div>
+                                        </div>
+                                        <div class="step-item-crypto">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content-crypto">
+                                                <div class="step-title-crypto">Open Your Wallet</div>
+                                                <div class="step-description-crypto">Launch your cryptocurrency wallet (MetaMask, Trust Wallet, Ledger, etc.)</div>
+                                            </div>
+                                        </div>
+                                        <div class="step-item-crypto">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content-crypto">
+                                                <div class="step-title-crypto">Send Transaction</div>
+                                                <div class="step-description-crypto">Paste the address and send the exact payment amount. Confirm all details.</div>
+                                            </div>
+                                        </div>
+                                        <div class="step-item-crypto">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content-crypto">
+                                                <div class="step-title-crypto">Confirm Payment</div>
+                                                <div class="step-description-crypto">We'll verify your transaction on the blockchain and process your order.</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button class="btn-back" type="button" id="back-to-step-2">
+                                    <span class="material-symbols-outlined">arrow_back</span>
+                                    Back
+                                </button>
+                                <button class="btn-next" id="next-step-3" type="button">
+                                    <span>
+                                        Proceed to Confirmation
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </span>
+                                    <div class="btn-next-overlay"></div>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- STEP 4: Final Confirmation -->
+                    <div class="step-content" data-step="4">
+                        <div class="content-header">
+                            <h1>Review & Confirm Order</h1>
+                            <p>Please review your order details before completing the purchase.</p>
+                        </div>
+                        <div class="form-card">
+                            <div id="order-review" style="color: #bab29c; line-height: 1.8;">
+                                <h3 style="color: #f4c025; margin-bottom: 1rem;">Order Summary</h3>
+                                <p><strong>Contact:</strong> <span id="review-name"></span></p>
+                                <p><strong>Email:</strong> <span id="review-email"></span></p>
+                                <p><strong>Phone:</strong> <span id="review-phone"></span></p>
+                                <p><strong>Delivery Address:</strong> <span id="review-address"></span></p>
+                                <p><strong>Payment Method:</strong> <span id="review-crypto"></span></p>
+                                <hr style="border-color: rgba(255,255,255,0.1); margin: 1.5rem 0;">
+                                <p style="color: #f4c025; font-size: 1.25rem; font-weight: 700;">Total: $111,792</p>
+                            </div>
+
+                            <div class="form-actions" style="margin-top: 2rem;">
+                                <button class="btn-back" type="button" id="back-to-step-3">
+                                    <span class="material-symbols-outlined">arrow_back</span>
+                                    Back
+                                </button>
+                                <button class="btn-next" id="final-confirm-btn" type="button">
+                                    <span>
+                                        Confirm & Complete Order
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </span>
+                                    <div class="btn-next-overlay"></div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="summary-section">
+                <div class="sticky-sidebar" id="sticky-sidebar">
+                    <div class="summary-card">
+                        <div class="summary-header">
+                            <h3>Order Summary</h3>
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                        </div>
+                        <div class="summary-body">
+                            <div class="product-item">
+                                <div class="product-image">
+                                    <img src="./assets/images/downloaded_asset_35.jpg" alt="Dark grey luxury electric sports car">
+                                    <div class="product-shine"></div>
+                                </div>
+                                <div class="product-info">
+                                    <h4>Tesla Model S Plaid</h4>
+                                    <p class="product-detail">
+                                        <span class="detail-dot"></span>
+                                        Midnight Silver Metallic
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="pricing-section">
+                                <div class="price-row">
+                                    <span class="price-label">Vehicle Price</span>
+                                    <span class="price-value">$102,400</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">Destination Fee</span>
+                                    <span class="price-value">$1,200</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">Est. Taxes</span>
+                                    <span class="price-value">$8,192</span>
+                                </div>
+                            </div>
+
+                            <div class="total-section">
+                                <div class="total-label">
+                                    <span class="total-label-text">Total Due (USD)</span>
+                                </div>
+                                <span class="total-amount" data-value="111792">$111,792</span>
+                            </div>
+
+                            <div style="background-color: rgba(255, 107, 0, 0.1); border: 1px solid rgba(255, 107, 0, 0.3); border-radius: 0.75rem; padding: 1rem; margin-top: 1rem;">
+                                <div style="color: #ff6b00; font-weight: 700; font-size: 0.875rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+                                    <span class="material-symbols-outlined" style="font-size: 1rem !important;">currency_bitcoin</span>
+                                    Crypto Payment
+                                </div>
+                                <div style="color: #bab29c; font-size: 0.875rem;">
+                                    Equivalent to approximately:
+                                    <div style="color: #f4c025; font-weight: 700; margin-top: 0.25rem;" id="crypto-amount">2.84 BTC</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="summary-footer">
+                            <span class="material-symbols-outlined">verified_user</span>
+                            <span>Blockchain Verified Transaction</span>
+                        </div>
+                    </div>
+
+                    <div class="support-card">
+                        <div class="support-icon">
+                            <span class="material-symbols-outlined">support_agent</span>
+                        </div>
+                        <div class="support-content">
+                            <p class="support-title">Crypto Support</p>
+                            <p class="support-description">Questions about blockchain payments? Our crypto specialists are available 24/7.</p>
+                            <a class="support-link" href="#">Start Live Chat</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Crypto Processing Overlay -->
+    <div class="crypto-processing-overlay" id="crypto-overlay">
+        <div class="blockchain-animation-container">
+            <div class="blockchain-circle" id="blockchain-circle">
+                <span class="material-symbols-outlined blockchain-icon">currency_bitcoin</span>
+                <div class="transaction-lines">
+                    <div class="transaction-line"></div>
+                    <div class="transaction-line"></div>
+                    <div class="transaction-line"></div>
+                </div>
+            </div>
+            <div class="success-checkmark" id="success-checkmark">
+                <span class="material-symbols-outlined">check</span>
+            </div>
+            <div class="processing-status" id="processing-status">Verifying Blockchain Transaction...</div>
+            <div class="processing-detail" id="processing-detail">Awaiting network confirmations...</div>
+            <div class="processing-detail" id="transaction-hash" style="font-size: 0.75rem; word-break: break-all;"></div>
+        </div>
+    </div>
+
+    <footer class="site-footer" >
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2026 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html" style="text-decoration: none; ">Privacy Policy</a>
+                    <a href="./legal.html" style="text-decoration: none;">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+            <style>
+                a, a:hover, a:active, a:visited{
+                    color: white;
+                }
+            </style>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // TOAST NOTIFICATION SYSTEM
+        // ============================================
+        class Toast {
+            constructor() {
+                this.createContainer();
+            }
+
+            createContainer() {
+                if (!document.getElementById('toast-container')) {
+                    const container = document.createElement('div');
+                    container.id = 'toast-container';
+                    container.style.cssText = `
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        z-index: 9999;
+                        display: flex;
+                        flex-direction: column;
+                        gap: 12px;
+                    `;
+                    document.body.appendChild(container);
+                }
+            }
+
+            show(message, type = 'info', duration = 4000) {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                
+                const colors = {
+                    success: { bg: '#10b981', icon: '<span class="material-symbols-outlined">check_circle</span>' },
+                    error: { bg: '#ef4444', icon: '<span class="material-symbols-outlined">error</span>' },
+                    warning: { bg: '#f59e0b', icon: '<span class="material-symbols-outlined">warning</span>' },
+                    info: { bg: '#3b82f6', icon: '<span class="material-symbols-outlined">info</span>' }
+                };
+
+                const config = colors[type] || colors.info;
+
+                toast.style.cssText = `
+                    background-color: ${config.bg};
+                    color: white;
+                    padding: 16px 20px;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    min-width: 280px;
+                    animation: slideInRight 0.4s ease-out;
+                    font-family: "Space Grotesk", sans-serif;
+                `;
+
+                toast.innerHTML = `
+                    <span style="font-size: 18px; font-weight: bold;">${config.icon}</span>
+                    <span>${message}</span>
+                `;
+
+                container.appendChild(toast);
+
+                setTimeout(() => {
+                    toast.style.animation = 'slideOutRight 0.4s ease-out forwards';
+                    setTimeout(() => toast.remove(), 400);
+                }, duration);
+            }
+        }
+
+        // Create global toast instance
+        const toast = new Toast();
+
+        // Add toast animations to stylesheet dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from { opacity: 0; transform: translateX(100px); }
+                to { opacity: 1; transform: translateX(0); }
+            }
+            @keyframes slideOutRight {
+                from { opacity: 1; transform: translateX(0); }
+                to { opacity: 0; transform: translateX(100px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Form Data Storage
+        const formData = {
+            contact: {},
+            delivery: {},
+            payment: {}
+        };
+
+        let currentStep = 1;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial Page Load Animation
+            const tl = gsap.timeline();
+            tl.to("body", { opacity: 1, duration: 0.5 })
+                .from("header", { y: -50, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.3")
+                .from(".form-section", { x: -30, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.6")
+                .from(".summary-section", { x: 30, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.6")
+                .from("footer", { y: 20, opacity: 0, duration: 0.5 }, "-=0.4");
+
+            // Stagger form fields entry
+            gsap.from(".form-label", {
+                y: 20,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: "back.out(1.2)",
+                delay: 0.5
+            });
+
+            // Input Focus Animations
+            const inputs = document.querySelectorAll('.form-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    const label = this.closest('.form-label');
+                    gsap.to(label.querySelector('.label-text'), { 
+                        color: '#f4c025', 
+                        duration: 0.3 
+                    });
+                });
+
+                input.addEventListener('blur', function(e) {
+                    const label = this.closest('.form-label');
+                    gsap.to(label.querySelector('.label-text'), { 
+                        color: e.target.value ? '#ffffff' : '#bab29c', 
+                        duration: 0.3 
+                    });
+                    validateField(this);
+                });
+
+                input.addEventListener('input', (e) => {
+                    validateField(e.target);
+                });
+            });
+
+            // Validation Function
+            function validateField(field) {
+                const wrapper = field.closest('.form-input-wrapper');
+                const label = field.closest('.form-label');
+                const errorMsg = label.querySelector('.error-message');
+                let isValid = false;
+
+                if (field.type === 'email') {
+                    isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+                } else if (field.type === 'tel') {
+                    isValid = field.value.length > 9;
+                } else {
+                    isValid = field.value.length > 1;
+                }
+
+                if (field.value.length === 0) {
+                    field.classList.remove('input-valid', 'input-error');
+                    field.style.borderColor = '#393528';
+                    field.style.color = '#ffffff';
+                    gsap.to(errorMsg, { height: 0, opacity: 0, duration: 0.3 });
+                    return false;
+                }
+
+                if (isValid) {
+                    field.classList.remove('input-error');
+                    field.classList.add('input-valid');
+                    field.style.borderColor = '#f4c025';
+                    
+                    gsap.to(wrapper.querySelector('.validation-icon'), { 
+                        scale: 1.2, 
+                        opacity: 1, 
+                        duration: 0.2, 
+                        yoyo: true, 
+                        repeat: 1,
+                        color: '#22c55e'
+                    });
+                    gsap.to(errorMsg, { height: 0, opacity: 0, duration: 0.3 });
+                    return true;
+                } else {
+                    field.classList.remove('input-valid');
+                    field.classList.add('input-error');
+                    field.style.borderColor = '#ef4444';
+                    field.style.color = '#ef4444';
+                    
+                    gsap.to(wrapper.querySelector('.validation-icon'), { 
+                        scale: 1.2, 
+                        opacity: 1, 
+                        duration: 0.2,
+                        color: '#ef4444'
+                    });
+                    gsap.to(errorMsg, { height: 'auto', opacity: 1, duration: 0.3 });
+                    return false;
+                }
+            }
+
+            function validateForm(formId) {
+                const form = document.getElementById(formId);
+                const requiredInputs = form.querySelectorAll('.required-field');
+                let allValid = true;
+
+                requiredInputs.forEach(input => {
+                    const isValid = validateField(input);
+                    if (!isValid || input.value === '') {
+                        allValid = false;
+                        gsap.fromTo(input.closest('.form-input-wrapper'), 
+                            { x: -5 }, 
+                            { x: 5, duration: 0.1, repeat: 5, yoyo: true, ease: "power1.inOut" }
+                        );
+                    }
+                });
+
+                return allValid;
+            }
+
+            function goToStep(stepNumber) {
+                const allStepContents = document.querySelectorAll('.step-content');
+                const allStepItems = document.querySelectorAll('.step-item');
+                const allStepDots = document.querySelectorAll('.step-dot');
+
+                // Animate out current step
+                gsap.to(`.step-content[data-step="${currentStep}"]`, {
+                    x: -50,
+                    opacity: 0,
+                    duration: 0.4,
+                    onComplete: () => {
+                        allStepContents.forEach(content => content.classList.remove('active'));
+                        document.querySelector(`.step-content[data-step="${stepNumber}"]`).classList.add('active');
+
+                        // Animate in new step
+                        gsap.fromTo(`.step-content[data-step="${stepNumber}"]`,
+                            { x: 50, opacity: 0 },
+                            { x: 0, opacity: 1, duration: 0.6, ease: "power3.out" }
+                        );
+
+                        // Animate form labels
+                        gsap.from(`.step-content[data-step="${stepNumber}"] .form-label`, {
+                            y: 20,
+                            opacity: 0,
+                            duration: 0.5,
+                            stagger: 0.08,
+                            ease: "back.out(1.2)",
+                            delay: 0.3
+                        });
+                    }
+                });
+
+                // Update stepper UI
+                allStepItems.forEach((item, index) => {
+                    if (index < stepNumber - 1) {
+                        item.classList.add('completed');
+                        item.classList.remove('active');
+                    } else if (index === stepNumber - 1) {
+                        item.classList.add('active');
+                        item.classList.remove('completed');
+                    } else {
+                        item.classList.remove('active', 'completed');
+                    }
+                });
+
+                allStepDots.forEach((dot, index) => {
+                    if (index < stepNumber - 1) {
+                        dot.classList.add('completed');
+                        dot.classList.remove('active', 'inactive');
+                    } else if (index === stepNumber - 1) {
+                        dot.classList.add('active');
+                        dot.classList.remove('inactive', 'completed');
+                    } else {
+                        dot.classList.add('inactive');
+                        dot.classList.remove('active', 'completed');
+                    }
+                });
+
+                // Update progress bar
+                const progressWidth = ((stepNumber - 1) / 3) * 100;
+                gsap.to('#progress-bar', { width: `${progressWidth}%`, duration: 0.8, ease: "power2.out" });
+
+                // Update step indicator
+                document.getElementById('step-indicator').textContent = `Step ${stepNumber} of 4`;
+
+                currentStep = stepNumber;
+            }
+
+            // Step 1: Contact -> Delivery
+            document.getElementById('next-step-1').addEventListener('click', () => {
+                if (validateForm('contact-form')) {
+                    // Save form data
+                    formData.contact.firstName = document.querySelector('[name="firstName"]').value;
+                    formData.contact.lastName = document.querySelector('[name="lastName"]').value;
+                    formData.contact.email = document.querySelector('[name="email"]').value;
+                    formData.contact.phone = document.querySelector('[name="phone"]').value;
+
+                    goToStep(2);
+                }
+            });
+
+            // Step 2: Delivery -> Payment
+            document.getElementById('next-step-2').addEventListener('click', () => {
+                if (validateForm('delivery-form')) {
+                    // Save form data
+                    formData.delivery.address = document.querySelector('[name="address"]').value;
+                    formData.delivery.city = document.querySelector('[name="city"]').value;
+                    formData.delivery.state = document.querySelector('[name="state"]').value;
+                    formData.delivery.zip = document.querySelector('[name="zip"]').value;
+                    formData.delivery.country = document.querySelector('[name="country"]').value;
+
+                    goToStep(3);
+                }
+            });
+
+            // Step 3: Payment -> Confirmation
+            document.getElementById('next-step-3').addEventListener('click', () => {
+                const selectedCrypto = document.querySelector('input[name="crypto"]:checked');
+                if (!selectedCrypto) {
+                    toast.show('Please select a cryptocurrency payment method', 'error');
+                    return;
+                }
+
+                formData.payment.crypto = selectedCrypto.value;
+
+                // Populate review
+                document.getElementById('review-name').textContent = `${formData.contact.firstName} ${formData.contact.lastName}`;
+                document.getElementById('review-email').textContent = formData.contact.email;
+                document.getElementById('review-phone').textContent = formData.contact.phone;
+                document.getElementById('review-address').textContent = `${formData.delivery.address}, ${formData.delivery.city}, ${formData.delivery.state} ${formData.delivery.zip}, ${formData.delivery.country}`;
+                document.getElementById('review-crypto').textContent = selectedCrypto.value.toUpperCase();
+
+                goToStep(4);
+            });
+
+            // Back buttons
+            document.getElementById('back-to-step-1').addEventListener('click', () => goToStep(1));
+            document.getElementById('back-to-step-2').addEventListener('click', () => goToStep(2));
+            document.getElementById('back-to-step-3').addEventListener('click', () => goToStep(3));
+
+            // Final Confirmation - Blockchain Animation
+            document.getElementById('final-confirm-btn').addEventListener('click', () => {
+                const overlay = document.getElementById('crypto-overlay');
+                const processingStatus = document.getElementById('processing-status');
+                const processingDetail = document.getElementById('processing-detail');
+                const transactionHash = document.getElementById('transaction-hash');
+                const successCheckmark = document.getElementById('success-checkmark');
+                const blockchainCircle = document.getElementById('blockchain-circle');
+
+                // Show overlay
+                overlay.classList.add('active');
+                gsap.to(overlay, { opacity: 1, duration: 0.5 });
+
+                // Simulate blockchain verification process
+                let step = 0;
+                const steps = [
+                    { status: 'Broadcasting Transaction...', detail: 'Submitting to blockchain network...' },
+                    { status: 'Awaiting Block Confirmations...', detail: 'Block #8,234,567 - 1/3 confirmations...' },
+                    { status: 'Verifying Smart Contract...', detail: 'Block #8,234,568 - 2/3 confirmations...' },
+                    { status: 'Transaction Confirmed!', detail: 'Block #8,234,569 - 3/3 confirmations âœ“' }
+                ];
+
+                const stepInterval = setInterval(() => {
+                    if (step < steps.length) {
+                        processingStatus.textContent = steps[step].status;
+                        processingDetail.textContent = steps[step].detail;
+
+                        if (step === 1) {
+                            transactionHash.textContent = 'TxHash: 0x7f6a4b8c9d2e1a5f3b7c8d9e2f1a6b5c4d3e2f1a0b9c8d7e6f5a4b3c2d1e0f9a8';
+                        }
+
+                        step++;
+                    } else {
+                        clearInterval(stepInterval);
+
+                        // Success animation
+                        gsap.to(blockchainCircle, {
+                            opacity: 0,
+                            scale: 0.8,
+                            duration: 0.5,
+                            onComplete: () => {
+                                blockchainCircle.style.display = 'none';
+                                gsap.to(successCheckmark, {
+                                    scale: 1,
+                                    duration: 0.6,
+                                    ease: "back.out(1.7)"
+                                });
+
+                                processingStatus.textContent = 'Order Complete!';
+                                processingStatus.style.color = '#22c55e';
+                                processingDetail.textContent = 'Redirecting to order tracking...';
+
+                                // Redirect to order tracking
+                                setTimeout(() => {
+                                    window.location.href = './order_tracking.html';
+                                }, 2000);
+                            }
+                        });
+                    }
+                }, 1500);
+            });
+
+            // Crypto Payment Radio Buttons - Show Address Section
+            const cryptoRadios = document.querySelectorAll('input[name="crypto"]');
+            const paymentMethods = document.querySelector('.payment-methods');
+            const cryptoInfoBox = document.querySelector('.crypto-info-box');
+            const cryptoAddressSection = document.getElementById('crypto-address-section');
+            const cryptoPaymentSteps = document.querySelector('.crypto-payment-steps');
+            
+            cryptoRadios.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    const cryptoAmountEl = document.getElementById('crypto-amount');
+                    let cryptoAmount = '';
+                    
+                    switch(radio.value) {
+                        case 'bitcoin':
+                            cryptoAmount = '2.84 BTC';
+                            break;
+                        case 'ethereum':
+                            cryptoAmount = '46.5 ETH';
+                            break;
+                        case 'usdc':
+                            cryptoAmount = '111,792 USDC';
+                            break;
+                        case 'polygon':
+                            cryptoAmount = '111,792 MATIC';
+                            break;
+                    }
+                    
+                    // Update amount with animation
+                    gsap.to(cryptoAmountEl, { 
+                        duration: 0.3, 
+                        onComplete: () => {
+                            cryptoAmountEl.textContent = cryptoAmount;
+                        }
+                    });
+                    
+                    // Hide payment methods and info box, show address section
+                    gsap.to([paymentMethods, cryptoInfoBox], {
+                        opacity: 0,
+                        y: -20,
+                        duration: 0.3,
+                        onComplete: () => {
+                            if (paymentMethods) paymentMethods.style.display = 'none';
+                            if (cryptoInfoBox) cryptoInfoBox.style.display = 'none';
+                            
+                            // Show crypto address section
+                            if (cryptoAddressSection) {
+                                cryptoAddressSection.classList.add('show');
+                                cryptoAddressSection.style.display = 'flex';
+                                gsap.from(cryptoAddressSection, {
+                                    opacity: 0,
+                                    y: 20,
+                                    duration: 0.5,
+                                    ease: 'power2.out'
+                                });
+                            }
+                            
+                            // Show payment steps
+                            if (cryptoPaymentSteps) {
+                                cryptoPaymentSteps.classList.add('show');
+                                cryptoPaymentSteps.style.display = 'flex';
+                                gsap.from(cryptoPaymentSteps, {
+                                    opacity: 0,
+                                    y: 20,
+                                    duration: 0.5,
+                                    delay: 0.2,
+                                    ease: 'power2.out'
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Copy Address Button
+            const copyBtn = document.getElementById('copy-btn');
+            const cryptoAddress = document.getElementById('crypto-address');
+
+            if (copyBtn) {
+                copyBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    const address = cryptoAddress.value;
+                    navigator.clipboard.writeText(address).then(() => {
+                        gsap.to(copyBtn, { 
+                            duration: 0.3, 
+                            scale: 1.1,
+                            onComplete: () => {
+                                gsap.to(copyBtn, { duration: 0.2, scale: 1 });
+                            }
+                        });
+                        
+                        const originalText = copyBtn.innerHTML;
+                        copyBtn.classList.add('copied');
+                        copyBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size: 1rem !important;">done</span>Copied!';
+                        
+                        setTimeout(() => {
+                            copyBtn.classList.remove('copied');
+                            copyBtn.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            }
+
+            // Sticky Sidebar Float Animation
+            gsap.to("#sticky-sidebar", {
+                y: 10,
+                duration: 2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut"
+            });
+
+            // Add body loaded class
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+
+            // Animate footer sections
+            gsap.from('.footer-section', {
+                scrollTrigger: {
+                    trigger: 'footer',
+                    start: 'top 80%'
+                },
+                y: 20,
+                opacity: 0,
+                duration: 0.6,
+                stagger: 0.1
+            });
+
+            // Social links hover animation
+            document.querySelectorAll('.social-link').forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    gsap.to(this, { scale: 1.15, duration: 0.3 });
+                });
+                link.addEventListener('mouseleave', function() {
+                    gsap.to(this, { scale: 1, duration: 0.3 });
+                });
+            });
+
+            // Breadcrumb animations
+            gsap.from('.breadcrumb-item', {
+                x: -20,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,746 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Store</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+    
+    <style>
+        /* Cart Count Badge Styling */
+        .header-actions a {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .cart-count-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: linear-gradient(135deg, #f4c025 0%, #d4a015 100%);
+            color: #181611;
+            font-size: 11px;
+            font-weight: 700;
+            min-width: 18px;
+            height: 18px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5px;
+            box-shadow: 0 2px 8px rgba(244, 192, 37, 0.5);
+            border: 2px solid #0f0e0b;
+            font-family: 'Space Grotesk', sans-serif;
+            animation: badgePop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 10;
+            pointer-events: none;
+        }
+        
+        @keyframes badgePop {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <audio id="engine-start" preload="auto" crossorigin="anonymous">
+        <source src="https://assets.mixkit.co/active_storage/sfx/2607/2607-preview.mp3" type="audio/mpeg"/>
+    </audio>
+
+    <div class="main-header-wrapper">
+        <header class="main-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 30px;">directions_car</span>
+                </div>
+                <h2 class="logo-text">Car Store</h2>
+            </div>
+            
+            <nav class="desktop-nav">
+                <a class="nav-link" href="./index.html">Home</a>
+                <a class="nav-link" href="./about.html">About</a>
+                <a class="nav-link" href="./contact.html">Contact</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="icon-btn mobile-menu-toggle" title="Menu">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+                </button>
+                <a href="./checkout.html" style="position: relative; display: inline-block;">
+                    <button class="icon-btn group" title="Shopping Cart">
+                        <span class="material-symbols-outlined">shopping_bag</span>
+                    </button>
+                    <span class="cart-badge cart-count-badge" style="display: none;">0</span>
+                </a>
+                <a href="./login.html" style="text-decoration: none;">
+                        <button class="btn-primary" style="padding: 0.5rem 1.5rem; height: 40px; font-size: 0.875rem; min-width: auto; margin-left: 1rem;">
+                            Sign In
+                        </button>
+                    </a>
+
+            </div>
+        </header>
+        
+        <nav class="mobile-nav hidden">
+            <a class="mobile-nav-link" href="./index.html">Home</a>
+            <a class="mobile-nav-link" href="./about.html">About</a>
+            <a class="mobile-nav-link" href="./contact.html">Contact</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <section class="hero-section group">
+            <div class="hero-bg" data-alt="Sleek black sports car" style='background-image: url("./assets/images/downloaded_asset_2.jpg");'>
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-glow"></div>
+            <div class="hero-gradient-overlay"></div>
+            
+            <div class="hero-content">
+                <div style="max-width: 56rem;">
+                    <h1 class="hero-title">
+                        <span class="hero-title-line">Engineering <span class="text-primary" style="display:inline-block">Perfection.</span></span>
+                        <span class="hero-title-line">Driven by You.</span>
+                    </h1>
+                    <p class="hero-desc">
+                        Explore the world's finest collection of luxury and sports vehicles. 
+                        Meticulously curated for the elite driver.
+                    </p>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="./cartegory.html" class="btn-primary btn-ripple group">
+                        <span class="ripple-circle"></span>
+                        <span style="position:relative; z-index:10; display:flex; align-items:center; gap:0.75rem; white-space:nowrap;">
+                            Shop Inventory 
+                            <span class="material-symbols-outlined" style="font-size: 24px;">arrow_forward</span>
+                        </span>
+                    </a>
+                    
+                    <button class="btn-secondary group">
+                        <a href="./used_cars.html">
+                            <span style="position:relative; display:flex; align-items:center; gap:0.75rem; pointer-events:none;">Used Cars</span>
+                        </a>
+                    </button>
+                    
+                    <a href="./cartegory.html">
+                         <button class="btn-secondary group">
+                             <span style="position:relative; display:flex; align-items:center; gap:0.75rem; pointer-events:none;">Car Section</span>
+                         </button>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-stats">
+                <div class="stat-card group">
+                    <div class="stat-icon-wrapper">
+                        <span class="material-symbols-outlined animate-spin-slow" style="font-size: 30px; animation:paused;">speed</span>
+                    </div>
+                    <div>
+                        <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-gray-400); font-weight: 600;">Top Speed</p>
+                        <p style="font-size: 1.5rem; font-weight: 700;">205 MPH</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card group" style="transition-delay: 100ms;">
+                    <div class="stat-icon-wrapper">
+                        <span class="material-symbols-outlined" style="font-size: 30px;">bolt</span>
+                    </div>
+                    <div>
+                        <p class="uppercase" style="font-size: 0.75rem; letter-spacing: 0.1em; color: var(--text-gray-400); font-weight: 600;">0-60 MPH</p>
+                        <p style="font-size: 1.5rem; font-weight: 700;">2.8 Sec</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="search-container-wrapper">
+            <div class="search-bar group/search">
+                <div class="search-input-group group">
+                    <div class="search-icon">
+                        <span class="material-symbols-outlined" style="font-size: 24px;">search</span>
+                    </div>
+                    <input class="search-input" placeholder="Search by make, model, or keyword..." type="text"/>
+                </div>
+                
+                <div class="filter-buttons no-scrollbar">
+                    <button class="filter-btn group">
+                        <span class="filter-text">Brand</span>
+                        <span class="material-symbols-outlined filter-icon">expand_more</span>
+                    </button>
+                    <button class="filter-btn group">
+                        <span class="filter-text">Price</span>
+                        <span class="material-symbols-outlined filter-icon">expand_more</span>
+                    </button>
+                    <button class="filter-btn group">
+                        <span class="filter-text">Fuel Type</span>
+                        <span class="material-symbols-outlined filter-icon">expand_more</span>
+                    </button>
+                </div>
+                
+                <button class="search-btn btn-ripple group/btn">
+                    <span style="position:relative; z-index:10; display:flex; align-items:center; gap:0.5rem;">
+                        Search <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+
+        <section class="featured-section">
+            <div class="section-header section-header-1">
+                <div class="section-underline"></div>
+                <div>
+                    <h2 class="section-title">
+                        Featured Arrivals
+                        <span class="animate-ping" style="display:flex; width:0.75rem; height:0.75rem; background-color: var(--primary); border-radius: 50%;"></span>
+                    </h2>
+                    <p style="color: var(--text-gray-400); max-width: 32rem;">The latest additions to our exclusive showroom. Experience luxury like never before.</p>
+                </div>
+                <a href="#" class="group" style="display:none; color: var(--primary); font-weight:700; font-size:0.875rem; text-transform:uppercase; letter-spacing:0.05em; align-items:center; gap:0.5rem; padding:0.5rem 1rem; border-radius:0.5rem; transition:all 0.3s; border:1px solid transparent;">
+                   View All Inventory
+                   <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+                </a>
+                <style>@media(min-width:768px){ a[href="#"] { display:flex !important; } }</style>
+            </div>
+            
+            <div class="featured-grid">
+                <!-- Car Card 1 -->
+                <div class="car-card group">
+                    <div class="car-image-wrapper">
+                        <div class="badge-new">NEW</div>
+                        <button class="btn-favorite group/heart">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">favorite</span>
+                        </button>
+                        <div class="car-bg" data-alt="Ferrari F8 Tributo" style='background-image: url("./assets/images/downloaded_asset_4.jpg");'></div>
+                        <div class="absolute inset-0" style="background: linear-gradient(to top, var(--surface-dark), transparent, transparent); opacity: 0.6;"></div>
+                    </div>
+                    <div class="car-content">
+                        <h3 class="car-title">Ferrari F8 Tributo</h3>
+                        <p class="car-meta"><span style="width:0.375rem; height:0.375rem; background-color:var(--primary); border-radius:50%;"></span> 2023 â€¢ 1,200 mi</p>
+                        
+                        <div class="car-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">speed</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">211 MPH</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">timer</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">2.9s 0-60</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">local_gas_station</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">Petrol</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">settings</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">Auto</span>
+                            </div>
+                        </div>
+                        
+                        <div class="car-footer">
+                            <div class="price-row">
+                                <span class="car-price">$285,000</span>
+                                <a href="./product_details.html">
+                                    <button class="btn-details group/btn">
+                                        Details <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <button class="btn-add-cart btn-ripple add-to-cart" data-car-name="Ferrari F8 Tributo" data-car-price="$285,000" data-car-year="2023" data-car-image="./assets/images/downloaded_asset_4.jpg">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">shopping_cart</span>
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car Card 2 -->
+                <div class="car-card group">
+                    <div class="car-image-wrapper">
+                        <button class="btn-favorite group/heart">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">favorite</span>
+                        </button>
+                        <div class="car-bg" data-alt="Porsche 911 GT3" style='background-image: url("./assets/images/downloaded_asset_9.jpg");'></div>
+                         <div class="absolute inset-0" style="background: linear-gradient(to top, var(--surface-dark), transparent, transparent); opacity: 0.6;"></div>
+                    </div>
+                    <div class="car-content">
+                        <h3 class="car-title">Porsche 911 GT3</h3>
+                        <p class="car-meta"><span style="width:0.375rem; height:0.375rem; background-color:var(--primary); border-radius:50%;"></span> 2026 â€¢ 500 mi</p>
+                        
+                        <div class="car-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">speed</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">198 MPH</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">timer</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">3.2s 0-60</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">local_gas_station</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">Petrol</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">settings</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">PDK</span>
+                            </div>
+                        </div>
+                        
+                        <div class="car-footer">
+                            <div class="price-row">
+                                <span class="car-price">$195,000</span>
+                                <a href="./product_details.html">
+                                    <button class="btn-details group/btn">
+                                        Details <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <button class="btn-add-cart btn-ripple add-to-cart" data-car-name="Porsche 911 GT3" data-car-price="$195,000" data-car-year="2024" data-car-image="./assets/images/downloaded_asset_9.jpg">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">shopping_cart</span>
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car Card 3 -->
+                <div class="car-card group">
+                    <div class="car-image-wrapper">
+                         <div class="badge-new" style="background-color: rgba(255, 255, 255, 0.9);">ELECTRIC</div>
+                        <button class="btn-favorite group/heart">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">favorite</span>
+                        </button>
+                        <div class="car-bg" data-alt="Tesla Model S Plaid" style='background-image: url("./assets/images/downloaded_asset_6.jpg");'></div>
+                         <div class="absolute inset-0" style="background: linear-gradient(to top, var(--surface-dark), transparent, transparent); opacity: 0.6;"></div>
+                    </div>
+                    <div class="car-content">
+                        <h3 class="car-title">Tesla Model S Plaid</h3>
+                        <p class="car-meta"><span style="width:0.375rem; height:0.375rem; background-color:var(--primary); border-radius:50%;"></span> 2023 â€¢ 4,500 mi</p>
+                        
+                        <div class="car-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">speed</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">200 MPH</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">timer</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">1.99s 0-60</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">bolt</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">EV</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">settings</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">Auto</span>
+                            </div>
+                        </div>
+                        
+                        <div class="car-footer">
+                            <div class="price-row">
+                                <span class="car-price">$89,900</span>
+                                <a href="./product_details.html">
+                                    <button class="btn-details group/btn">
+                                        Details <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <button class="btn-add-cart btn-ripple add-to-cart" data-car-name="Tesla Model S Plaid" data-car-price="$89,900" data-car-year="2023" data-car-image="./assets/images/downloaded_asset_6.jpg">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">shopping_cart</span>
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Car Card 4 -->
+                <div class="car-card group">
+                    <div class="car-image-wrapper">
+                        <button class="btn-favorite group/heart">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">favorite</span>
+                        </button>
+                        <div class="car-bg" data-alt="McLaren 720S" style='background-image: url("./assets/images/downloaded_asset_11.jpg");'></div>
+                         <div class="absolute inset-0" style="background: linear-gradient(to top, var(--surface-dark), transparent, transparent); opacity: 0.6;"></div>
+                    </div>
+                    <div class="car-content">
+                        <h3 class="car-title">McLaren 720S</h3>
+                        <p class="car-meta"><span style="width:0.375rem; height:0.375rem; background-color:var(--primary); border-radius:50%;"></span> 2022 â€¢ 3,100 mi</p>
+                        
+                        <div class="car-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">speed</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">212 MPH</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">timer</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">2.8s 0-60</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">local_gas_station</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">Petrol</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined text-primary" style="font-size: 18px;">settings</span>
+                                <span style="font-weight: 500; letter-spacing: 0.025em;">DCT</span>
+                            </div>
+                        </div>
+                        
+                        <div class="car-footer">
+                            <div class="price-row">
+                                <span class="car-price">$245,000</span>
+                                <a href="./product_details.html">
+                                    <button class="btn-details group/btn">
+                                        Details <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                                    </button>
+                                </a>
+                            </div>
+                            <button class="btn-add-cart btn-ripple add-to-cart" data-car-name="McLaren 720S" data-car-price="$245,000" data-car-year="2022" data-car-image="./assets/images/downloaded_asset_11.jpg">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">shopping_cart</span>
+                                <span>Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="trending-section group" >
+            <div class="hero-overlay" style="opacity:0.05; background-image:url('./assets/images/downloaded_asset_12.png'); pointer-events:none;"></div>
+            <div class="hero-overlay" style="opacity:0.1; background:radial-gradient(#f4c025 1px,transparent 1px); background-size:30px 30px; pointer-events:none;"></div>
+            
+            <div class="container-max" style="position:relative; z-index:10;" >
+                <div style="display:flex; align-items:center; gap:1rem; margin-bottom:2.5rem;">
+                    <div style="position:relative;">
+                        <span class="material-symbols-outlined text-primary" style="font-size: 2.25rem; position:relative; z-index:10; margin-left: 50px;" >local_fire_department</span>
+                    </div>
+                    <h2 style="font-size: 1.875rem; font-weight:700; text-transform:uppercase; letter-spacing:-0.025em; color:var(--text-white); left: 30px;">Trending Deals</h2>
+                </div>
+                
+                <div class="deals-carousel no-scrollbar">
+                    <!-- Deal 1 -->
+                    <div class="deal-card group/deal">
+                        <div class="deal-timer">
+                            <span class="material-symbols-outlined" style="font-size: 14px;">timer</span> 24h Left
+                        </div>
+                        <div class="deal-image-wrap" data-alt="Lamborghini Huracan" style='background-image: url("./assets/images/downloaded_asset_7.jpg");'></div>
+                        <div class="deal-content">
+                            <h3 style="font-size: 1.25rem; font-weight:700; color:var(--text-white); text-transform:uppercase; margin-bottom:0.75rem;">Lamborghini Huracan EVO</h3>
+                            <div style="display:flex; align-items:baseline; gap:0.75rem; margin-bottom:1.5rem;">
+                                <span style="color:var(--primary); font-size:1.5rem; font-weight:700;">$230k</span>
+                                <span style="color:var(--text-gray-500); font-size:0.875rem; text-decoration:line-through;">$255k</span>
+                            </div>
+                            <button class="btn-claim btn-ripple group/claim">
+                                <span style="position:relative; z-index:10; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+                                    Claim Offer <span class="material-symbols-outlined" style="font-size: 14px;">arrow_right_alt</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Deal 2 -->
+                    <div class="deal-card group/deal">
+                        <div class="deal-timer">
+                            <span class="material-symbols-outlined" style="font-size: 14px;">timer</span> 12h Left
+                        </div>
+                        <div class="deal-image-wrap" data-alt="Audi R8" style='background-image: url("./assets/images/downloaded_asset_10.jpg");'></div>
+                        <div class="deal-content">
+                            <h3 style="font-size: 1.25rem; font-weight:700; color:var(--text-white); text-transform:uppercase; margin-bottom:0.75rem;">Audi R8 V10 Performance</h3>
+                            <div style="display:flex; align-items:baseline; gap:0.75rem; margin-bottom:1.5rem;">
+                                <span style="color:var(--primary); font-size:1.5rem; font-weight:700;">$165k</span>
+                                <span style="color:var(--text-gray-500); font-size:0.875rem; text-decoration:line-through;">$178k</span>
+                            </div>
+                            <button class="btn-claim btn-ripple group/claim">
+                                <span style="position:relative; z-index:10; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+                                    Claim Offer <span class="material-symbols-outlined" style="font-size: 14px;">arrow_right_alt</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Deal 3 -->
+                    <div class="deal-card group/deal">
+                        <div class="deal-timer">
+                            <span class="material-symbols-outlined" style="font-size: 14px;">timer</span> 48h Left
+                        </div>
+                        <div class="deal-image-wrap" data-alt="BMW M8" style='background-image: url("./assets/images/downloaded_asset_3.jpg");'></div>
+                        <div class="deal-content">
+                            <h3 style="font-size: 1.25rem; font-weight:700; color:var(--text-white); text-transform:uppercase; margin-bottom:0.75rem;">BMW M8 Gran Coupe</h3>
+                            <div style="display:flex; align-items:baseline; gap:0.75rem; margin-bottom:1.5rem;">
+                                <span style="color:var(--primary); font-size:1.5rem; font-weight:700;">$125k</span>
+                                <span style="color:var(--text-gray-500); font-size:0.875rem; text-decoration:line-through;">$139k</span>
+                            </div>
+                            <button class="btn-claim btn-ripple group/claim">
+                                <span style="position:relative; z-index:10; display:flex; align-items:center; justify-content:center; gap:0.5rem;">
+                                    Claim Offer <span class="material-symbols-outlined" style="font-size: 14px;">arrow_right_alt</span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <h2 style="text-align:center; font-size:2.25rem; font-weight:700; text-transform:uppercase; color:var(--text-white); margin-bottom:4rem; display:flex; justify-content:center; align-items:center; gap:1rem;">
+                <span class="h-px w-12 bg-gray-700" style="height:1px; width:3rem; background-color:#374151;"></span>
+                Client Experiences
+                <span class="h-px w-12 bg-gray-700" style="height:1px; width:3rem; background-color:#374151;"></span>
+            </h2>
+            
+            <div class="testimonial-grid">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card group">
+                    <span class="material-symbols-outlined quote-icon">format_quote</span>
+                    <div style="display:flex; gap:0.25rem; color:var(--primary); margin-bottom:1.5rem;">
+                        <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                    <p style="color:var(--text-gray-300); margin-bottom:2rem; font-style:italic; position:relative; z-index:10; font-size:1.125rem; line-height:1.625;">
+                        "The process was seamless. I traded in my GT3 for a new SF90, and the valuation was fair and immediate. Best luxury car buying experience I've had."
+                    </p>
+                    <div style="display:flex; align-items:center; gap:1rem; margin-top:auto; border-top:1px solid rgba(255,255,255,0.05); padding-top:1.5rem;">
+                        <div style="width:3rem; height:3rem; border-radius:50%; background-color:#374151; background-size:cover; background-position:center; background-image:url('./assets/images/downloaded_asset_5.jpg');"></div>
+                        <div>
+                            <p style="color:var(--text-white); font-weight:700;">James Caldwell</p>
+                            <p style="color:var(--text-gray-500); font-size:0.75rem; text-transform:uppercase; font-weight:600;">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card group">
+                    <span class="material-symbols-outlined quote-icon">format_quote</span>
+                    <div style="display:flex; gap:0.25rem; color:var(--primary); margin-bottom:1.5rem;">
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                    <p style="color:var(--text-gray-300); margin-bottom:2rem; font-style:italic; position:relative; z-index:10; font-size:1.125rem; line-height:1.625;">
+                        "Finding an electric vehicle with this level of performance was tough until I found Car Store. The filters made it incredibly easy to narrow down my search."
+                    </p>
+                    <div style="display:flex; align-items:center; gap:1rem; margin-top:auto; border-top:1px solid rgba(255,255,255,0.05); padding-top:1.5rem;">
+                        <div style="width:3rem; height:3rem; border-radius:50%; background-color:#374151; background-size:cover; background-position:center; background-image:url('./assets/images/downloaded_asset_1.jpg');"></div>
+                        <div>
+                            <p style="color:var(--text-white); font-weight:700;">Sarah Jenkins</p>
+                            <p style="color:var(--text-gray-500); font-size:0.75rem; text-transform:uppercase; font-weight:600;">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card group">
+                    <span class="material-symbols-outlined quote-icon">format_quote</span>
+                    <div style="display:flex; gap:0.25rem; color:var(--primary); margin-bottom:1.5rem;">
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star</span>
+                         <span class="material-symbols-outlined" style="font-size: 14px; font-variation-settings: 'FILL' 1;">star_half</span>
+                    </div>
+                    <p style="color:var(--text-gray-300); margin-bottom:2rem; font-style:italic; position:relative; z-index:10; font-size:1.125rem; line-height:1.625;">
+                        "Exceptional service. They delivered the car right to my driveway, detailed to perfection. The financing options were flexible and transparent."
+                    </p>
+                    <div style="display:flex; align-items:center; gap:1rem; margin-top:auto; border-top:1px solid rgba(255,255,255,0.05); padding-top:1.5rem;">
+                        <div style="width:3rem; height:3rem; border-radius:50%; background-color:#374151; background-size:cover; background-position:center; background-image:url('./assets/images/downloaded_asset_8.jpg');"></div>
+                        <div>
+                            <p style="color:var(--text-white); font-weight:700;">Michael Ross</p>
+                            <p style="color:var(--text-gray-500); font-size:0.75rem; text-transform:uppercase; font-weight:600;">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter-section">
+            <div class="newsletter-container group">
+                <!-- Animated Background Layers -->
+                <div class="newsletter-bg-texture"></div>
+                <div class="newsletter-grid-overlay"></div>
+                <div class="newsletter-glow-orb newsletter-glow-orb-1"></div>
+                <div class="newsletter-glow-orb newsletter-glow-orb-2"></div>
+                
+                <!-- Floating Particles -->
+                <div class="newsletter-particles">
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                </div>
+                
+                <div class="newsletter-content">
+                    <!-- Animated Icon -->
+                    <div class="newsletter-icon-wrapper">
+                        <div class="newsletter-icon-ring newsletter-icon-ring-1"></div>
+                        <div class="newsletter-icon-ring newsletter-icon-ring-2"></div>
+                        <div class="newsletter-icon-ring newsletter-icon-ring-3"></div>
+                        <div class="newsletter-icon-circle">
+                            <span class="material-symbols-outlined text-primary newsletter-icon">mark_email_unread</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Title with Animated Gradient -->
+                    <h2 class="newsletter-title">
+                        Join the <span class="newsletter-elite-text">Elite</span> Club
+                    </h2>
+                    
+                    <!-- Description -->
+                    <p class="newsletter-description">
+                        Be the first to know about new arrivals, exclusive track day events, and private auctions reserved for members.
+                    </p>
+                    
+                    <!-- Enhanced Form -->
+                    <form class="newsletter-form" id="newsletterForm">
+                        <div class="newsletter-input-wrapper">
+                            <div class="newsletter-input-glow"></div>
+                            <span class="material-symbols-outlined newsletter-input-icon">mail</span>
+                            <input class="newsletter-input" placeholder="Enter your email address" type="email" id="newsletterEmail" required/>
+                        </div>
+                        <button class="newsletter-submit-btn btn-ripple group/btn" type="submit">
+                            <span class="newsletter-btn-text">Subscribe</span>
+                            <span class="material-symbols-outlined newsletter-btn-icon">arrow_forward</span>
+                            <div class="newsletter-btn-shine"></div>
+                        </button>
+                    </form>
+                    
+                    <!-- Privacy Notice -->
+                    <p class="newsletter-privacy">
+                        <span class="material-symbols-outlined" style="font-size: 14px;">lock</span>
+                        We respect your privacy. No spam, ever.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+   <footer class="site-footer">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2026 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html">Privacy Policy</a>
+                    <a href="./legal.html">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+
+
+    <div class="audio-control">
+        <div class="audio-bars">
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="newsletter-success-modal hidden">
+        <div class="modal-backdrop"></div>
+        
+        <div class="modal-content">
+            <button class="modal-close" style="position:absolute; top:1.5rem; right:1.5rem; width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; transition:all 0.3s; color:var(--text-white);">
+                <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+            </button>
+            
+            <div style="display:flex; justify-content:center; margin-bottom:2rem;">
+                <div style="position:relative;">
+                    <div style="width:5rem; height:5rem; border-radius:50%; background-color:rgba(244,192,37,0.2); display:flex; align-items:center; justify-content:center; animation:pulse 2s infinite;"></div>
+                    <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+                        <span class="material-symbols-outlined text-primary" style="font-size: 60px;">check_circle</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align:center; margin-bottom:2rem;">
+                <h3 style="font-size:1.875rem; font-weight:700; color:var(--text-white); margin-bottom:1rem;">Welcome to the Elite Club!</h3>
+                <p style="color:var(--text-gray-300);">
+                    Your subscription was successful. Check your email for exclusive offers and track day invitations.
+                </p>
+            </div>
+            
+            <div style="background-color:rgba(0,0,0,0.3); border:1px solid rgba(244,192,37,0.2); border-radius:0.75rem; padding:1rem; margin-bottom:2rem; text-align:center;">
+                <p style="color:var(--text-gray-400); font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.5rem;">Subscribed Email</p>
+                <p class="modal-email text-primary" style="font-weight:700; font-size:1.125rem; word-break:break-all;"></p>
+            </div>
+            
+            <button class="modal-close btn-primary" style="width:100%; height:auto; padding:0.75rem; border-radius:0.75rem; font-size:0.875rem;">
+                Dismiss
+            </button>
+        </div>
+    </div>
+
+    <script src="./assets/js/cart.js"></script>
+    <script src="./assets/js/main.js"></script>
+</body>
+</html>
+

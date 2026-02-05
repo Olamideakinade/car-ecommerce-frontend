@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Car Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./assets/contact.css">
+</head>
+<body>
+    <style>
+        body,a,a:active, a:visited, a:hover {
+            text-decoration: none;
+            color:white;
+        }
+    </style>
+    <div class="container-wrapper">
+        <!-- Header -->
+        <header>
+            <div class="header-left">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <span class="material-symbols-outlined">directions_car</span>
+                    </div>
+                    <h2 class="logo-text">Car Store</h2>
+                </div>
+                <nav class="nav-menu">
+                    <a href="./index.html">Home</a>
+                    <a href="./about.html">About Us</a>
+                    <a href="#">Contact</a>
+                </nav>
+            </div>
+            <div class="header-right">
+                <div class="button-group">
+                    <a href="./login.html" style="text-decoration: none;color: #fff;"><button class="btn-signin">Sign In</button></a>
+                    <button class="btn-cart">
+                         <a href="./cartegory.html" style="text-decoration: none;color: #fff;"><span class="material-symbols-outlined">shopping_bag</span></a>
+                    </button>
+                </div>
+                <button class="menu-btn">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <div class="hero-background"></div>
+                <div class="hero-gradient"></div>
+                <div class="hero-content">
+                    <h1 class="hero-title">Get in Touch</h1>
+                    <p class="hero-subtitle">
+                        Experience Excellence. Whether you are looking to acquire your next supercar or service your current fleet, our concierge team is ready.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="content-wrapper">
+                <div class="grid-container">
+                    <!-- Form Section -->
+                    <div class="form-section">
+                        <div class="form-card">
+                            <h2>Send an Inquiry</h2>
+                            <form class="form-group">
+                                <div class="form-row">
+                                    <label class="form-label">
+                                        <span>First Name</span>
+                                        <input class="form-input" type="text" placeholder="Enter first name">
+                                    </label>
+                                    <label class="form-label">
+                                        <span>Last Name</span>
+                                        <input class="form-input" type="text" placeholder="Enter last name">
+                                    </label>
+                                </div>
+                                <div class="form-row">
+                                    <label class="form-label">
+                                        <span>Email Address</span>
+                                        <input class="form-input" type="email" placeholder="vip@example.com">
+                                    </label>
+                                    <label class="form-label">
+                                        <span>Phone Number</span>
+                                        <input class="form-input" type="tel" placeholder="+1 (555) 000-0000">
+                                    </label>
+                                </div>
+                                <label class="form-label">
+                                    <span>Inquiry Type</span>
+                                    <div class="select-wrapper">
+                                        <select class="form-select">
+                                            <option>Vehicle Sales</option>
+                                            <option>Service & Maintenance</option>
+                                            <option>General Inquiry</option>
+                                            <option>Financing</option>
+                                        </select>
+                                        <div class="select-icon">
+                                            <span class="material-symbols-outlined">expand_more</span>
+                                        </div>
+                                    </div>
+                                </label>
+                                <label class="form-label">
+                                    <span>Message</span>
+                                    <textarea class="form-textarea" placeholder="How can we assist you today?"></textarea>
+                                </label>
+                                <div class="form-submit">
+                                    <button class="btn-submit" type="button">
+                                        <span>Send Message</span>
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Info Section -->
+                    <div class="info-section">
+                        <!-- Contact Info Cards -->
+                        <div class="info-cards">
+                            <h3 class="info-heading">Direct Contact</h3>
+                            <div class="info-card hover-scale">
+                                <div class="info-icon">
+                                    <span class="material-symbols-outlined">storefront</span>
+                                </div>
+                                <div class="info-content">
+                                    <h4 class="info-title">Flagship Showroom</h4>
+                                    <p class="info-text">1234 Octane Blvd, Motor City<br>Open Mon-Sat, 9am - 8pm</p>
+                                </div>
+                            </div>
+                            <div class="info-card hover-scale">
+                                <div class="info-icon">
+                                    <span class="material-symbols-outlined">call</span>
+                                </div>
+                                <div class="info-content">
+                                    <h4 class="info-title">Direct Line</h4>
+                                    <p class="info-text">+1 (555) 000-CARS</p>
+                                    <a class="info-link" href="#">Call Now</a>
+                                </div>
+                            </div>
+                            <div class="info-card hover-scale">
+                                <div class="info-icon">
+                                    <span class="material-symbols-outlined">mail</span>
+                                </div>
+                                <div class="info-content">
+                                    <h4 class="info-title">Concierge Email</h4>
+                                    <p class="info-text">vip@carstore.com</p>
+                                    <a class="info-link" href="#">Send Email</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Map Section -->
+                        <div class="map-section">
+                            <h3 class="info-heading">Location</h3>
+                            <div class="map-container">
+                                <div class="map-background"></div>
+                                <div class="map-controls">
+                                    <button class="map-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                    <button class="map-btn">
+                                        <span class="material-symbols-outlined">remove</span>
+                                    </button>
+                                </div>
+                                <div class="map-pin">
+                                    <div class="pin-circle">
+                                        <div class="pin-pulse"></div>
+                                        <div class="pin-dot">
+                                            <span class="material-symbols-outlined">storefront</span>
+                                        </div>
+                                    </div>
+                                    <div class="pin-label">Showroom</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+       <footer class="site-footer">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">© 2024 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html" style="text-decoration: none;">Privacy Policy</a>
+                    <a href="./legal.html" style="text-decoration: none;">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button class="chat-btn">
+        <span class="material-symbols-outlined">chat</span>
+        <span class="chat-text">Email Us</span>
+        <span class="chat-indicator">
+            <span class="chat-ping"></span>
+            <span class="chat-dot"></span>
+        </span>
+    </button>
+    <script src="./assets/contact.js"></script>
+</body>
+</html>

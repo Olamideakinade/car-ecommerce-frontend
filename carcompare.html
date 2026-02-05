@@ -1,0 +1,563 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Comparison Page: Car Battle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <link rel="stylesheet" href="./assets/car_compare/carcompare.css" type="text/css"/>
+</head>
+<body>
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <div class="breadcrumb-item">
+            <span class="material-symbols-outlined breadcrumb-icon">Garage</span>
+            <a href="./index.html" style="color: inherit; text-decoration: none;">Garage</a>
+        </div>
+        <span class="breadcrumb-separator">/</span>
+        <div class="breadcrumb-item">
+            <span class="material-symbols-outlined breadcrumb-icon">directions_car</span>
+            <span>Vehicles</span>
+        </div>
+        <span class="breadcrumb-separator">/</span>
+        <div class="breadcrumb-item active">
+            <span class="material-symbols-outlined breadcrumb-icon">stadia_controller</span>
+            <span>Battle Arena</span>
+        </div>
+
+        <div class="progress-badge">
+            <span class="material-symbols-outlined" style="font-size: 1rem;">equalizer</span>
+            Comparison Mode
+        </div>
+    </nav>
+
+    <header>
+        <div class="header-logo">
+            <div class="header-logo-icon">
+                <span class="material-symbols-outlined">directions_car</span>
+            </div>
+            <h2>Car Store</h2>
+        </div>
+        <nav class="header-nav">
+            <div class="header-menu">
+                <a href="#" class="active">Battle Arena</a>
+                <a href="./user_dashboard.html">User Dashboard</a>
+                <a href="./cartegory.html">Garage</a>
+            </div>
+            <div class="header-buttons">
+                <!-- Notification Bell -->
+                <div class="notification-container">
+                    <button class="btn-micro btn-secondary" style="padding: 0; width: 2.5rem; justify-content: center;">
+                        <span class="material-symbols-outlined" style="font-size: 1.25rem;">notifications</span>
+                        <span class="notification-dot" style="position: absolute; top: 8px; right: 8px; width: 8px; height: 8px; background-color: #dc2626; border-radius: 50%; border: 1px solid var(--surface-dark);"></span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-title">Notifications (3)</span>
+                            <span class="mark-read">Mark all as read</span>
+                        </div>
+                        <div class="dropdown-list">
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">local_offer</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">Price Drop Alert</p>
+                                    <p class="item-desc">Porsche 911 GT3 is now $2,500 cheaper.</p>
+                                    <span class="item-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">emoji_events</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">New Challenge</p>
+                                    <p class="item-desc">Quarter mile drag race event started.</p>
+                                    <span class="item-time">5 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">update</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">System Update</p>
+                                    <p class="item-desc">Comparison engine v2.0 is live.</p>
+                                    <span class="item-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="./shopping_cart.html" style="text-decoration: none;"><button class="btn-micro btn-primary"><span class="material-symbols-outlined" style="margin-right: 0.5rem; font-size: 0.875rem;">shopping_cart</span>Shopping Cart</button></a>
+                <button class="btn-micro btn-secondary">
+                    <span class="material-symbols-outlined" style="margin-right: 0.5rem; font-size: 0.875rem;">search</span>
+                    Search
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="hero-wrapper">
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <span class="material-symbols-outlined">stadia_controller</span>
+                    Comparison Arena
+                </div>
+                <h1 class="hero-title">Battle Mode</h1>
+                <p class="hero-subtitle">Compare specifications, performance, and features side-by-side.</p>
+            </div>
+            <div class="hero-actions">
+                <button class="action-btn">
+                    <span class="material-symbols-outlined">ios_share</span>
+                    Share
+                </button>
+                <button class="action-btn export">
+                    <span class="material-symbols-outlined">picture_as_pdf</span>
+                    Export PDF
+                </button>
+            </div>
+        </div>
+
+        <div class="filter-panel">
+            <div class="filter-content">
+                <div class="filter-info">
+                    <div class="filter-icon">
+                        <span class="material-symbols-outlined">tune</span>
+                    </div>
+                    <div class="filter-text">
+                        <h4>Highlight Differences</h4>
+                        <p>Automatically dims identical specs to focus on what matters.</p>
+                    </div>
+                </div>
+                <label class="toggle-switch" id="toggle-label">
+                    <div class="toggle-knob"></div>
+                    <input class="toggle-input" id="highlight-checkbox" type="checkbox" checked/>
+                </label>
+            </div>
+        </div>
+
+        <div class="comparison-grid">
+            <!-- First Car Card -->
+            <div class="card-col">
+                <div class="car-card">
+                    <button class="card-close-btn">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                    <div class="card-image" style='background-image: url("./assets/images/downloaded_asset_42.jpg");'></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">BMW M4 Competition</h3>
+                            <div class="winner-badge">Winner</div>
+                        </div>
+                        <p class="card-meta">2024 Model â€¢ Coupe</p>
+                        <p class="card-price">$78,600</p>
+                         <a href="./product_details.html"><div class="card-buttons">
+                          <button class="card-btn card-btn-secondary">Details</button>
+                        </div></a> 
+                    </div>
+                </div>
+                <style>
+                    a:visited,a,a:active{
+                        text-decoration: none;
+                    }
+                </style>
+
+                <div class="specs-section">
+                    <div class="specs-title">
+                        <span class="material-symbols-outlined">earth_engine</span>
+                        Performance
+                    </div>
+                    <div class="specs-content">
+                        <div class="spec-item">
+                            <div class="spec-header">
+                                <span class="spec-label">Horsepower</span>
+                                <span class="spec-value">503 HP</span>
+                            </div>
+                            <div class="spec-bar">
+                                <div class="spec-bar-fill" style="width: 90%;"></div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-header">
+                                <span class="spec-label">0-60 MPH</span>
+                                <span class="spec-value">3.4s</span>
+                            </div>
+                            <div class="spec-bar">
+                                <div class="spec-bar-fill" style="width: 95%;"></div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-header">
+                                <span class="spec-label">Top Speed</span>
+                                <span class="spec-value">180 MPH</span>
+                            </div>
+                            <div class="spec-bar">
+                                <div class="spec-bar-fill secondary" style="width: 85%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="specs-section">
+                    <div class="specs-title">
+                        <span class="material-symbols-outlined">settings</span>
+                        Technical
+                    </div>
+                    <div class="technical-list">
+                        <div class="technical-item">
+                            <span class="technical-label">Engine Type</span>
+                            <span class="technical-value">3.0L Twin-Turbo I6</span>
+                        </div>
+                        <div class="technical-item">
+                            <span class="technical-label">Drivetrain</span>
+                            <span class="technical-value">RWD / AWD</span>
+                        </div>
+                        <div class="technical-item">
+                            <span class="technical-label">MPG (City/Hwy)</span>
+                            <span class="technical-value">16 / 23</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VS Divider -->
+            <div class="vs-divider">
+                <div class="vs-circle">VS</div>
+                <div class="vs-line"></div>
+            </div>
+
+            <!-- Second Car Card -->
+            <div class="card-col">
+                <div class="car-card">
+                    <button class="card-close-btn">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                    <div class="card-image" style='background-image: url("./assets/images/downloaded_asset_43.jpg");'></div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">Audi RS5 Sportback</h3>
+                        </div>
+                        <p class="card-meta">2024 Model â€¢ Sportback</p>
+                        <p class="card-price">$79,600</p>
+                       <a href="./product_details.html"><div class="card-buttons">
+                          <button class="card-btn card-btn-secondary">Details</button>
+                        </div></a> 
+                    </div>
+                </div>
+
+                <div class="specs-section">
+                    <div class="specs-title">
+                        <span class="material-symbols-outlined">earth_engine</span>
+                        Performance
+                    </div>
+                    <div class="specs-content">
+                        <div class="spec-item">
+                            <div class="spec-header">
+                                <span class="spec-label">Horsepower</span>
+                                <span class="spec-value">444 HP</span>
+                            </div>
+                            <div class="spec-bar">
+                                <div class="spec-bar-fill secondary" style="width: 75%;"></div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-header">
+                                <span class="spec-label">0-60 MPH</span>
+                                <span class="spec-value">3.8s</span>
+                            </div>
+                            <div class="spec-bar">
+                                <div class="spec-bar-fill secondary" style="width: 80%;"></div>
+                            </div>
+                        </div>
+                        <div class="spec-item">
+                            <div class="spec-header">
+                                <span class="spec-label">Top Speed</span>
+                                <span class="spec-value">174 MPH</span>
+                            </div>
+                            <div class="spec-bar">
+                                <div class="spec-bar-fill secondary" style="width: 82%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="specs-section">
+                    <div class="specs-title">
+                        <span class="material-symbols-outlined">settings</span>
+                        Technical
+                    </div>
+                    <div class="technical-list">
+                        <div class="technical-item">
+                            <span class="technical-label">Engine Type</span>
+                            <span class="technical-value">2.9L Twin-Turbo V6</span>
+                        </div>
+                        <div class="technical-item">
+                            <span class="technical-label">Drivetrain</span>
+                            <span class="technical-value">AWD (Quattro)</span>
+                        </div>
+                        <div class="technical-item">
+                            <span class="technical-label">MPG (City/Hwy)</span>
+                            <span class="technical-value">18 / 25</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Vehicle Button -->
+            <a href="cartegory.html" style="text-decoration: white;"><div class="add-vehicle-col">
+                <button class="add-vehicle-btn">
+                    <div class="add-icon">
+                        <span class="material-symbols-outlined">add</span>
+                    </div>
+                    <span class="add-text">Add Vehicle</span>
+                </button>
+            </div>
+        </div></a>
+
+        <!-- Analytics Section -->
+        <div class="analytics-section">
+            <h3 class="analytics-title">Detailed Analytics</h3>
+            <div class="analytics-grid">
+                <div class="analytics-chart">
+                    <p class="chart-label">Horsepower Comparison</p>
+                    <div class="v-bars-container">
+                        <div class="v-bar-wrapper">
+                            <div class="v-bar" style="height: 90%;"></div>
+                            <div class="v-bar-label">503</div>
+                            <div class="v-bar-name">BMW</div>
+                        </div>
+                        <div class="v-bar-wrapper">
+                            <div class="v-bar secondary" style="height: 75%;"></div>
+                            <div class="v-bar-label">444</div>
+                            <div class="v-bar-name">Audi</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="analytics-chart">
+                    <p class="chart-label">0-60 MPH Acceleration (Lower is Better)</p>
+                    <div class="h-bars-container">
+                        <div class="h-bar-item">
+                            <div class="h-bar-header">
+                                <span class="h-bar-label">BMW M4</span>
+                                <span class="h-bar-value">3.4s</span>
+                            </div>
+                            <div class="h-bar-track">
+                                <div class="h-bar-fill" style="width: 34%;">
+                                    <span class="h-bar-icon material-symbols-outlined">speed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-bar-item">
+                            <div class="h-bar-header">
+                                <span class="h-bar-label">Audi RS5</span>
+                                <span class="h-bar-value dim">3.8s</span>
+                            </div>
+                            <div class="h-bar-track">
+                                <div class="h-bar-fill secondary" style="width: 38%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Bar -->
+    <div class="mobile-bottom-bar">
+       <button class="mobile-bottom-btn"><a href="./user_dashboard.html" style="text-decoration: none; color: black">User Dashboard</a></button>
+        <button class="mobile-bottom-btn add" >
+            <a href="./cartegory.html" style="text-decoration: none; color: white"><span class="material-symbols-outlined" title="Add more cars">add</span></a>
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Unhide body
+            gsap.set("body", { visibility: "visible" });
+            
+            // Breadcrumb animations
+            gsap.from('.breadcrumb-item', {
+                x: -20,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'power2.out'
+            });
+
+            // --- 1. Initial Reveal Animation Sequence ---
+            const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+            
+            // Header Reveal
+            tl.from("header", { 
+                y: -50, 
+                opacity: 0, 
+                duration: 0.8 
+            })
+            // Hero Text Stagger
+            .from(".hero-text > *", {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1
+            }, "-=0.5")
+            // Hero Action Buttons
+            .from(".hero-actions button", {
+                scale: 0.8,
+                opacity: 0,
+                duration: 0.5,
+                stagger: 0.1
+            }, "-=0.6")
+            // Filter Panel
+            .from(".filter-panel", {
+                y: 20,
+                opacity: 0,
+                duration: 0.6
+            }, "-=0.4")
+            // Main Cards Stagger
+            .from(".card-col", {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2
+            }, "-=0.2")
+            // VS Divider Line
+            .from(".vs-line", {
+                scaleY: 0,
+                duration: 1,
+                ease: "circ.inOut"
+            }, "-=0.8")
+            .from(".vs-circle", {
+                scale: 0,
+                rotation: -180,
+                opacity: 0,
+                duration: 0.6,
+                ease: "back.out(1.7)"
+            }, "-=0.4");
+
+            // --- 2. Specs Progress Bars ---
+            gsap.utils.toArray(".spec-bar-fill").forEach(bar => {
+                const width = bar.style.width;
+                gsap.from(bar, {
+                    width: 0,
+                    duration: 1.2,
+                    ease: "power2.out",
+                    delay: 1.5
+                });
+            });
+
+            // --- 3. Analytics Section (ScrollTrigger) ---
+            // Vertical Bars
+            gsap.utils.toArray(".v-bar").forEach((bar, i) => {
+                const height = bar.style.height;
+                gsap.from(bar, {
+                    scrollTrigger: {
+                        trigger: ".analytics-section",
+                        start: "top 80%",
+                    },
+                    height: 0,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out",
+                    delay: i * 0.1
+                });
+                
+                const label = bar.parentElement.querySelector('.v-bar-label');
+                if(label) {
+                    gsap.from(label, {
+                        scrollTrigger: {
+                            trigger: ".analytics-section",
+                            start: "top 80%",
+                        },
+                        y: 20,
+                        duration: 0.8,
+                        delay: 0.5 + (i * 0.1)
+                    });
+                }
+            });
+
+            // Horizontal Bars
+            gsap.utils.toArray(".h-bar-fill").forEach((bar, i) => {
+                const width = bar.style.width;
+                gsap.from(bar, {
+                    scrollTrigger: {
+                        trigger: ".analytics-section",
+                        start: "top 80%",
+                    },
+                    width: 0,
+                    duration: 1.2,
+                    ease: "power2.out",
+                    delay: 0.2 + (i * 0.2)
+                });
+            });
+
+            // --- 4. Button Interactions ---
+            const buttons = document.querySelectorAll("button");
+            buttons.forEach(btn => {
+                btn.addEventListener("mouseenter", () => {
+                    gsap.to(btn, { scale: 1.05, duration: 0.2, ease: "power1.out" });
+                });
+                btn.addEventListener("mouseleave", () => {
+                    gsap.to(btn, { scale: 1, duration: 0.2, ease: "power1.out" });
+                });
+            });
+
+            // Card Image Hover
+            const cardImages = document.querySelectorAll(".card-image");
+            cardImages.forEach(img => {
+                img.parentElement.addEventListener("mouseenter", () => {
+                    gsap.to(img, { scale: 1.1, duration: 0.5, ease: "power2.out" });
+                });
+                img.parentElement.addEventListener("mouseleave", () => {
+                    gsap.to(img, { scale: 1.0, duration: 0.5, ease: "power2.out" });
+                });
+            });
+
+            // --- 5. Toggle Logic ---
+            const toggle = document.getElementById("highlight-checkbox");
+            const toggleLabel = document.getElementById("toggle-label");
+            const dimTargets = document.querySelectorAll(".spec-label, .technical-label");
+            const highlightTargets = document.querySelectorAll(".spec-value, .technical-value, .winner-badge");
+
+            const updateHighlightState = (isChecked) => {
+                if(isChecked) {
+                    gsap.to(dimTargets, { opacity: 0.2, duration: 0.4 });
+                    gsap.to(highlightTargets, { 
+                        scale: 1.1, 
+                        textShadow: "0 0 10px rgba(244,192,37,0.5)",
+                        duration: 0.4 
+                    });
+                } else {
+                    gsap.to(dimTargets, { opacity: 1, duration: 0.4 });
+                    gsap.to(highlightTargets, { 
+                        scale: 1, 
+                        textShadow: "none",
+                        duration: 0.4 
+                    });
+                }
+            };
+
+            toggle.addEventListener("change", (e) => {
+                toggleLabel.classList.toggle("checked", e.target.checked);
+                updateHighlightState(e.target.checked);
+            });
+
+            // Initialize toggle state
+            toggleLabel.classList.toggle("checked", toggle.checked);
+            if(toggle.checked) {
+                gsap.set(dimTargets, { opacity: 0.2 });
+                gsap.set(highlightTargets, { scale: 1.1, textShadow: "0 0 10px rgba(244,192,37,0.5)" });
+            }
+        });
+    </script>
+</body>
+</html>

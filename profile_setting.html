@@ -1,0 +1,1317 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="custom-scrollbar">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Store | Profile Settings</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+    
+    <style>
+        /* Modern Profile Settings Styles */
+        .profile-hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(244, 192, 37, 0.1) 0%, rgba(10, 10, 10, 0.8) 100%);
+            border-radius: 1.5rem;
+            padding: 3rem 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(244, 192, 37, 0.2);
+            backdrop-filter: blur(20px);
+            overflow: hidden;
+        }
+        
+        .profile-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(244, 192, 37, 0.1) 0%, transparent 70%);
+            animation: heroGlow 8s ease-in-out infinite;
+        }
+        
+        @keyframes heroGlow {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(180deg); }
+        }
+        
+        .profile-hero-content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .avatar-wrapper {
+            position: relative;
+            width: 140px;
+            height: 140px;
+        }
+        
+        .avatar-ring {
+            position: absolute;
+            inset: -8px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f4c025, #ff6b00, #f4c025);
+            animation: ringRotate 3s linear infinite;
+            padding: 3px;
+        }
+        
+        @keyframes ringRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .avatar-ring::after {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            background: #0a0a0a;
+            border-radius: 50%;
+        }
+        
+        .avatar-image {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0a0a0a;
+        }
+        
+        .avatar-status {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            background: #22c55e;
+            border-radius: 50%;
+            border: 3px solid #0a0a0a;
+            z-index: 3;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+            50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+        }
+        
+        .profile-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .profile-name {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.7) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .member-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #f4c025 0%, #ff6b00 100%);
+            color: #000;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 900;
+            color: #f4c025;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Modern Tabs */
+        .tab-navigation {
+            position: relative;
+            display: flex;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        
+        .tab-navigation::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .tab-btn {
+            position: relative;
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem 1.5rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .tab-btn:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .tab-btn.active {
+            color: #000;
+            background: linear-gradient(135deg, #f4c025 0%, #ffd147 100%);
+            box-shadow: 0 4px 20px rgba(244, 192, 37, 0.4);
+        }
+        
+        .tab-content {
+            display: none;
+            animation: tabFadeIn 0.5s ease-out;
+        }
+        
+        .tab-content.active {
+            display: block !important;
+        }
+        
+        @keyframes tabFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Modern Cards */
+        .settings-grid {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 0;
+            padding: 0;
+        }
+        
+        @media (min-width: 768px) {
+            .settings-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .settings-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        .settings-card {
+            visibility: visible;
+            opacity: 1;
+            background: linear-gradient(135deg, rgba(39, 36, 27, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            min-height: 300px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .settings-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(244, 192, 37, 0.2);
+            border-color: rgba(244, 192, 37, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, rgba(244, 192, 37, 0.2) 0%, rgba(255, 107, 0, 0.2) 100%);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f4c025;
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        /* Modern Input Fields */
+        .input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            padding: 1rem 1rem 1rem 3rem;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            border-color: #f4c025;
+            box-shadow: 0 0 20px rgba(244, 192, 37, 0.3), inset 0 0 10px rgba(244, 192, 37, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+        }
+        
+        .input-label {
+            position: absolute;
+            left: 3rem;
+            top: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus + .input-label,
+        .input-group input:not(:placeholder-shown) + .input-label {
+            top: -0.5rem;
+            left: 0.75rem;
+            font-size: 0.75rem;
+            color: #f4c025;
+            background: #0a0a0a;
+            padding: 0 0.5rem;
+        }
+        
+        /* Action Button */
+        .btn-primary-modern {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #f4c025 0%, #ffd147 100%);
+            color: #000;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary-modern:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(244, 192, 37, 0.4);
+        }
+        
+        /* Toggle Switch */
+        .toggle-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .toggle-wrapper:last-child {
+            border-bottom: none;
+        }
+        
+        .toggle-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        
+        .toggle-info p {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 32px;
+            transition: 0.3s;
+        }
+        
+        .toggle-slider::before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 4px;
+            background: #fff;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        
+        .toggle-switch input:checked + .toggle-slider {
+            background: linear-gradient(135deg, #f4c025 0%, #ffd147 100%);
+        }
+        
+        .toggle-switch input:checked + .toggle-slider::before {
+            transform: translateX(28px);
+        }
+        /* Notification Dropdown */
+        .notification-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 320px;
+            max-width: calc(100vw - 2rem);
+            background: linear-gradient(135deg, rgba(32, 32, 32, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            margin-top: 1rem;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
+        }
+
+        @media (max-width: 640px) {
+            .notification-dropdown {
+                position: fixed;
+                right: 1rem;
+                left: 1rem;
+                width: auto;
+                max-width: none;
+                transform-origin: top center;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .notification-dropdown {
+                right: 0.5rem;
+                left: 0.5rem;
+            }
+        }
+
+        .notification-dropdown.active {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .notification-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .notification-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .notification-count {
+            background: var(--primary);
+            color: #000;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 999px;
+        }
+
+        .notification-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .notification-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .notification-item.unread .notification-text {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .notification-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(244, 192, 37, 0.1);
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-text {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+        }
+
+        .notification-time {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .notification-item.unread::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            margin-top: 6px;
+        }
+    </style>
+</head>
+<body style="background: #0a0a0a; color: #fff; font-family: 'Space Grotesk', sans-serif; min-height: 100vh;">
+
+    <!-- Header -->
+    <header class="glass-panel" style="position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1rem 1.5rem;">
+        <div style="max-width: 1440px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;">
+            <a href="index.html" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit;">
+                <div style="width: 2rem; height: 2rem; background-color: var(--primary); border-radius: 0.25rem; display: flex; align-items: center; justify-content: center; color: black;">
+                    <span class="material-symbols-outlined" style="font-weight: 700;">diamond</span>
+                </div>
+                <h2 style="font-size: 1.25rem; font-weight: 700; letter-spacing: -0.05em; text-transform: uppercase; font-style: italic;">Car Store</h2>
+            </a>
+            
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div style="position: relative;" class="notification-container">
+                    <button id="notificationBtn" style="position: relative; padding: 0.5rem; border-radius: 9999px; background: transparent; border: none; cursor: pointer; color: white;" class="hover-lift">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span style="position: absolute; top: 0.5rem; right: 0.5rem; width: 0.5rem; height: 0.5rem; background-color: var(--primary); border-radius: 50%;"></span>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="notification-dropdown">
+                        <div class="notification-header">
+                            <span class="notification-title">Notifications</span>
+                            <span class="notification-count">3 New</span>
+                        </div>
+                        <div class="notification-list">
+                            <div class="notification-item unread">
+                                <div class="notification-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">security</span>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">New login detected from Chrome on Windows.</p>
+                                    <span class="notification-time">2 mins ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">price_check</span>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Price drop alert! Model X is now 5% off.</p>
+                                    <span class="notification-time">1 hour ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item unread">
+                                <div class="notification-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">stars</span>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Welcome to Premium Membership Tier.</p>
+                                    <span class="notification-time">1 day ago</span>
+                                </div>
+                            </div>
+                            <div class="notification-item">
+                                <div class="notification-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">shopping_bag</span>
+                                </div>
+                                <div class="notification-content">
+                                    <p class="notification-text">Order #4492 has been delivered.</p>
+                                    <span class="notification-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 1rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 0.75rem;">
+                            <button style="background: transparent; border: none; color: var(--primary); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; cursor: pointer;">Mark all as read</button>
+                        </div>
+                    </div>
+                </div>
+                <a href="./user_dashboard.html" style="text-decoration: none;">
+                    <button style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 0.5rem 1rem; border-radius: 0.5rem; color: white; cursor: pointer; transition: all 0.3s;" class="hover-lift">
+                        <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 0.5rem;">dashboard</span>
+                        Dashboard
+                    </button>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main style="max-width: 1440px; margin: 0 auto; padding: 2rem 1.5rem; visibility: visible; opacity: 1;">
+        
+        <!-- Profile Hero Section -->
+        <div class="profile-hero">
+            <div class="profile-hero-content">
+                <div class="avatar-wrapper">
+                    <div class="avatar-ring"></div>
+                    <img src="./assets/images/downloaded_asset_19.jpg" alt="Profile" class="avatar-image"/>
+                    <div class="avatar-status"></div>
+                </div>
+                
+                <div class="profile-info">
+                    <h1 class="profile-name">Alex Sterling</h1>
+                    <span class="member-badge">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">stars</span>
+                        Premium Member
+                    </span>
+                    <div class="profile-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" data-target="12">0</div>
+                            <div class="stat-label">Cars Owned</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" data-target="98">0</div>
+                            <div class="stat-label">Trust Score</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">2023</div>
+                            <div class="stat-label">Member Since</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabbed Navigation -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="personal">
+                <span class="material-symbols-outlined">person</span>
+                Personal
+            </button>
+            <button class="tab-btn" data-tab="security">
+                <span class="material-symbols-outlined">shield</span>
+                Security
+            </button>
+            <button class="tab-btn" data-tab="preferences">
+                <span class="material-symbols-outlined">tune</span>
+                Preferences
+            </button>
+            <button class="tab-btn" data-tab="notifications">
+                <span class="material-symbols-outlined">notifications</span>
+                Notifications
+            </button>
+        </div>
+
+        <!-- Tab Content: Personal -->
+        <div class="tab-content active" id="personal">
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">badge</span>
+                        </div>
+                        <h3 class="card-title">Basic Information</h3>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">person</span>
+                        <input type="text" value="Alex Sterling" placeholder=" "/>
+                        <label class="input-label">Full Name</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">mail</span>
+                        <input type="email" value="alex.sterling@premium.auto" placeholder=" "/>
+                        <label class="input-label">Email Address</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">phone</span>
+                        <input type="tel" value="+1 (555) 0123-4567" placeholder=" "/>
+                        <label class="input-label">Phone Number</label>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">location_on</span>
+                        </div>
+                        <h3 class="card-title">Address Details</h3>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">home</span>
+                        <input type="text" placeholder=" "/>
+                        <label class="input-label">Street Address</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">location_city</span>
+                        <input type="text" placeholder=" "/>
+                        <label class="input-label">City</label>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">public</span>
+                        <input type="text" placeholder=" "/>
+                        <label class="input-label">Country</label>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">photo_camera</span>
+                        </div>
+                        <h3 class="card-title">Profile Picture</h3>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 2rem 0;">
+                        <img src="./assets/images/downloaded_asset_19.jpg" alt="Avatar" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(244,192,37,0.3); margin-bottom: 1rem;"/>
+                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.5); margin-bottom: 1rem;">JPG, PNG or GIF. Max size 5MB</p>
+                        <button class="btn-primary-modern">Upload New Photo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Security -->
+        <div class="tab-content" id="security">
+            <div class="settings-grid">
+                <div class="settings-card" style="grid-column: 1 / -1;">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">lock</span>
+                        </div>
+                        <h3 class="card-title">Change Password</h3>
+                    </div>
+                    
+                    <div style="max-width: 600px;">
+                        <div class="input-group">
+                            <span class="material-symbols-outlined input-icon">key</span>
+                            <input type="password" placeholder=" "/>
+                            <label class="input-label">Current Password</label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <span class="material-symbols-outlined input-icon">vpn_key</span>
+                            <input type="password" placeholder=" "/>
+                            <label class="input-label">New Password</label>
+                        </div>
+                        
+                        <div class="input-group">
+                            <span class="material-symbols-outlined input-icon">check_circle</span>
+                            <input type="password" placeholder=" "/>
+                            <label class="input-label">Confirm New Password</label>
+                        </div>
+                        
+                        <button class="btn-primary-modern">Update Password</button>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">security</span>
+                        </div>
+                        <h3 class="card-title">Two-Factor Auth</h3>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.6); margin-bottom: 1.5rem;">Add an extra layer of security to your account with 2FA authentication.</p>
+                    <span style="display: inline-block; background: rgba(34, 197, 94, 0.2); color: #22c55e; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 700; margin-bottom: 1rem;">
+                        <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 16px;">verified</span>
+                        Enabled
+                    </span>
+                    <button class="btn-primary-modern">Manage 2FA</button>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">devices</span>
+                        </div>
+                        <h3 class="card-title">Active Sessions</h3>
+                    </div>
+                    <p style="color: rgba(255,255,255,0.6); margin-bottom: 1.5rem;">Monitor and manage devices that are currently logged into your account.</p>
+                    <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem;">
+                        <p style="font-weight: 600; margin-bottom: 0.25rem;">Chrome on Windows</p>
+                        <p style="font-size: 0.875rem; color: rgba(255,255,255,0.5);">Last active: Just now</p>
+                    </div>
+                    <button class="btn-primary-modern">View All Sessions</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Preferences -->
+        <div class="tab-content" id="preferences">
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">language</span>
+                        </div>
+                        <h3 class="card-title">Language & Region</h3>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">translate</span>
+                        <select style="padding: 1rem;">
+                            <option>English (US)</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                            <option>German</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <span class="material-symbols-outlined input-icon">attach_money</span>
+                        <select style="padding: 1rem;">
+                            <option>USD ($)</option>
+                            <option>EUR (â‚¬)</option>
+                            <option>GBP (Â£)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">dark_mode</span>
+                        </div>
+                        <h3 class="card-title">Appearance</h3>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Dark Mode</h4>
+                            <p>Use dark theme across the platform</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Animations</h4>
+                            <p>Enable smooth animations and transitions</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">Speed</span>
+                        </div>
+                        <h3 class="card-title">Performance</h3>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Auto-play Videos</h4>
+                            <p>Automatically play videos on page load</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox"/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>High Quality Images</h4>
+                            <p>Load higher resolution images</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Content: Notifications -->
+        <div class="tab-content" id="notifications">
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">mail</span>
+                        </div>
+                        <h3 class="card-title">Email Notifications</h3>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>New Arrivals</h4>
+                            <p>Get notified about new luxury cars</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Price Drops</h4>
+                            <p>Alerts when watched cars drop in price</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Newsletter</h4>
+                            <p>Weekly automotive news and updates</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox"/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">notifications_active</span>
+                        </div>
+                        <h3 class="card-title">Push Notifications</h3>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Auction Updates</h4>
+                            <p>Real-time alerts for watched auctions</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Messages</h4>
+                            <p>Notifications for new messages</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>System Updates</h4>
+                            <p>Platform updates and maintenance alerts</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox"/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <span class="material-symbols-outlined">sms</span>
+                        </div>
+                        <h3 class="card-title">SMS Notifications</h3>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Security Alerts</h4>
+                            <p>SMS for important security events</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="toggle-wrapper">
+                        <div class="toggle-info">
+                            <h4>Purchase Updates</h4>
+                            <p>Order confirmations and delivery status</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked/>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Save Changes Button -->
+        <div style="margin-top: 2rem; display: flex; justify-content: flex-end; gap: 1rem;">
+            <button style="padding: 1rem 2rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); border-radius: 0.75rem; color: white; font-weight: 700; cursor: pointer; transition: all 0.3s;" class="hover-lift">
+                Cancel
+            </button>
+            <button class="btn-primary-modern" style="width: auto; min-width: 200px;" id="save-btn">
+                <span class="material-symbols-outlined" style="vertical-align: middle; margin-right: 0.5rem;">save</span>
+                Save Changes
+            </button>
+        </div>
+
+    </main>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+        // Amazing Animation System
+        
+        // Page Load Timeline
+        const pageTimeline = gsap.timeline();
+        
+        // Header animation
+        pageTimeline.from("header", {
+            y: -100,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+        
+        // Hero section animation
+        pageTimeline.from(".profile-hero", {
+            scale: 0.9,
+            opacity: 0,
+            duration: 1,
+            ease: "back.out(1.4)"
+        }, "-=0.4");
+        
+        // Avatar ring animation
+        pageTimeline.from(".avatar-ring", {
+            scale: 0,
+            rotation: -180,
+            duration: 0.8,
+            ease: "back.out(2)"
+        }, "-=0.6");
+        
+        // Avatar image pop
+        pageTimeline.from(".avatar-image", {
+            scale: 0,
+            duration: 0.6,
+            ease: "back.out(2)"
+        }, "-=0.4");
+        
+        // Stats counter animation
+        document.querySelectorAll('.stat-value[data-target]').forEach(stat => {
+            const target = parseInt(stat.getAttribute('data-target'));
+            gsap.to(stat, {
+                innerText: target,
+                duration: 2,
+                snap: { innerText: 1 },
+                ease: "power1.out",
+                delay: 0.8
+            });
+        });
+        
+        // Tab navigation slide in
+        pageTimeline.from(".tab-navigation", {
+            y: 40,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power2.out"
+        }, "-=0.8");
+        
+        // Cards cascade in - using fromTo to ensure they end up visible
+        gsap.fromTo(".settings-card", 
+            {
+                y: 60,
+                opacity: 0
+            },
+            {
+                y: 0,
+                opacity: 1,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+                delay: 1.2
+            }
+        );
+        
+        // Tab switching functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.getAttribute('data-tab');
+                
+                // Remove active class from all
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active to clicked
+                btn.classList.add('active');
+                const targetContent = document.getElementById(targetTab);
+                targetContent.classList.add('active');
+                
+                // Animate cards in the new tab
+                const cards = targetContent.querySelectorAll('.settings-card');
+                gsap.fromTo(cards,
+                    { y: 30, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power2.out" }
+                );
+            });
+        });
+        
+        // Input field focus animations
+        document.querySelectorAll('.input-group input, .input-group select').forEach(input => {
+            input.addEventListener('focus', function() {
+                gsap.to(this, {
+                    scale: 1.02,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            input.addEventListener('blur', function() {
+                gsap.to(this, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        // Card hover effects
+        document.querySelectorAll('.settings-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                gsap.to(this.querySelector('.card-icon'), {
+                    rotation: 15,
+                    scale: 1.1,
+                    duration: 0.3,
+                    ease: 'back.out(2)'
+                });
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                gsap.to(this.querySelector('.card-icon'), {
+                    rotation: 0,
+                    scale: 1,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        // Button ripple effect
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const rect = button.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = event.clientX - rect.left - size / 2;
+            const y = event.clientY - rect.top - size / 2;
+            
+            const ripple = document.createElement('span');
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.style.position = 'absolute';
+            ripple.style.borderRadius = '50%';
+            ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+            ripple.style.transform = 'scale(0)';
+            ripple.style.pointerEvents = 'none';
+            
+            button.style.position = 'relative';
+            button.style.overflow = 'hidden';
+            button.appendChild(ripple);
+            
+            gsap.to(ripple, {
+                scale: 2,
+                opacity: 0,
+                duration: 0.6,
+                ease: 'power2.out',
+                onComplete: () => ripple.remove()
+            });
+        }
+        
+        document.querySelectorAll('.btn-primary-modern').forEach(btn => {
+            btn.addEventListener('click', createRipple);
+        });
+        
+        // Toggle switch animations
+        document.querySelectorAll('.toggle-switch input').forEach(toggle => {
+            toggle.addEventListener('change', function() {
+                const slider = this.nextElementSibling;
+                if (this.checked) {
+                    gsap.to(slider, {
+                        duration: 0.3,
+                        ease: 'back.out(2)'
+                    });
+                }
+            });
+        });
+        
+        // Save button success animation
+        document.getElementById('save-btn').addEventListener('click', function(e) {
+            createRipple(e);
+            
+            const originalText = this.innerHTML;
+            this.innerHTML = '<span class="material-symbols-outlined" style="vertical-align: middle;">check_circle</span> Saved!';
+            this.style.background = 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)';
+            
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                this.style.background = 'linear-gradient(135deg, #f4c025 0%, #ffd147 100%)';
+            }, 2000);
+        });
+        
+        // Hover lift utility
+        document.querySelectorAll('.hover-lift').forEach(el => {
+            el.addEventListener('mouseenter', function() {
+                gsap.to(this, {
+                    y: -3,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+            
+            el.addEventListener('mouseleave', function() {
+                gsap.to(this, {
+                    y: 0,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+        });
+        
+        console.log('ðŸš€ Profile Settings - Amazing animations loaded!');
+        // Notification Dropdown Logic
+        const notificationBtn = document.getElementById('notificationBtn');
+        const notificationDropdown = document.querySelector('.notification-dropdown');
+
+        if (notificationBtn && notificationDropdown) {
+            notificationBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                notificationDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!notificationDropdown.contains(e.target) && !notificationBtn.contains(e.target)) {
+                    notificationDropdown.classList.remove('active');
+                }
+            });
+        }
+    </script>
+</body>
+</html>

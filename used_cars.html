@@ -1,0 +1,1272 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Used Cars | Car Store</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- GSAP for Advanced Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+    
+    <style>
+        /* Enhanced Page Specific Styles */
+        .used-cars-hero {
+            min-height: 50vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(24, 22, 17, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
+            padding: 4rem 1.5rem;
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+        
+        .used-cars-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(244, 192, 37, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(244, 192, 37, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .filter-bar {
+            background: linear-gradient(145deg, rgba(42, 40, 30, 0.8), rgba(26, 25, 20, 0.9));
+            border: 1px solid var(--border-dark);
+            border-radius: var(--rounded-xl);
+            padding: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            position: sticky;
+            top: 80px;
+            z-index: 40;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            margin-bottom: 2rem;
+        }
+        
+        .filter-select {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-dark);
+            border-radius: var(--rounded-lg);
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            appearance: none;
+            background-image: url('data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 256 256%27%3e%3cpath fill=%27%23f4c025%27 d=%27M128,176a8,8,0,0,1-5.66-2.34l-64-64a8,8,0,0,1,11.32-11.32L128,156.69l58.34-58.35a8,8,0,0,1,11.32,11.32l-64,64A8,8,0,0,1,128,176Z%27/%3e%3c/svg%3e');
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 20px;
+        }
+        
+        .filter-select:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-color: rgba(244, 192, 37, 0.3);
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(244, 192, 37, 0.1);
+        }
+        
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(244, 192, 37, 0.1);
+            border: 1px solid rgba(244, 192, 37, 0.2);
+            border-radius: 9999px;
+            padding: 0.375rem 0.75rem 0.375rem 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .chip:hover {
+            background: rgba(244, 192, 37, 0.15);
+            border-color: rgba(244, 192, 37, 0.4);
+        }
+        
+        .chip .material-symbols-outlined {
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .certified-car-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--rounded-xl);
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+        
+        .certified-car-card:hover {
+            border-color: rgba(244, 192, 37, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(244, 192, 37, 0.3);
+            transform: translateY(-8px);
+        }
+        
+        .card-image-container {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+        
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .certified-car-card:hover .card-image-container img {
+            transform: scale(1.1);
+        }
+        
+        .certified-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(4px);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-size: 0.625rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            box-shadow: 0 0 15px rgba(244, 192, 37, 0.4);
+            letter-spacing: 0.05em;
+        }
+        
+        .certified-badge .material-symbols-outlined {
+            font-size: 12px;
+        }
+        
+        .compare-checkbox {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .compare-checkbox:hover {
+            background: rgba(244, 192, 37, 0.2);
+            border-color: rgba(244, 192, 37, 0.4);
+        }
+        
+        .compare-checkbox input {
+            display: none;
+        }
+        
+        .compare-checkbox .material-symbols-outlined {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.4);
+            transition: color 0.3s;
+        }
+        
+        .compare-checkbox input:checked + .material-symbols-outlined {
+            color: var(--primary);
+        }
+        
+        .spec-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .certified-car-card:hover .spec-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+        
+        .spec-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+        }
+        
+        .spec-label {
+            font-size: 0.625rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        
+        .spec-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-top: 0.25rem;
+        }
+        
+        .btn-inspect {
+            width: 100%;
+            background: var(--primary);
+            color: var(--background-dark);
+            padding: 0.75rem;
+            border-radius: var(--rounded-lg);
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-inspect:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 0 20px rgba(244, 192, 37, 0.4);
+        }
+        
+        .card-content {
+            padding: 1.5rem;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .card-brand {
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.25rem;
+        }
+        
+        .card-model {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            letter-spacing: -0.02em;
+        }
+        
+        .card-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-white);
+        }
+        
+        .card-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .card-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .card-meta-item .material-symbols-outlined {
+            font-size: 14px;
+        }
+        
+        .compare-dock {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(145deg, rgba(42, 40, 30, 0.95), rgba(26, 25, 20, 0.98));
+            border: 1px solid var(--border-dark);
+            border-radius: 9999px;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            z-index: 50;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        
+        .compare-dock.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .compare-avatars {
+            display: flex;
+            margin-left: -12px;
+        }
+        
+        .compare-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--background-dark);
+            background-size: cover;
+            background-position: center;
+            margin-left: -12px;
+        }
+        
+        .compare-count {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: var(--background-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 2px solid var(--background-dark);
+            margin-left: -12px;
+        }
+        
+        .divider-vertical {
+            width: 1px;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .compare-text {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-white);
+        }
+        
+        .btn-compare {
+            background: var(--primary);
+            color: var(--background-dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--rounded-lg);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-compare:hover {
+            filter: brightness(1.1);
+        }
+        
+        .btn-close {
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+        
+        .btn-close:hover {
+            color: var(--text-white);
+        }
+        
+        /* Responsive Grid */
+        .certified-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        @media (min-width: 768px) {
+            .certified-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .certified-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* Hero Animations */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 1.125rem;
+            line-height: 1.75;
+            max-width: 48rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="main-header-wrapper">
+        <header class="main-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 30px;">directions_car</span>
+                </div>
+                <h2 class="logo-text">Car Store</h2>
+            </div>
+            
+            <nav class="desktop-nav">
+                <a class="nav-link" href="./user_dashboard.html">Dashboard</a>
+                <a class="nav-link" href="./cartegory.html">Garage</a>
+                <a class="nav-link active" href="./used_cars.html" style="color: var(--primary);">Used Cars</a>
+                <a class="nav-link" href="./Car Compare.html">Car Compare</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="icon-btn mobile-menu-toggle" title="Menu">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+                </button>
+                    <!-- Notification Bell -->
+                <div class="notification-container">
+                    <button class="icon-btn btn-icon-animate" title="Notifications">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-title">Notifications (1)</span>
+                            <span class="mark-read">Mark all as read</span>
+                        </div>
+                        <div class="dropdown-list">
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">verified</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">New Arrivals</p>
+                                    <p class="item-desc">3 certified vehicles just added.</p>
+                                    <span class="item-time">1 hour ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="./cartegory.html" style="display: block;">
+                    <button class="icon-btn group" title="Shopping Cart">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">shopping_cart</span>
+                        <span class="cart-badge"></span>
+                    </button>
+                </a>
+                     <a href="./user_dashboard.html" style="text-decoration: none;">
+                        <button class="btn-primary" style="padding: 0.5rem 1.5rem; height: 40px; font-size: 0.875rem; min-width: auto; margin-left: 1rem;">
+                            Dashboard
+                        </button>
+                    </a>
+            </div>
+        </header>
+        
+        <nav class="mobile-nav hidden">
+            <a class="mobile-nav-link" href="./index.html">Home</a>
+            <a class="mobile-nav-link" href="./cartegory.html">Inventory</a>
+            <a class="mobile-nav-link" href="./used_cars.html">Certified</a>
+            <a class="mobile-nav-link" href="./contact.html">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="used-cars-hero">
+        <div class="hero-content" style="width: 100%;">
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <div style="max-width: 56rem;">
+                    <h1 class="hero-title">
+                        Certified<br/>
+                         <span class="text-primary">Pre-Owned Vehicles</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                          Discover the ultimate in reliability and craftsmanship with our certified pre-owned collection. Each vehicle has been meticulously inspected, ensuring peak performance, unmatched quality, and complete peace of mind.
+                    </p>
+                </div>
+                <div>
+                    <a href="./cartegory.html"><button class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                       GO TO GARAGE
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content" style="max-width: 1440px; margin: 0 auto; padding: 0 1.5rem 4rem;">
+        
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <div style="display: flex; align-items: center; gap: 0.5rem; padding: 0 1rem; border-right: 1px solid rgba(255, 255, 255, 0.1);">
+                <span class="material-symbols-outlined text-primary">tune</span>
+                <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Filters</span>
+            </div>
+            <div style="flex: 1; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <select class="filter-select">
+                    <option>Production Year</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                    <option>2021</option>
+                    <option>2020</option>
+                </select>
+                <select class="filter-select">
+                    <option>Mileage Range</option>
+                    <option>Under 5,000 mi</option>
+                    <option>5,000 - 15,000 mi</option>
+                    <option>15,000+ mi</option>
+                </select>
+                <select class="filter-select">
+                    <option>Owner History</option>
+                    <option>Single Owner</option>
+                    <option>Corporate Fleet</option>
+                </select>
+                <select class="filter-select">
+                    <option>Body Style</option>
+                    <option>Coupe</option>
+                    <option>Convertible</option>
+                    <option>SUV</option>
+                    <option>Sedan</option>
+                </select>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem; padding: 0 1rem;">
+                <button style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: rgba(255, 255, 255, 0.4); background: none; border: none; cursor: pointer; transition: color 0.3s;">Clear All</button>
+                <div class="divider-vertical"></div>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <span style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.4);">Sort by:</span>
+                    <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary); cursor: pointer;">Price: High-Low</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selected Filters Chips -->
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 2rem; flex-wrap: wrap;">
+            <div class="chip">
+                1 Owner Only
+                <span class="material-symbols-outlined">close</span>
+            </div>
+            <div class="chip">
+                Luxury SUV
+                <span class="material-symbols-outlined">close</span>
+            </div>
+        </div>
+
+        <!-- Car Grid -->
+        <div class="certified-grid">
+            
+            <!-- Card 1: Porsche 911 GT3 Touring -->
+            <div class="certified-car-card">
+                <div class="card-image-container">
+                    <img src="./assets/images/downloaded_asset_48.jpg" alt="Dark gray Porsche 911 GT3">
+                    <div class="certified-badge">
+                        <span class="material-symbols-outlined">verified</span> Certified
+                    </div>
+                    <label class="compare-checkbox">
+                        <input type="checkbox" class="car-compare-checkbox"/>
+                    </label>
+                    
+                    <!-- Spec Overlay -->
+                    <div class="spec-overlay">
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <p class="spec-label">Mileage</p>
+                                <p class="spec-value">4,280 mi</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Engine</p>
+                                <p class="spec-value">4.0L H6</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">0-60 MPH</p>
+                                <p class="spec-value">3.2s</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Owners</p>
+                                <p class="spec-value">1 Only</p>
+                            </div>
+                        </div>
+                        <button class="btn-inspect">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-brand">2022 Porsche</p>
+                            <h3 class="card-model">911 GT3 Touring</h3>
+                        </div>
+                        <p class="card-price">$249,900</p>
+                    </div>
+                    <div class="card-meta">
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">schedule</span> 14 Days Ago
+                        </div>
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">location_on</span> Los Angeles, CA
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Ferrari F8 Spider -->
+            <div class="certified-car-card">
+                <div class="card-image-container">
+                    <img src="./assets/images/downloaded_asset_49.jpg" alt="Red Ferrari F8 Spider">
+                    <div class="certified-badge">
+                        <span class="material-symbols-outlined">verified</span> Certified
+                    </div>
+                    <label class="compare-checkbox">
+                        <input type="checkbox" class="car-compare-checkbox"/>
+                        <span class="material-symbols-outlined">compare_arrows</span>
+                    </label>
+                    
+                    <div class="spec-overlay">
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <p class="spec-label">Mileage</p>
+                                <p class="spec-value">1,850 mi</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Engine</p>
+                                <p class="spec-value">3.9L V8</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">0-60 MPH</p>
+                                <p class="spec-value">2.9s</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Owners</p>
+                                <p class="spec-value">1 Only</p>
+                            </div>
+                        </div>
+                        <button class="btn-inspect">Add To Cart</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-brand">2021 Ferrari</p>
+                            <h3 class="card-model">F8 Tributo Spider</h3>
+                        </div>
+                        <p class="card-price">$385,000</p>
+                    </div>
+                    <div class="card-meta">
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">schedule</span> 3 Days Ago
+                        </div>
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">location_on</span> Miami, FL
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Lamborghini Aventador SVJ -->
+            <div class="certified-car-card">
+                <div class="card-image-container">
+                    <img src="./assets/images/downloaded_asset_50.jpg" alt="Black Lamborghini Aventador">
+                    <div class="certified-badge">
+                        <span class="material-symbols-outlined">verified</span> Certified
+                    </div>
+                    <label class="compare-checkbox">
+                        <input type="checkbox" class="car-compare-checkbox"/>
+                        <span class="material-symbols-outlined">compare_arrows</span>
+                    </label>
+                    
+                    <div class="spec-overlay">
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <p class="spec-label">Mileage</p>
+                                <p class="spec-value">5,100 mi</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Engine</p>
+                                <p class="spec-value">6.5L V12</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">0-60 MPH</p>
+                                <p class="spec-value">2.8s</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Owners</p>
+                                <p class="spec-value">1 Only</p>
+                            </div>
+                        </div>
+                        <button class="btn-inspect">Add To Cart</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-brand">2020 Lamborghini</p>
+                            <h3 class="card-model">Aventador SVJ</h3>
+                        </div>
+                        <p class="card-price">$780,000</p>
+                    </div>
+                    <div class="card-meta">
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">schedule</span> Just Now
+                        </div>
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">location_on</span> Greenwich, CT
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Bentley Continental GT -->
+            <div class="certified-car-card">
+                <div class="card-image-container">
+                    <img src="./assets/images/downloaded_asset_51.jpg" alt="Green Bentley Continental GT">
+                    <div class="certified-badge">
+                        <span class="material-symbols-outlined">verified</span> Certified
+                    </div>
+                    <label class="compare-checkbox">
+                        <input type="checkbox" class="car-compare-checkbox"/>
+                        <span class="material-symbols-outlined">compare_arrows</span>
+                    </label>
+                    
+                    <div class="spec-overlay">
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <p class="spec-label">Mileage</p>
+                                <p class="spec-value">12,400 mi</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Engine</p>
+                                <p class="spec-value">6.0L W12</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">0-60 MPH</p>
+                                <p class="spec-value">3.6s</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Owners</p>
+                                <p class="spec-value">2 Owners</p>
+                            </div>
+                        </div>
+                        <button class="btn-inspect">Add To Cart</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-brand">2022 Bentley</p>
+                            <h3 class="card-model">Continental GT</h3>
+                        </div>
+                        <p class="card-price">$285,500</p>
+                    </div>
+                    <div class="card-meta">
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">schedule</span> 1 Day Ago
+                        </div>
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">location_on</span> New York, NY
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: McLaren 720S -->
+            <div class="certified-car-card">
+                <div class="card-image-container">
+                    <img src="./assets/images/downloaded_asset_52.jpg" alt="Orange McLaren 720S">
+                    <div class="certified-badge">
+                        <span class="material-symbols-outlined">verified</span> Certified
+                    </div>
+                    <label class="compare-checkbox">
+                        <input type="checkbox" class="car-compare-checkbox"/>
+                        <span class="material-symbols-outlined">compare_arrows</span>
+                    </label>
+                    
+                    <div class="spec-overlay">
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <p class="spec-label">Mileage</p>
+                                <p class="spec-value">3,120 mi</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Engine</p>
+                                <p class="spec-value">4.0L V8</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">0-60 MPH</p>
+                                <p class="spec-value">2.7s</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Owners</p>
+                                <p class="spec-value">1 Only</p>
+                            </div>
+                        </div>
+                        <button class="btn-inspect">Add To Cart</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-brand">2021 McLaren</p>
+                            <h3 class="card-model">720S Performance</h3>
+                        </div>
+                        <p class="card-price">$315,000</p>
+                    </div>
+                    <div class="card-meta">
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">schedule</span> 5 Days Ago
+                        </div>
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">location_on</span> Austin, TX
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Aston Martin DBS -->
+            <div class="certified-car-card">
+                <div class="card-image-container">
+                    <img src="./assets/images/downloaded_asset_53.jpg" alt="Silver Aston Martin DBS">
+                    <div class="certified-badge">
+                        <span class="material-symbols-outlined">verified</span> Certified
+                    </div>
+                    <label class="compare-checkbox">
+                        <input type="checkbox" class="car-compare-checkbox"/>
+                        <span class="material-symbols-outlined">compare_arrows</span>
+                    </label>
+                    
+                    <div class="spec-overlay">
+                        <div class="spec-grid">
+                            <div class="spec-item">
+                                <p class="spec-label">Mileage</p>
+                                <p class="spec-value">8,500 mi</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Engine</p>
+                                <p class="spec-value">5.2L V12</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">0-60 MPH</p>
+                                <p class="spec-value">3.4s</p>
+                            </div>
+                            <div class="spec-item">
+                                <p class="spec-label">Owners</p>
+                                <p class="spec-value">1 Only</p>
+                            </div>
+                        </div>
+                        <button class="btn-inspect">Add To Cart</button>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-header">
+                        <div>
+                            <p class="card-brand">2020 Aston Martin</p>
+                            <h3 class="card-model">DBS Superleggera</h3>
+                        </div>
+                        <p class="card-price">$265,000</p>
+                    </div>
+                    <div class="card-meta">
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">schedule</span> 8 Days Ago
+                        </div>
+                        <div class="card-meta-item">
+                            <span class="material-symbols-outlined">location_on</span> Houston, TX
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Compare Dock (Hidden by default) -->
+    <div class="compare-dock" id="compareDock">
+        <div class="compare-avatars">
+            <div class="compare-avatar" style="background-image: url('./assets/images/downloaded_asset_46.jpg');"></div>
+            <div class="compare-avatar" style="background-image: url('./assets/images/downloaded_asset_47.jpg');"></div>
+            <div class="compare-count">+1</div>
+        </div>
+        <div class="divider-vertical"></div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <p class="compare-text"><span id="compareCount">0</span> Models Selected</p>
+            <button class="btn-compare">Compare Specs</button>
+        </div>
+        <button class="btn-close" onclick="hideCompareDock()">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2024 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Settings</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // GSAP Animations - Premium Effects
+            gsap.registerPlugin(ScrollTrigger);
+
+            // === HERO SECTION ENTRANCE ===
+            const heroTl = gsap.timeline({ defaults: { ease: 'power2.out' } });
+            
+            if (document.querySelector('.hero-content')) {
+                heroTl
+                    .from('.hero-title', {
+                        opacity: 0,
+                        y: 50,
+                        duration: 0.8,
+                        ease: 'back.out(1.7)'
+                    })
+                    .from('.hero-subtitle', {
+                        opacity: 0,
+                        y: 30,
+                        duration: 0.6
+                    }, '-=0.4')
+                    .from('.hero-stats', {
+                        opacity: 0,
+                        y: 20,
+                        stagger: 0.1,
+                        duration: 0.5
+                    }, '-=0.3');
+            }
+
+            // === FILTER BAR ANIMATION ===
+            if (document.querySelector('.filter-bar')) {
+                gsap.from('.filter-bar', {
+                    scrollTrigger: {
+                        trigger: '.filter-bar',
+                        start: 'top 85%'
+                    },
+                    opacity: 0,
+                    y: -20,
+                    duration: 0.6,
+                    ease: 'back.out(1.4)'
+                });
+
+                gsap.from('.filter-select', {
+                    scrollTrigger: {
+                        trigger: '.filter-bar',
+                        start: 'top 85%'
+                    },
+                    opacity: 0,
+                    scale: 0.95,
+                    stagger: 0.05,
+                    duration: 0.4,
+                    ease: 'power2.out'
+                });
+            }
+
+            // === CAR CARDS ADVANCED ANIMATIONS ===
+            const cards = document.querySelectorAll('.certified-car-card');
+            
+            cards.forEach((card, index) => {
+                // Scroll entrance animation
+                const cardTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 80%'
+                    }
+                });
+
+                cardTl
+                    .from(card, {
+                        opacity: 0,
+                        y: 50,
+                        scale: 0.95,
+                        duration: 0.6,
+                        ease: 'power2.out'
+                    })
+                    .from(card.querySelector('.card-image-container img'), {
+                        scale: 1.1,
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    }, '-=0.4')
+                    .from(card.querySelector('.certified-badge'), {
+                        scale: 0,
+                        rotation: 180,
+                        duration: 0.4,
+                        ease: 'back.out(2)'
+                    }, '-=0.3');
+
+                // Hover animations
+                const img = card.querySelector('.card-image-container img');
+                const overlay = card.querySelector('.spec-overlay');
+                
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, {
+                        y: -10,
+                        scale: 1.02,
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    });
+                    
+                    if (img) {
+                        gsap.to(img, {
+                            scale: 1.08,
+                            duration: 0.5,
+                            ease: 'power2.out'
+                        });
+                    }
+                    
+                    if (overlay) {
+                        gsap.to(overlay, {
+                            opacity: 1,
+                            duration: 0.3
+                        });
+                    }
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        y: 0,
+                        scale: 1,
+                        duration: 0.4,
+                        ease: 'power2.out'
+                    });
+                    
+                    if (img) {
+                        gsap.to(img, {
+                            scale: 1,
+                            duration: 0.5,
+                            ease: 'power2.out'
+                        });
+                    }
+                    
+                    if (overlay) {
+                        gsap.to(overlay, {
+                            opacity: 0,
+                            duration: 0.3
+                        });
+                    }
+                });
+            });
+
+            // === CERTIFIED BADGE GLOW ===
+            const badges = document.querySelectorAll('.certified-badge');
+            if (badges.length > 0) {
+                gsap.to(badges, {
+                    boxShadow: '0 0 25px rgba(244, 192, 37, 0.7)',
+                    duration: 1.5,
+                    ease: 'power1.inOut',
+                    repeat: -1,
+                    yoyo: true
+                });
+            }
+
+            // === BUTTON HOVER EFFECTS ===
+            const buttons = document.querySelectorAll('.btn-inspect, .btn-compare');
+            buttons.forEach(btn => {
+                btn.addEventListener('mouseenter', () => {
+                    gsap.to(btn, {
+                        scale: 1.05,
+                        duration: 0.3,
+                        ease: 'back.out(1.7)'
+                    });
+                });
+                
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+
+            // === COMPARE DOCK FUNCTIONALITY ===
+            const checkboxes = document.querySelectorAll('.car-compare-checkbox');
+            const compareDock = document.getElementById('compareDock');
+            const compareCount = document.getElementById('compareCount');
+            
+            function updateCompareDock() {
+                const checkedCount = document.querySelectorAll('.car-compare-checkbox:checked').length;
+                if (compareCount) compareCount.textContent = checkedCount;
+                
+                if (checkedCount > 0) {
+                    if (compareDock && !compareDock.classList.contains('active')) {
+                        compareDock.classList.add('active');
+                        gsap.from(compareDock, {
+                            y: 100,
+                            opacity: 0,
+                            duration: 0.5,
+                            ease: 'back.out(1.7)'
+                        });
+                    }
+                    
+                    // Count pulse
+                    if (compareCount) {
+                        gsap.fromTo(compareCount,
+                            { scale: 1.3, color: '#f4c025' },
+                            { scale: 1, color: '#ffffff', duration: 0.3, ease: 'back.out(2)' }
+                        );
+                    }
+                } else {
+                    if (compareDock && compareDock.classList.contains('active')) {
+                        gsap.to(compareDock, {
+                            y: 100,
+                            opacity: 0,
+                            duration: 0.4,
+                            ease: 'power2.in',
+                            onComplete: () => compareDock.classList.remove('active')
+                        });
+                    }
+                }
+            }
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateCompareDock);
+            });
+            
+            window.hideCompareDock = function() {
+                checkboxes.forEach(cb => cb.checked = false);
+                updateCompareDock();
+            };
+
+            // === FOOTER ANIMATIONS ===
+            if (document.querySelector('.site-footer')) {
+                gsap.from('.site-footer', {
+                    scrollTrigger: {
+                        trigger: '.site-footer',
+                        start: 'top 90%'
+                    },
+                    opacity: 0,
+                    y: 40,
+                    duration: 0.8,
+                    ease: 'power2.out'
+                });
+            }
+
+            console.log('âœ¨ Used Cars animations loaded successfully!');
+        });
+    </script>
+</body>
+</html>

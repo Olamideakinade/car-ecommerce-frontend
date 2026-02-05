@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Car Store - About Us</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="./assets/about/about_style"/>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link rel="stylesheet" href="./assets/about/about_style.css"/>
+</head>
+<body class="dark-mode dark-mode-text">
+<div class="main-wrapper">
+<!-- Navbar -->
+<header>
+<div class="header-left">
+<div class="logo-section">
+<div class="logo-icon">
+<svg class="size-8" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="logo-text">Car Store</h2>
+</div>
+<div class="nav-links">
+<a class="nav-link" href="#">Home</a>
+<a class="nav-link" href="#" style>About</a>
+<a class="nav-link " href="./contact.html">Contact</a>
+</div>
+</div>
+<div class="header-right">
+<div class="search-box">
+<span class="material-symbols-outlined search-icon">search</span>
+<input class="search-input" type="text" placeholder="Search inventory..."/>
+</div>
+<div class="header-actions">
+<a href="./login.html" class="text"><button class="btn-sign-in">Sign In</button></a>
+<button class="menu-btn">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+</div>
+</header>
+<style>
+    .text:visited, .text, .text:active{
+        text-decoration: none;
+    }
+</style>
+
+<!-- Main Content -->
+<main>
+<!-- Hero Section -->
+<section class="hero-section" style='background-image: linear-gradient(rgba(34, 30, 16, 0.4) 0%, rgba(34, 30, 16, 0.8) 90%, #221e10 100%), url("./assets/images/downloaded_asset_44.jpg");'>
+<div class="hero-bg"></div>
+<div class="hero-content parallax-text">
+<h1 class="hero-title">Driven by <span style="color: var(--primary);">Excellence</span></h1>
+<p class="hero-subtitle">Redefining the luxury car buying experience for the modern collector. We don't just sell cars; we curate automotive history.</p>
+<div class="hero-buttons">
+<a href="#story" style="text-decoration: none;"><button class="btn-primary">Read Our Story</button></a>
+<a href="./cartegory.html" style="text-decoration: none;"><button class="btn-secondary">Explore Inventory</button></a>
+</div>
+</div>
+</section>
+
+<!-- Stats Bar -->
+<section class="stats-section">
+<div class="stats-container">
+<div class="stats-grid">
+<div class="stat-item">
+<span class="stat-number">12+</span>
+<span class="stat-label">Years Active</span>
+</div>
+<div class="stat-item">
+<span class="stat-number">5k+</span>
+<span class="stat-label">Cars Sold</span>
+</div>
+<div class="stat-item">
+<span class="stat-number">32</span>
+<span class="stat-label">Countries</span>
+</div>
+<div class="stat-item">
+<span class="stat-number">100%</span>
+<span class="stat-label">Verified</span>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Journey / Timeline -->
+<section class="journey-section">
+<div class="journey-container">
+<div class="section-header">
+<h2 class="section-title">Our Journey</h2>
+<p class="section-subtitle">From a single garage to a global concierge service, our passion has always been the driving force behind every milestone.</p>
+</div>
+<div class="timeline">
+<!-- Item 1 -->
+<div class="timeline-item-dot-line">
+<div class="timeline-dot"></div>
+<div class="timeline-line"></div>
+</div>
+<div class="timeline-item-content">
+<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+<span class="timeline-year">2010</span>
+<span class="timeline-year-divider"></span>
+</div>
+<h3 class="timeline-title">The Founding</h3>
+<p class="timeline-description">Started by two engineers with a shared obsession for vintage European sports cars. The first sale was a 1968 Porsche 911, restored by hand.</p>
+</div>
+<!-- Item 2 -->
+<div class="timeline-item-dot-line">
+<div style="width: 1px; background-color: var(--border-dark); height: 8px;"></div>
+<div class="timeline-dot-inactive"></div>
+<div class="timeline-line"></div>
+</div>
+<div class="timeline-item-content">
+<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+<span class="timeline-year-inactive">2014</span>
+<span class="timeline-year-divider"></span>
+</div>
+<h3 class="timeline-title">First Showroom</h3>
+<p class="timeline-description">Opened our first physical location in Zurich, creating a gallery-like space where cars were treated as art pieces rather than just inventory.</p>
+</div>
+<!-- Item 3 -->
+<div class="timeline-item-dot-line">
+<div style="width: 1px; background-color: var(--border-dark); height: 8px;"></div>
+<div class="timeline-dot-inactive"></div>
+<div class="timeline-line"></div>
+</div>
+<div class="timeline-item-content">
+<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+<span class="timeline-year-inactive">2018</span>
+<span class="timeline-year-divider"></span>
+</div>
+<h3 class="timeline-title">Global Expansion</h3>
+<p class="timeline-description">Launched our concierge delivery service, allowing clients from Tokyo to Los Angeles to purchase with confidence and receive door-to-door delivery.</p>
+</div>
+<!-- Item 4 -->
+<div class="timeline-item-dot-line">
+<div style="width: 1px; background-color: var(--border-dark); height: 8px;"></div>
+<div class="timeline-dot-inactive"></div>
+</div>
+<div class="timeline-item-content">
+<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem;">
+<span class="timeline-year-inactive">2026</span>
+<span class="timeline-year-divider"></span>
+</div>
+<h3 class="timeline-title">Digital Revolution</h3>
+<p class="timeline-description">Integrated blockchain verification for service history and launched the world's most immersive virtual showroom.</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- Image Breaker -->
+<section class="image-breaker" style='background-image: url("./assets/images/downloaded_asset_45.jpg");'>
+<div class="image-breaker-bg"></div>
+<div class="image-breaker-overlay"></div>
+<div class="image-breaker-content">
+<h2 class="image-breaker-title parallax-text">Uncompromised Quality</h2>
+</div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+<div class="values-container">
+<div class="values-header">
+<h2 class="section-title" id="story">Our Values</h2>
+<p class="section-subtitle">The pillars that define our commitment to you.</p>
+</div>
+<div class="values-grid">
+<div class="value-card">
+<div class="value-icon">
+<span class="material-symbols-outlined">verified_user</span>
+</div>
+<h3 class="value-title">Transparency</h3>
+<p class="value-description">Every scratch documented. Every service record verified. We believe trust is built on radical honesty about every vehicle's history.</p>
+</div>
+<div class="value-card">
+<div class="value-icon">
+<span class="material-symbols-outlined">diamond</span>
+</div>
+<h3 class="value-title">Curated Selection</h3>
+<p class="value-description">We reject 95% of cars offered to us. Only the finest examples with impeccable provenance make it to our showroom floor.</p>
+</div>
+<div class="value-card">
+<div class="value-icon">
+<span class="material-symbols-outlined">public</span>
+</div>
+<h3 class="value-title">Global Concierge</h3>
+<p class="value-description">From customs handling to enclosed transport, we manage the entire logistics chain to deliver your dream car to your driveway.</p>
+</div>
+</div>
+</div>
+</section>
+
+</body>
+</html>
+
+<script src="./assets/about/about.js"></script>

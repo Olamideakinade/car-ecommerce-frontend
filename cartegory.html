@@ -1,0 +1,1062 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Store - Premium Inventory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- ===== Animated Add to Cart Button Styles ===== -->
+    <style>
+        /* Card Actions Container - Fix layout for two buttons side by side */
+        .card-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            width: 100%;
+        }
+        
+        /* View Details Button - Override base styles for proper flex */
+        .card-actions .card-action-btn {
+            flex: 1;
+            width: auto;
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: 0;
+        }
+        
+        /* Add to Cart Button Base Styles */
+        .add-to-cart-btn {
+            flex: 1;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #f4c025 0%, #d4a015 100%);
+            color: #181611;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-family: "Space Grotesk", sans-serif;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(244, 192, 37, 0.2);
+        }
+        
+        /* Cart Icon Styling */
+        .add-to-cart-btn .cart-icon {
+            display: inline-block;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Cart Text Styling */
+        .add-to-cart-btn .cart-text {
+            transition: all 0.3s ease;
+        }
+        
+        /* Hover State - Lift and Glow */
+        .add-to-cart-btn:hover {
+            background: linear-gradient(135deg, #ffd147 0%, #f4c025 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(244, 192, 37, 0.4);
+        }
+        
+        /* Active/Pressed State */
+        .add-to-cart-btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 10px rgba(244, 192, 37, 0.2);
+        }
+        
+        /* Ripple Effect */
+        .add-to-cart-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        .add-to-cart-btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+        
+        /* Loading State */
+        .add-to-cart-btn.loading {
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        
+        .add-to-cart-btn.loading .cart-icon {
+            animation: cartRotate 0.8s linear infinite;
+        }
+        
+        /* Success State - Green Gradient */
+        .add-to-cart-btn.success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .add-to-cart-btn.success .cart-icon {
+            animation: cartBounce 0.6s ease;
+        }
+        
+        /* Pulse Animation */
+        .add-to-cart-btn.pulse {
+            animation: pulsGlow 2s ease-in-out infinite;
+        }
+        
+        /* ===== KEYFRAME ANIMATIONS ===== */
+        
+        /* Rotating Cart Icon */
+        @keyframes cartRotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        /* Bouncing Cart Icon */
+        @keyframes cartBounce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        /* Pulsing Glow */
+        @keyframes pulsGlow {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(244, 192, 37, 0.2);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(244, 192, 37, 0.5);
+            }
+        }
+        
+        /* Flip Animation */
+        @keyframes iconFlip {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
+        }
+        
+        .add-to-cart-btn.flipped .cart-icon {
+            animation: iconFlip 0.5s ease-in-out;
+        }
+        
+        /* Toast Slide In Animation */
+        @keyframes slideInToast {
+            from {
+                opacity: 0;
+                transform: translateX(400px) translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+            }
+        }
+        
+        /* Toast Slide Out Animation */
+        @keyframes slideOutToast {
+            from {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(400px) translateY(100px);
+            }
+        }
+        
+        /* ===== TOAST NOTIFICATION STYLES ===== */
+        
+        .cart-toast-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #f4c025 0%, #d4a015 100%);
+            color: #181611;
+            padding: 16px 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(244, 192, 37, 0.35);
+            z-index: 9999;
+            animation: slideInToast 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: "Space Grotesk", sans-serif;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cart-toast-notification.closing {
+            animation: slideOutToast 0.3s ease forwards;
+        }
+        
+        /* Toast Content Structure */
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+        
+        /* Toast Icon */
+        .toast-icon {
+            flex-shrink: 0;
+            font-size: 24px;
+            animation: cartBounce 0.5s ease;
+        }
+        
+        /* Toast Text Container */
+        .toast-text {
+            flex: 1;
+        }
+        
+        /* Toast Title */
+        .toast-title {
+            margin: 0;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        
+        /* Toast Details */
+        .toast-details {
+            margin: 2px 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        /* Toast Price */
+        .toast-price {
+            margin: 2px 0;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        /* Toast Close Button */
+        .toast-close {
+            flex-shrink: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: inherit;
+        }
+        
+        .toast-close:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .toast-close .material-symbols-outlined {
+            font-size: 18px;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .add-to-cart-btn {
+                padding: 10px 14px;
+                font-size: 13px;
+                gap: 6px;
+            }
+            
+            .add-to-cart-btn .cart-icon {
+                font-size: 16px;
+            }
+            
+            .card-actions {
+                gap: 10px;
+                flex-direction: column;
+            }
+            
+            .card-actions .card-action-btn {
+                flex: 1;
+                width: 100%;
+            }
+            
+            .add-to-cart-btn {
+                width: 100%;
+            }
+            
+            .cart-toast-notification {
+                bottom: 20px;
+                right: 20px;
+                left: 20px;
+                min-width: auto;
+            }
+        }
+    </style>
+</head>
+<body class="app-body">
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-left">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">directions_car</span>
+                </div>
+                <h2 class="logo-text">Car Store</h2>
+            </div>
+            <nav class="nav-menu">
+                <a class="nav-link" href="./user_dashboard.html">Dashboard</a>
+                <a class="nav-link nav-link-active" href="./carcompare.html">Car Compare</a>
+                <a class="nav-link" href="./used_cars.html">Used Cars</a>
+                <a class="nav-link" href="#" style="color: goldenrod;">Garage</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <label class="search-box">
+                <div class="search-input-wrapper">
+                    <div class="search-icon">
+                        <span class="material-symbols-outlined">search</span>
+                    </div>
+                    <input class="search-input" type="text" placeholder="Search..."/>
+                </div>
+            </label>
+            <div class="header-buttons">
+                <a href="./user_dashboard.html" class="anchor"><button class="header-btn">
+                    <span class="material-symbols-outlined">person</span>
+                </button></a>
+                <a href="./shopping_cart.html" class="anchor" style="position: relative;">
+                    <button class="header-btn">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                    </button>
+                    <span class="cart-badge cart-count-badge" style="display: none;">0</span>
+                </a>
+            </div>
+        </div>
+
+        
+    </header>
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs-section">
+        <div class="breadcrumbs-container">
+            <div class="breadcrumbs">
+                <a class="breadcrumb-link" href="./index.html">Home</a>
+                <span class="material-symbols-outlined" style="font-size: 12px; color: var(--color-text-light);">chevron_right</span>
+                <a class="breadcrumb-link" href="#">Inventory</a>
+                <span class="material-symbols-outlined" style="font-size: 12px; color: var(--color-text-light);">chevron_right</span>
+                <span class="breadcrumb-current">Luxury SUVs</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Layout -->
+    <main class="main-content">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar-filters">
+            <div class="filter-header">
+                <h3 class="filter-title">Filters</h3>
+                <button class="reset-filters-btn">Reset All</button>
+            </div>
+
+            <!-- Price Range -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">Price Range</h4>
+                <div class="price-range-wrapper">
+                    <input class="range-slider" type="range" min="20000" max="250000" value="250000"/>
+                    <div class="price-labels">
+                        <span>$20k</span>
+                        <span>$250k+</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Brand Filter -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">Brand</h4>
+                <div class="brand-list">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="brand-checkbox"/>
+                        <span class="brand-name">Porsche</span>
+                        <span class="brand-count">(12)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="brand-checkbox" checked/>
+                        <span class="brand-name">Mercedes-Benz</span>
+                        <span class="brand-count">(8)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="brand-checkbox"/>
+                        <span class="brand-name">Tesla</span>
+                        <span class="brand-count">(15)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="brand-checkbox"/>
+                        <span class="brand-name">Audi</span>
+                        <span class="brand-count">(6)</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="brand-checkbox"/>
+                        <span class="brand-name">Land Rover</span>
+                        <span class="brand-count">(9)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Body Type -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">Body Type</h4>
+                <div class="body-type-grid">
+                    <button class="body-type-btn">
+                        <span class="material-symbols-outlined">directions_car</span>
+                        <span>Sedan</span>
+                    </button>
+                    <button class="body-type-btn active">
+                        <span class="material-symbols-outlined">airport_shuttle</span>
+                        <span>SUV</span>
+                    </button>
+                    <button class="body-type-btn">
+                        <span class="material-symbols-outlined">electric_car</span>
+                        <span>Coupe</span>
+                    </button>
+                    <button class="body-type-btn">
+                        <span class="material-symbols-outlined">top_panel_open</span>
+                        <span>Convertible</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Year Dropdown -->
+            <div class="filter-group">
+                <h4 class="filter-group-title">Year</h4>
+                <select class="year-select">
+                    <option>2024</option>
+                    <option>2023</option>
+                    <option>2022</option>
+                    <option>2021</option>
+                    <option>Older</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Product Grid Area -->
+        <div class="products-section">
+            <!-- Top Controls -->
+            <div class="products-header">
+                <div>
+                    <h1 class="products-title">Luxury SUVs</h1>
+                    <p class="products-subtitle">Showing 124 vehicles</p>
+                </div>
+                <div class="products-controls">
+                    <label class="sort-label">
+                        <span class="sort-text">Sort by:</span>
+                        <select class="sort-select">
+                            <option>Relevance</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Newest Arrivals</option>
+                        </select>
+                    </label>
+                    <div class="view-toggle">
+                        <button class="view-btn active" data-view="grid">
+                            <span class="material-symbols-outlined">grid_view</span>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <span class="material-symbols-outlined">view_list</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Filters Toggle -->
+            <button class="mobile-filters-btn">
+                <span class="material-symbols-outlined">filter_list</span>
+                Show Filters
+            </button>
+
+            <!-- Grid -->
+            <div class="products-grid">
+                <!-- Card 1 -->
+                <div class="product-card">
+                    <div class="card-image-wrapper">
+                        <div class="card-badge certified">Certified</div>
+                        <button class="card-favorite-btn">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                        <img alt="Silver Porsche 911 GT3 parked on a minimal concrete surface" 
+                             src="./assets/images/downloaded_asset_36.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">2024 Porsche 911 GT3</h3>
+                            <p class="card-subtitle">Coupe â€¢ RWD â€¢ Automatic</p>
+                        </div>
+                        <div class="card-pricing">
+                            <div>
+                                <p class="price-label">Price</p>
+                                <p class="price-value">$185,000</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="price-label">Mileage</p>
+                                <p class="mileage-value">1,200 mi</p>
+                            </div>
+                        </div>
+                        <div class="card-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">speed</span>
+                                <span class="spec-label">0-60 mph</span>
+                                <span class="spec-value">3.2s</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">bolt</span>
+                                <span class="spec-label">Power</span>
+                                <span class="spec-value">502 HP</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">local_gas_station</span>
+                                <span class="spec-label">MPG</span>
+                                <span class="spec-value">15/18</span>
+                            </div>
+                        </div>
+                        <style>
+                            .anchor:visited,.anchor,.anchor:active{
+                                text-decoration: none;
+                            }
+                        </style>
+                        <div class="card-actions">
+                            <a href="./product_details.html" class="anchor"><button class="card-action-btn">View Details</button></a>
+                            <button class="add-to-cart-btn" data-car-name="2024 Porsche 911 GT3" data-car-price="$185,000">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                                <span class="cart-text">Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="product-card">
+                    <div class="card-image-wrapper">
+                        <div class="card-badge new-arrival">New Arrival</div>
+                        <button class="card-favorite-btn">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                        <img alt="Dark grey Tesla Model S Plaid front view in studio lighting" 
+                             src="./assets/images/downloaded_asset_37.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">2023 Tesla Model S Plaid</h3>
+                            <p class="card-subtitle">Sedan â€¢ AWD â€¢ Electric</p>
+                        </div>
+                        <div class="card-pricing">
+                            <div>
+                                <p class="price-label">Price</p>
+                                <p class="price-value">$89,990</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="price-label">Mileage</p>
+                                <p class="mileage-value">12,500 mi</p>
+                            </div>
+                        </div>
+                        <div class="card-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">speed</span>
+                                <span class="spec-label">0-60 mph</span>
+                                <span class="spec-value">1.99s</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">bolt</span>
+                                <span class="spec-label">Power</span>
+                                <span class="spec-value">1020 HP</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">battery_charging_full</span>
+                                <span class="spec-label">Range</span>
+                                <span class="spec-value">396 mi</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                            <a href="./product_details.html" class="anchor"><button class="card-action-btn">View Details</button></a>
+                           <button class="add-to-cart-btn" data-car-name="2024 Porsche 911 GT3" data-car-price="$185,000">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                                <span class="cart-text">Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="product-card">
+                    <div class="card-image-wrapper">
+                        <button class="card-favorite-btn">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                        <img alt="White Range Rover Sport driving on a mountain road" 
+                             src="./assets/images/downloaded_asset_38.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">2024 Range Rover Sport</h3>
+                            <p class="card-subtitle">SUV â€¢ 4WD â€¢ Hybrid</p>
+                        </div>
+                        <div class="card-pricing">
+                            <div>
+                                <p class="price-label">Price</p>
+                                <p class="price-value">$105,000</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="price-label">Mileage</p>
+                                <p class="mileage-value">50 mi</p>
+                            </div>
+                        </div>
+                        <div class="card-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">speed</span>
+                                <span class="spec-label">0-60 mph</span>
+                                <span class="spec-value">5.7s</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">bolt</span>
+                                <span class="spec-label">Power</span>
+                                <span class="spec-value">395 HP</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">local_gas_station</span>
+                                <span class="spec-label">MPG</span>
+                                <span class="spec-value">19/25</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                             <a href="./product_details.html" class="anchor"><button class="card-action-btn">View Details</button></a>
+                           <button class="add-to-cart-btn" data-car-name="2024 Porsche 911 GT3" data-car-price="$185,000">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                                <span class="cart-text">Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="product-card">
+                    <div class="card-image-wrapper">
+                        <button class="card-favorite-btn">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                        <img alt="Blue Chevrolet Corvette C8 from side angle" 
+                             src="./assets/images/downloaded_asset_39.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">2023 Chevrolet Corvette</h3>
+                            <p class="card-subtitle">Coupe â€¢ RWD â€¢ Automatic</p>
+                        </div>
+                        <div class="card-pricing">
+                            <div>
+                                <p class="price-label">Price</p>
+                                <p class="price-value">$78,500</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="price-label">Mileage</p>
+                                <p class="mileage-value">5,400 mi</p>
+                            </div>
+                        </div>
+                        <div class="card-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">speed</span>
+                                <span class="spec-label">0-60 mph</span>
+                                <span class="spec-value">2.9s</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">bolt</span>
+                                <span class="spec-label">Power</span>
+                                <span class="spec-value">495 HP</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">local_gas_station</span>
+                                <span class="spec-label">MPG</span>
+                                <span class="spec-value">16/24</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                             <a href="./product_details.html" class="anchor"><button class="card-action-btn">View Details</button></a>
+                           <button class="add-to-cart-btn" data-car-name="2024 Porsche 911 GT3" data-car-price="$185,000">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                                <span class="cart-text">Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="product-card">
+                    <div class="card-image-wrapper">
+                        <button class="card-favorite-btn">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                        <img alt="Black BMW M4 parked in an industrial setting" 
+                             src="./assets/images/downloaded_asset_40.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">2024 BMW M4 Competition</h3>
+                            <p class="card-subtitle">Coupe â€¢ AWD â€¢ Automatic</p>
+                        </div>
+                        <div class="card-pricing">
+                            <div>
+                                <p class="price-label">Price</p>
+                                <p class="price-value">$92,000</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="price-label">Mileage</p>
+                                <p class="mileage-value">800 mi</p>
+                            </div>
+                        </div>
+                        <div class="card-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">speed</span>
+                                <span class="spec-label">0-60 mph</span>
+                                <span class="spec-value">3.4s</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">bolt</span>
+                                <span class="spec-label">Power</span>
+                                <span class="spec-value">503 HP</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">local_gas_station</span>
+                                <span class="spec-label">MPG</span>
+                                <span class="spec-value">16/23</span>
+                            </div>
+                        </div>
+                        <div class="card-actions">
+                             <a href="./product_details.html" class="anchor"><button class="card-action-btn">View Details</button></a>
+                            <button class="add-to-cart-btn" data-car-name="2024 Porsche 911 GT3" data-car-price="$185,000">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                                <span class="cart-text">Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 6 -->
+                <div class="product-card">
+                    <div class="card-image-wrapper">
+                        <div class="card-badge great-value">Great Value</div>
+                        <button class="card-favorite-btn">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </button>
+                        <img alt="Red Audi RS7 Sportback front three-quarter view" 
+                             src="./assets/images/downloaded_asset_41.jpg"/>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">2022 Audi RS7</h3>
+                            <p class="card-subtitle">Sedan â€¢ AWD â€¢ Automatic</p>
+                        </div>
+                        <div class="card-pricing">
+                            <div>
+                                <p class="price-label">Price</p>
+                                <p class="price-value">$114,990</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="price-label">Mileage</p>
+                                <p class="mileage-value">18,200 mi</p>
+                            </div>
+                        </div>
+                        <div class="card-specs">
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">speed</span>
+                                <span class="spec-label">0-60 mph</span>
+                                <span class="spec-value">3.5s</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">bolt</span>
+                                <span class="spec-label">Power</span>
+                                <span class="spec-value">591 HP</span>
+                            </div>
+                            <div class="spec-item">
+                                <span class="material-symbols-outlined">local_gas_station</span>
+                                <span class="spec-label">MPG</span>
+                                <span class="spec-value">15/22</span>
+                            </div>
+                        </div>
+                       <div class="card-actions">
+                             <a href="./product_details.html" class="anchor"><button class="card-action-btn">View Details</button></a>
+                            <button class="add-to-cart-btn" data-car-name="2024 Porsche 911 GT3" data-car-price="$185,000">
+                            <span class="material-symbols-outlined">shopping_cart</span>
+                                <span class="cart-text">Add to Cart</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination-section">
+                <div class="pagination-controls">
+                    <button class="pagination-btn" disabled>
+                        <span class="material-symbols-outlined">chevron_left</span>
+                    </button>
+                    <button class="pagination-btn active">1</button>
+                    <button class="pagination-btn">2</button>
+                    <button class="pagination-btn">3</button>
+                    <span class="pagination-dots">...</span>
+                    <button class="pagination-btn">12</button>
+                    <button class="pagination-btn">
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+                </div>
+                <div class="pagination-info">Showing 1-6 of 124 vehicles</div>
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more-section">
+                <button class="load-more-btn">
+                    <span class="material-symbols-outlined">autorenew</span>
+                    <span>Load More Inventory</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+     <footer class="site-footer" style="margin-left: 30px;">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" class="anchor" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" class="anchor" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" class="anchor" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2024 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html" class="anchor" >Privacy Policy</a>
+                    <a href="./legal.html" class="anchor">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+    <style>
+        .anchor:visited,.anchor:active,.anchor {
+            text-decoration: none;
+            color:white;
+        }
+    </style>
+
+
+    <!-- ===== Add to Cart Functionality JavaScript ===== -->
+    <script src="./assets/js/cart.js"></script>
+    <script src="script.js"></script>
+    <script>
+        /**
+         * Initialize Add to Cart buttons when DOM is ready
+         * Adds click handlers and animations to all cart buttons
+         */
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeAddToCart();
+        });
+        
+        /**
+         * Initialize all Add to Cart buttons with animations and notifications
+         * Features:
+         * - Loading animation (spinning icon + "Adding..." text)
+         * - Success animation (green gradient + bounce effect)
+         * - Toast notification with car details
+         * - Auto-reset after 2 seconds
+         */
+        function initializeAddToCart() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+            
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', handleAddToCart);
+            });
+        }
+        
+        /**
+         * Handles the Add to Cart button click event
+         * 
+         * Animation Flow:
+         * 1. Prevent default action
+         * 2. Extract car data from button attributes
+         * 3. Show loading state with spinning animation (1.5s)
+         * 4. Show success state with bounce animation
+         * 5. Display toast notification with car info
+         * 6. Reset button to original state after 2 seconds
+         * 
+         * @param {Event} e - The click event
+         */
+        function handleAddToCart(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const button = this;
+            
+            // Extract car details from data attributes
+            const carName = button.getAttribute('data-car-name');
+            const carPrice = button.getAttribute('data-car-price');
+            // Get image from the card context
+            const carImage = button.closest('.product-card').querySelector('img').src;
+            
+            // Prevent multiple clicks while processing
+            if (button.classList.contains('loading') || button.classList.contains('success')) {
+                return;
+            }
+            
+            // ===== LOADING STATE (Simulated 0.5s for feel) =====
+            button.classList.add('loading');
+            const originalText = button.innerHTML;
+            
+            button.innerHTML = `
+                <span class="material-symbols-outlined cart-icon" style="font-size: 1rem;">hourglass_top</span>
+                <span class="cart-text">Adding...</span>
+            `;
+            
+            setTimeout(() => {
+                // Add to actual cart
+                if (window.cart) {
+                    window.cart.addItem({
+                        name: carName,
+                        price: carPrice,
+                        image: carImage
+                    });
+                }
+            
+                // ===== SUCCESS STATE =====
+                button.classList.remove('loading');
+                button.classList.add('success');
+                
+                button.innerHTML = `
+                    <span class="cart-icon">âœ“</span>
+                    <span class="cart-text">Added!</span>
+                `;
+                
+                // Show toast notification
+                if (window.showCartToast) { 
+                    showCartToast(carName, carPrice);
+                }
+                
+                button.classList.add('pulse');
+                
+                // Reset button
+                setTimeout(() => {
+                    button.classList.remove('success', 'pulse');
+                    button.innerHTML = originalText;
+                    button.classList.add('flipped');
+                    setTimeout(() => button.classList.remove('flipped'), 500);
+                }, 2000);
+                
+            }, 800); 
+        }
+        
+        /**
+         * Creates and displays a toast notification for cart confirmation
+         * 
+         * Features:
+         * - Animated entrance from bottom-right
+         * - Shows car name and price details
+         * - Auto-dismisses after 4 seconds
+         * - Manual close button available
+         * - Smooth fade out animation
+         * 
+         * @param {string} carName - The name of the car added to cart
+         * @param {string} carPrice - The price of the car
+         */
+        function showCartToast(carName, carPrice) {
+            // Create toast container
+            const toast = document.createElement('div');
+            toast.className = 'cart-toast-notification';
+            
+            // Build toast HTML with car details and close button
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <div class="toast-icon">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                    </div>
+                    <div class="toast-text">
+                        <p class="toast-title">âœ“ Added to Cart!</p>
+                        <p class="toast-details">${carName}</p>
+                        <p class="toast-price">${carPrice}</p>
+                    </div>
+                    <button class="toast-close" onclick="this.parentElement.parentElement.classList.add('closing'); setTimeout(() => this.parentElement.parentElement.remove(), 300);">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+            `;
+            
+            // Add toast to page
+            document.body.appendChild(toast);
+            
+            // Auto-dismiss after 4 seconds with fade out animation
+            const dismissTimer = setTimeout(() => {
+                toast.classList.add('closing');
+                
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.remove();
+                    }
+                }, 300);
+            }, 4000);
+        }
+    </script>

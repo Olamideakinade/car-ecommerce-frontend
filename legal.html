@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" class="custom-scrollbar">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Legal &amp; Info - Car Store</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+    
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+</head>
+<body class="legal-body">
+
+    <!-- Header -->
+    <div class="main-header-wrapper">
+        <header class="main-header">
+            <a href="index.html" class="logo-section" style="text-decoration: none;">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 30px;">directions_car</span>
+                </div>
+                <h2 class="logo-text">Car Store</h2>
+            </a>
+            
+            <nav class="desktop-nav">
+                <a class="nav-link" href="./index.html">Home</a>
+                <a class="nav-link" href="./about.html">About</a>
+                <a class="nav-link" href="./contact.html">Contact</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="icon-btn mobile-menu-toggle" title="Menu">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+                </button>
+                <a href="./cartegory.html" style="display: block;">
+                    <button class="icon-btn group" title="Shopping Cart">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">shopping_cart</span>
+                        <span class="cart-badge">2</span>
+                    </button>
+                </a>
+            </div>
+        </header>
+        
+        <nav class="mobile-nav hidden">
+            <a class="mobile-nav-link" href="./index.html">Home</a>
+            <a class="mobile-nav-link" href="./about.html">About</a>
+            <a class="mobile-nav-link" href="./contact.html">Contact</a>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="legal-hero">
+        <div class="legal-bg-layer">
+            <div class="legal-blob-1"></div>
+            <div class="legal-blob-2"></div>
+            <div class="legal-noise-overlay"></div>
+        </div>
+        
+        <div class="legal-hero-content">
+            <div>
+                <div class="policy-badge">
+                    <span class="policy-badge-dash"></span>
+                    <span class="policy-badge-text">Policy Center</span>
+                </div>
+                <h1 class="legal-title">
+                    LEGAL &amp; <br/>
+                    <span class="legal-title-gradient">INFORMATION</span>
+                </h1>
+            </div>
+            <p class="legal-hero-desc">
+                Transparency is the ultimate luxury. Review our terms, data protection policies, and premium shipping standards below.
+            </p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="legal-main-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="legal-sidebar">
+            <div class="sticky-nav-card">
+                <nav id="legal-nav" class="legal-nav-menu">
+                    <a href="#terms" class="legal-nav-link active">
+                        <span class="material-symbols-outlined" style="color: var(--primary);">gavel</span>
+                        Terms of Service
+                    </a>
+                    <a href="#privacy" class="legal-nav-link">
+                        <span class="material-symbols-outlined">shield</span>
+                        Privacy Policy
+                    </a>
+                    <a href="#shipping" class="legal-nav-link">
+                        <span class="material-symbols-outlined">local_shipping</span>
+                        Shipping &amp; Delivery
+                    </a>
+                    <a href="#returns" class="legal-nav-link">
+                        <span class="material-symbols-outlined">assignment_return</span>
+                        Returns &amp; Cancellations
+                    </a>
+                </nav>
+                
+                <div class="legal-contact-card">
+                    <h4 class="legal-contact-title">Need Assistance?</h4>
+                    <p class="legal-contact-desc">Our concierge team is available 24/7 for your inquiries.</p>
+                    <button class="contact-btn">Contact Support</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav-details">
+            <details>
+                <summary class="mobile-nav-summary">
+                    <span>Navigate to Section</span>
+                    <span class="material-symbols-outlined">expand_more</span>
+                </summary>
+                <div class="mobile-nav-links">
+                    <a href="#terms" class="legal-nav-link">Terms of Service</a>
+                    <a href="#privacy" class="legal-nav-link">Privacy Policy</a>
+                    <a href="#shipping" class="legal-nav-link">Shipping &amp; Delivery</a>
+                    <a href="#returns" class="legal-nav-link">Returns</a>
+                </div>
+            </details>
+        </div>
+
+        <!-- Content Area -->
+        <div class="legal-content-area">
+            
+            <!-- Terms Section -->
+            <section id="terms" class="legal-section">
+                <div class="legal-card group">
+                    <div class="legal-card-icon-bg">
+                        <span class="material-symbols-outlined" style="font-size: 8rem; color: white;">gavel</span>
+                    </div>
+                    
+                    <div class="section-header">
+                        <span class="section-number">01.</span>
+                        <h2 class="section-title">Terms of Service</h2>
+                    </div>
+                    
+                    <div class="legal-text">
+                        <div>
+                            <h3>1. Agreement to Terms</h3>
+                            <p>By accessing our website and utilizing our premium automotive services, you agree to be bound by these Terms of Service. If you disagree with any part of these terms, you may not access the service. Car Store reserves the right to modify these terms at any time.</p>
+                        </div>
+                        
+                        <div>
+                            <h3>2. Vehicle Purchasing &amp; Reservations</h3>
+                            <p>Our platform facilitates the reservation and purchase of high-value vehicles. A refundable deposit is required to secure any vehicle for a period of 7 days.</p>
+                            <ul>
+                                <li><span class="legal-list-bullet">›</span> All prices listed are base prices excluding taxes and licensing fees.</li>
+                                <li><span class="legal-list-bullet">›</span> Vehicle specifications are subject to verification upon physical inspection.</li>
+                                <li><span class="legal-list-bullet">›</span> Financing approvals are subject to credit verification by our banking partners.</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3>3. Intellectual Property</h3>
+                            <p>The Service and its original content, features, and functionality are and will remain the exclusive property of Car Store and its licensors. Our trademarks may not be used in connection with any product or service without the prior written consent of Car Store.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="legal-meta-bar">
+                        <span>Last Updated: October 24, 2026</span>
+                        <a href="./index.html" class="legal-meta-link">Go back to Home</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Privacy Section -->
+            <section id="privacy" class="legal-section">
+                <div class="legal-card group">
+                    <div class="legal-card-icon-bg">
+                        <span class="material-symbols-outlined" style="font-size: 8rem; color: white;">security</span>
+                    </div>
+                    
+                    <div class="section-header">
+                        <span class="section-number">02.</span>
+                        <h2 class="section-title">Privacy Policy</h2>
+                    </div>
+                    
+                    <div class="legal-text">
+                        <p>At Car Store, we are committed to protecting the privacy and security of our clients. This policy outlines how we collect, use, and safeguard your personal information in the context of high-value transactions.</p>
+                        
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <span class="material-symbols-outlined feature-icon-lg">database</span>
+                                <h3 class="feature-title-text">Data Collection</h3>
+                                <p class="feature-desc-text">We collect information necessary for vehicle registration, financing, and delivery logistics only.</p>
+                            </div>
+                            <div class="feature-card">
+                                <span class="material-symbols-outlined feature-icon-lg">lock</span>
+                                <h3 class="feature-title-text">Security Measures</h3>
+                                <p class="feature-desc-text">We utilize military-grade encryption for all financial transactions and personal data storage.</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3>Cookie Usage</h3>
+                            <p>We use essential cookies to ensure the functionality of our secure reservation system. Marketing cookies are only used with your explicit consent to provide personalized vehicle recommendations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shipping Section -->
+            <section id="shipping" class="legal-section">
+                <div class="legal-card group">
+                    <div class="legal-card-icon-bg">
+                         <span class="material-symbols-outlined" style="font-size: 8rem; color: white;">local_shipping</span>
+                    </div>
+                    
+                    <div class="section-header">
+                        <span class="section-number">03.</span>
+                        <h2 class="section-title">Global Shipping</h2>
+                    </div>
+                    
+                    <p class="legal-text" style="margin-bottom: 2rem;">We offer enclosed, climate-controlled transport for all vehicles to ensure they arrive in showroom condition, anywhere in the world.</p>
+                    
+                    <div class="shipping-wrapper">
+                        <div class="shipping-line"></div>
+                        
+                        <div class="shipping-step">
+                            <div class="step-text-container">
+                                <h4 class="step-title">Preparation</h4>
+                                <p class="step-desc">Detailed inspection and protective wrapping.</p>
+                            </div>
+                            <div class="step-icon-container active">
+                                <span class="material-symbols-outlined">inventory_2</span>
+                            </div>
+                            <div class="step-spacer"></div>
+                        </div>
+                        
+                        <div class="shipping-step">
+                            <div class="step-text-container">
+                                <h4 class="step-title">Transit</h4>
+                                <p class="step-desc">Real-time GPS tracking via our secure portal.</p>
+                            </div>
+                            <div class="step-icon-container">
+                                <span class="material-symbols-outlined">flight_takeoff</span>
+                            </div>
+                            <div class="step-spacer"></div>
+                        </div>
+                        
+                        <div class="shipping-step">
+                            <div class="step-text-container">
+                                <h4 class="step-title">White Glove Delivery</h4>
+                                <p class="step-desc">Handover by a product specialist at your location.</p>
+                            </div>
+                            <div class="step-icon-container">
+                                <span class="material-symbols-outlined">home_pin</span>
+                            </div>
+                            <div class="step-spacer"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+   <footer class="site-footer">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">© 2026 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html">Privacy Policy</a>
+                    <a href="./legal.html">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+        // Legal page specific scripts
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger);
+
+            const tl = gsap.timeline();
+
+            // 1. Initial Hero Animation
+            tl.to('.legal-hero-content', { autoAlpha: 1, duration: 0 }) // Make visible
+              .from('.policy-badge-dash', { width: 0, duration: 0.8, ease: "power2.out" })
+              .from('.policy-badge-text', { opacity: 0, x: -10, duration: 0.8, ease: "power2.out" }, "-=0.6")
+              .from('.legal-title', { opacity: 0, y: 30, duration: 1, ease: "power3.out" }, "-=0.6")
+              .from('.legal-hero-desc', { opacity: 0, y: 20, duration: 1, ease: "power2.out" }, "-=0.8");
+
+            // 2. Sidebar & Content Entrance
+            tl.to(['.legal-sidebar', '.legal-content-area'], { autoAlpha: 1, duration: 0.1 }, "-=0.5")  
+              .from('.legal-sidebar', { x: -30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.5")
+              .from('.legal-content-area', { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8");
+
+            // 3. Hover Effects for Blobs (Parallax)
+            document.addEventListener('mousemove', (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                
+                gsap.to('.legal-blob-1', { duration: 2, x: x * 2, y: y * 2, ease: "power1.out" });
+                gsap.to('.legal-blob-2', { duration: 2, x: -x, y: -y, ease: "power1.out" });
+            });
+
+            // 4. Content Scroll Reveal (Staggered Cards)
+            const cards = document.querySelectorAll('.legal-card');
+            cards.forEach((card, index) => {
+                gsap.fromTo(card, 
+                    { opacity: 0, y: 50 },
+                    {
+                        opacity: 1, 
+                        y: 0,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 85%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+
+            // 5. Sidebar Active State & Pinning
+            const sections = document.querySelectorAll('.legal-section');
+            const navLinks = document.querySelectorAll('.legal-nav-link');
+
+            // ScrollSpy
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 200)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if(link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 6. Smooth Scroll for Anchor Links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        // Custom smooth scroll using GSAP
+                        gsap.to(window, { duration: 1, scrollTo: { y: targetSection, offsetY: 100 }, ease: "power3.inOut" });
+                    }
+                });
+            });
+
+            // 7. Footer Animation Check
+            // Ensure footer elements are revealed if they use the standard reveal class
+            const footerCols = document.querySelectorAll('.footer-col');
+            footerCols.forEach((col, i) => {
+                gsap.fromTo(col,
+                    { opacity: 0, y: 20 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.8,
+                        delay: i * 0.1,
+                        scrollTrigger: {
+                            trigger: '.site-footer',
+                            start: "top 85%"
+                        }
+                    }
+                );
+            });
+        });
+    </script>
+</body>
+</html>

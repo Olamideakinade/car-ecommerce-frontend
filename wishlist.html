@@ -1,0 +1,436 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Store Premium Wishlist</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+</head>
+<body>
+    <div class="main-header-wrapper">
+        <header class="main-header">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined" style="font-size: 30px;">directions_car</span>
+                </div>
+                <h2 class="logo-text">Car Store</h2>
+            </div>
+            
+            <nav class="desktop-nav">
+                <a class="nav-link" href="./user_dashboard.html">Dashboard</a>
+                <a class="nav-link" href="./cartegory.html">Garage</a>
+                <a class="nav-link" href="./carcompare.html">Car Compare</a>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="icon-btn mobile-menu-toggle" title="Menu">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">menu</span>
+                </button>
+                
+                <div class="notification-container">
+                    <button class="icon-btn btn-icon-animate" title="Notifications">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+                        <span class="notification-dot"></span>
+                    </button>
+                    <!-- Notification Dropdown -->
+                    <div class="notification-dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-title">Notifications (3)</span>
+                            <span class="mark-read">Mark all as read</span>
+                        </div>
+                        <div class="dropdown-list">
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">local_offer</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">Price Drop Alert</p>
+                                    <p class="item-desc">Porsche 911 GT3 is now $2,500 cheaper.</p>
+                                    <span class="item-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">local_shipping</span>
+                                </div>
+                                <div class="item-content">
+                                    <p class="item-title">Order Shipped</p>
+                                    <p class="item-desc">Your brake kit is on the way.</p>
+                                    <span class="item-time">Yesterday</span>
+                                </div>
+                            </div>
+                            <div class="dropdown-item">
+                                <div class="item-icon">
+                                    <span class="material-symbols-outlined" style="font-size: 1.25rem;">event</span>
+                                    </div>
+                                <div class="item-content">
+                                    <p class="item-title">Track Day</p>
+                                    <p class="item-desc">Upcoming track event this weekend.</p>
+                                    <span class="item-time">3 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="./cartegory.html" style="display: block;">
+                    <button class="icon-btn group" title="Shopping Cart">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">shopping_cart</span>
+                        <span class="cart-badge"></span>
+                    </button>
+                </a>
+               <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; background-image: url('./assets/images/downloaded_asset_58.jpg'); background-size: cover; background-position: center; border: 2px solid rgba(244,192,37,0.2);"></div>
+            </div>
+        </header>
+        
+        <nav class="mobile-nav hidden">
+            <a class="mobile-nav-link" href="./index.html">Home</a>
+            <a class="mobile-nav-link" href="#">Inventory</a>
+            <a class="mobile-nav-link" href="#">Auctions</a>
+        </nav>
+    </div>
+
+    <main class="main-content">
+        <div class="layout-content-container">
+            <!-- Page Heading -->
+            <div class="wishlist-header-row">
+                <div class="wishlist-title-group">
+                    <p class="eyebrow">Curated Collection</p>
+                    <h1 class="wishlist-title">My Wishlist</h1>
+                    <p class="wishlist-subtitle">5 high-performance machines currently tracked</p>
+                </div>
+                <button class="btn-clear-all group">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">delete_sweep</span>
+                    <span class="btn-clear-all-text">Clear All</span>
+                </button>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="tabs-container no-scrollbar">
+                <div class="tabs-list">
+                    <a class="tab-link active" href="#">
+                        <span class="tab-text">ALL SAVED</span>
+                        <span class="tab-badge">05</span>
+                    </a>
+                    <a class="tab-link" href="#">
+                        <span class="tab-text">Hypercars</span>
+                    </a>
+                    <a class="tab-link" href="#">
+                        <span class="tab-text">GT Classics</span>
+                    </a>
+                    <a class="tab-link" href="#">
+                        <span class="tab-text">Luxury SUV</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Grid Layout -->
+            <div class="wishlist-grid">
+                <!-- Card 1 -->
+                <div class="brushed-steel group">
+                    <div class="wishlist-card-image-wrap">
+                        <div class="wishlist-card-bg" data-alt="Porsche 911 GT3" style='background-image: url("./assets/images/downloaded_asset_59.jpg");'></div>
+                        <div class="wishlist-fav-btn-container">
+                            <button class="glass-overlay btn-wishlist-fav group/heart">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                            </button>
+                        </div>
+                        <div class="wishlist-stats-overlay">
+                            <div class="stats-grid">
+                                <div class="stat-col">
+                                    <span>Power</span>
+                                    <span class="stat-val">502 HP</span>
+                                </div>
+                                <div class="stat-col middle">
+                                    <span>Torque</span>
+                                    <span class="stat-val">346 LB-FT</span>
+                                </div>
+                                <div class="stat-col right">
+                                    <span>0-60</span>
+                                    <span class="stat-val">3.2s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-card-header">
+                            <div>
+                                <h3 class="wishlist-card-title">Porsche 911 GT3</h3>
+                                <p class="wishlist-card-price">$161,100</p>
+                            </div>
+                            <span class="year-badge">2024</span>
+                        </div>
+                        <button class="btn-view-details neon-glow group">
+                            <a href="./product_details.html"><span>View Details</span></a>
+                            <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="brushed-steel group">
+                    <div class="wishlist-card-image-wrap">
+                        <div class="wishlist-card-bg" data-alt="Ferrari SF90 Stradale" style='background-image: url("./assets/images/downloaded_asset_60.jpg");'></div>
+                        <div class="wishlist-fav-btn-container">
+                            <button class="glass-overlay btn-wishlist-fav group/heart">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                            </button>
+                        </div>
+                        <div class="wishlist-stats-overlay">
+                            <div class="stats-grid">
+                                <div class="stat-col">
+                                    <span>Power</span>
+                                    <span class="stat-val">986 HP</span>
+                                </div>
+                                <div class="stat-col middle">
+                                    <span>Torque</span>
+                                    <span class="stat-val">590 LB-FT</span>
+                                </div>
+                                <div class="stat-col right">
+                                    <span>0-60</span>
+                                    <span class="stat-val">2.5s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-card-header">
+                            <div>
+                                <h3 class="wishlist-card-title">Ferrari SF90 Stradale</h3>
+                                <p class="wishlist-card-price">$524,800</p>
+                            </div>
+                            <span class="year-badge">2023</span>
+                        </div>
+                        <button class="btn-view-details neon-glow group">
+                                                       <a href="./product_details.html"><span>View Details</span></a>
+                            <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="brushed-steel group">
+                    <div class="wishlist-card-image-wrap">
+                        <div class="wishlist-card-bg" data-alt="Lamborghini HuracÃ¡n STO" style='background-image: url("./assets/images/downloaded_asset_61.jpg");'></div>
+                        <div class="wishlist-fav-btn-container">
+                            <button class="glass-overlay btn-wishlist-fav group/heart">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                            </button>
+                        </div>
+                        <div class="wishlist-stats-overlay">
+                            <div class="stats-grid">
+                                <div class="stat-col">
+                                    <span>Power</span>
+                                    <span class="stat-val">631 HP</span>
+                                </div>
+                                <div class="stat-col middle">
+                                    <span>Torque</span>
+                                    <span class="stat-val">417 LB-FT</span>
+                                </div>
+                                <div class="stat-col right">
+                                    <span>0-60</span>
+                                    <span class="stat-val">3.0s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-card-header">
+                            <div>
+                                <h3 class="wishlist-card-title">Lamborghini HuracÃ¡n</h3>
+                                <p class="wishlist-card-price">$327,800</p>
+                            </div>
+                            <span class="year-badge">2024</span>
+                        </div>
+                        <button class="btn-view-details neon-glow group">
+                                                        <a href="./product_details.html"><span>View Details</span></a>
+                            <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="brushed-steel group">
+                    <div class="wishlist-card-image-wrap">
+                        <div class="wishlist-card-bg" data-alt="Aston Martin DBS" style='background-image: url("./assets/images/downloaded_asset_62.jpg");'></div>
+                        <div class="wishlist-fav-btn-container">
+                            <button class="glass-overlay btn-wishlist-fav group/heart">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                            </button>
+                        </div>
+                        <div class="wishlist-stats-overlay">
+                            <div class="stats-grid">
+                                <div class="stat-col">
+                                    <span>Power</span>
+                                    <span class="stat-val">715 HP</span>
+                                </div>
+                                <div class="stat-col middle">
+                                    <span>Torque</span>
+                                    <span class="stat-val">663 LB-FT</span>
+                                </div>
+                                <div class="stat-col right">
+                                    <span>0-60</span>
+                                    <span class="stat-val">3.4s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-card-header">
+                            <div>
+                                <h3 class="wishlist-card-title">Aston Martin DBS</h3>
+                                <p class="wishlist-card-price">$334,700</p>
+                            </div>
+                            <span class="year-badge">2023</span>
+                        </div>
+                        <button class="btn-view-details neon-glow group">
+                                                        <a href="./product_details.html"><span>View Details</span></a>
+                            <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="brushed-steel group">
+                    <div class="wishlist-card-image-wrap">
+                        <div class="wishlist-card-bg" data-alt="Bentley Continental GT" style='background-image: url("./assets/images/downloaded_asset_63.jpg");'></div>
+                        <div class="wishlist-fav-btn-container">
+                            <button class="glass-overlay btn-wishlist-fav group/heart">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                            </button>
+                        </div>
+                        <div class="wishlist-stats-overlay">
+                            <div class="stats-grid">
+                                <div class="stat-col">
+                                    <span>Power</span>
+                                    <span class="stat-val">650 HP</span>
+                                </div>
+                                <div class="stat-col middle">
+                                    <span>Torque</span>
+                                    <span class="stat-val">664 LB-FT</span>
+                                </div>
+                                <div class="stat-col right">
+                                    <span>0-60</span>
+                                    <span class="stat-val">3.5s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wishlist-content">
+                        <div class="wishlist-card-header">
+                            <div>
+                                <h3 class="wishlist-card-title">Bentley Continental</h3>
+                                <p class="wishlist-card-price">$238,500</p>
+                            </div>
+                            <span class="year-badge">2024</span>
+                        </div>
+                        <button class="btn-view-details neon-glow group">
+                                          <a href="./product_details.html"><span>View Details</span></a>
+                            <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container-max" style="max-width: 1440px; margin: 0 auto; padding: 0 var(--spacing-6);">
+            <div class="footer-grid" style="display: grid; grid-template-columns: 1fr; gap: 4rem; margin-bottom: 4rem;">
+                <div class="footer-col" style="opacity:1;">
+                    <div style="display:flex; align-items:center; gap:0.75rem; color:var(--text-white); margin-bottom:2rem; cursor:pointer;" class="group">
+                        <div style="width:2.5rem; height:2.5rem; background-color:rgba(255,255,255,0.05); border-radius:0.5rem; display:flex; align-items:center; justify-content:center;">
+                            <span class="material-symbols-outlined text-primary" style="font-size: 24px;">directions_car</span>
+                        </div>
+                        <h3 style="font-size:1.25rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Car Store</h3>
+                    </div>
+                    <p style="color:var(--text-gray-500); font-size:0.875rem; line-height:2; margin-bottom:2rem; max-width: 24rem;">
+                         The world's premier destination for luxury, sports, and exotic vehicles. Experience the art of automotive engineering.
+                    </p>
+                    <div style="display:flex; gap:1rem;">
+                        <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">public</span></a>
+                         <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">photo_camera</span></a>
+                          <a href="#" style="width:2.5rem; height:2.5rem; border-radius:50%; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; color:var(--text-gray-400); transition: all 0.3s;"><span class="material-symbols-outlined" style="font-size: 18px;">play_circle</span></a>
+                    </div>
+                </div>
+
+                <div class="footer-col" style="opacity:1;">
+                    <h4 style="color:var(--text-white); font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:2rem; font-size:1.125rem;">Contact</h4>
+                    <ul style="display:flex; flex-direction:column; gap:1.5rem; color:var(--text-gray-400); font-size:0.875rem;">
+                        <li style="display:flex; align-items:flex-start; gap:1rem;">
+                            <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">location_on</span>
+                            </div>
+                            <span>1234 Luxury Lane,<br/>Beverly Hills, CA 90210</span>
+                        </li>
+                        <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">call</span>
+                            </div>
+                            <span>+1 (800) 555-0199</span>
+                        </li>
+                         <li style="display:flex; align-items:center; gap:1rem;">
+                             <div style="width:2rem; height:2rem; border-radius:0.25rem; background-color:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center;">
+                                <span class="material-symbols-outlined" style="font-size: 14px;">mail</span>
+                            </div>
+                            <span>concierge@carstore.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <style>@media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr) !important; } }</style>
+            
+            <div style="border-top:1px solid rgba(255,255,255,0.05); padding-top:2.5rem; padding-bottom: 2.5rem; display:flex; flex-direction:column; gap:1.5rem; align-items:center; justify-content:space-between;">
+                <p style="color:var(--text-gray-500); font-size:0.75rem; letter-spacing:0.025em;">Â© 2026 Car Store. All rights reserved.</p>
+                <div style="display:flex; gap:2rem; color:var(--text-gray-500); font-size:0.75rem; font-weight:500;">
+                    <a href="./legal.html">Privacy Policy</a>
+                    <a href="./legal.html">Terms of Service</a>
+                </div>
+                 <style>@media(min-width:768px){ div[style*="flex-direction:column"] { flex-direction:row !important; } }</style>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <a href="./carcompare.html"><div class="floating-compare-container">
+        <button class="btn-floating-compare group">
+            <span class="material-symbols-outlined">compare_arrows</span>
+            Compare All Selected
+        </button>
+    </div></a>
+
+    <script src="./assets/js/main.js"></script>
+    <script>
+        // Wishlist specific animations
+        document.addEventListener("DOMContentLoaded", (event) => {
+             // Animate cards on load
+             gsap.from(".brushed-steel", {
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                delay: 0.2
+             });
+             
+             // Floating button animation
+             gsap.from(".floating-compare-container", {
+                y: 100,
+                opacity: 0,
+                duration: 1,
+                ease: "back.out(1.7)",
+                delay: 1
+             });
+        });
+    </script>
+</body>
+</html>

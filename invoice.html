@@ -1,0 +1,724 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Car Store Digital Invoice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <style>
+        :root {
+            --primary: #f2d00d;
+            --background-light: #f8f8f5;
+            --background-dark: #12110a;
+            --background-gradient-start: #2a2715;
+            --background-gradient-mid: #12110a;
+            --background-gradient-end: #0a0a07;
+            --text-white: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.5);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --glass-bg: rgba(39, 37, 27, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-dark);
+            color: var(--text-white);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            background: radial-gradient(circle at top right, var(--background-gradient-started, #2a2715), var(--background-gradient-mid) 40%, var(--background-gradient-end));
+            padding: 2.5rem 1rem;
+        }
+
+        /* Utility Classes */
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .justify-end { justify-content: flex-end; }
+        .justify-center { justify-content: center; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-3 { gap: 0.75rem; }
+        .gap-4 { gap: 1rem; }
+        .gap-6 { gap: 1.5rem; }
+        .gap-8 { gap: 2rem; }
+        .w-full { width: 100%; }
+        .relative { position: relative; }
+        .hidden { display: none; }
+        
+        @media (min-width: 768px) {
+            .md-flex { display: flex; }
+            .md-row { flex-direction: row; }
+            .md-items-center { align-items: center; }
+            .md-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+            .md-aspect-video { aspect-ratio: 16 / 9; }
+            .md-w-1-3 { width: 33.333333%; }
+            .md-p-12 { padding: 3rem; }
+        }
+
+        /* Animations */
+        @keyframes entranceScale {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        @keyframes staggerFadeUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes pulseWatermark {
+            0%, 100% { opacity: 0.03; transform: translate(-50%, -50%) rotate(-30deg) scale(1); }
+            50% { opacity: 0.06; transform: translate(-50%, -50%) rotate(-30deg) scale(1.05); }
+        }
+        @keyframes metallicSweep {
+            0% { left: -150%; }
+            50% { left: 150%; }
+            100% { left: 150%; }
+        }
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(242, 208, 13, 0.2); border-color: rgba(242, 208, 13, 0.3); }
+            50% { box-shadow: 0 0 15px rgba(242, 208, 13, 0.5); border-color: rgba(242, 208, 13, 0.6); }
+        }
+
+        /* Specific Components */
+        .wrapper {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-white);
+        }
+
+        .logo-icon {
+            width: 2rem;
+            height: 2rem;
+            color: var(--primary);
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.025em;
+        }
+
+        .nav-links {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                align-items: center;
+                gap: 2.25rem;
+            }
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: var(--primary); }
+
+        .icon-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-white);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .icon-btn:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+        /* Main Invoice Card */
+        .invoice-card {
+            position: relative;
+            width: 100%;
+            max-width: 1000px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(242, 208, 13, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            padding: 2rem;
+            animation: entranceScale 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @media (min-width: 768px) {
+            .invoice-card {
+                padding: 3rem;
+            }
+        }
+
+        .brushed-border {
+            border: 1px solid transparent;
+            background: linear-gradient(#221f10, #221f10) padding-box,
+                        linear-gradient(135deg, #393728, #f2d00d, #393728) border-box;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-size: 15rem;
+            color: rgba(242, 208, 13, 0.03);
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+            font-weight: 900;
+            text-transform: uppercase;
+            user-select: none;
+            animation: pulseWatermark 8s ease-in-out infinite;
+        }
+
+        /* Invoice Header */
+        .invoice-header {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .invoice-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .doc-badge {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            background-color: var(--primary);
+            color: #181711;
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .doc-title {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.05em;
+            text-transform: uppercase;
+            font-style: italic;
+            margin: 0;
+        }
+
+        .doc-meta {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-family: monospace;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+
+        .verified-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(242, 208, 13, 0.1);
+            border: 1px solid rgba(242, 208, 13, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            animation: glowPulse 3s infinite ease-in-out;
+        }
+
+        .verified-text {
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* Car Details */
+        .car-details {
+            position: relative;
+            z-index: 10;
+            margin-bottom: 2.5rem;
+        }
+
+        .car-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .car-card {
+                flex-direction: row;
+                align-items: stretch;
+            }
+        }
+        
+        .car-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        @media (min-width: 768px) {
+            .car-image {
+                width: 33%;
+            }
+        }
+
+        .car-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .section-label {
+            color: var(--primary);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .car-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .spec-item { display: flex; flex-direction: column; }
+        .spec-label {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.625rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .spec-value {
+            color: rgba(255, 255, 255, 0.9);
+            font-family: monospace;
+        }
+
+        /* Transaction Grid */
+        .transaction-grid {
+            position: relative;
+            z-index: 10;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 768px) {
+            .transaction-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .details-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.025em;
+        }
+
+        .line-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .line-item-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .line-item-icon {
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.25rem;
+        }
+
+        .line-item-name {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+
+        .line-item-price {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        /* Final Total */
+        .total-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            items-align: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .total-amount {
+            color: var(--primary);
+            font-size: 3rem;
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: -0.05em;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 15px rgba(242, 208, 13, 0.4);
+        }
+
+        .security-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1rem;
+        }
+
+        .icon-stack {
+            display: flex;
+        }
+        .icon-stack > div {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: -0.5rem;
+        }
+
+        /* Action Buttons */
+        .actions-row {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .btn {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn:hover { transform: scale(1.05); }
+        .btn:active { transform: scale(0.95); }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: #181711;
+        }
+
+        .btn-secondary {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-white);
+        }
+        .btn-secondary:hover { background-color: rgba(255, 255, 255, 0.1); }
+
+        .btn-ghost {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .btn-ghost:hover {
+            border-color: rgba(255, 255, 255, 0.4);
+            color: var(--text-white);
+        }
+
+        .shine-effect::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.5),
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transform: skewX(-20deg);
+            animation: metallicSweep 4s infinite linear;
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.75rem;
+        }
+        
+        /* Staggered Animation Items */
+        .stagger-item {
+            opacity: 0;
+            animation: staggerFadeUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .item-1 { animation-delay: 0.3s; }
+        .item-2 { animation-delay: 0.4s; }
+        .item-3 { animation-delay: 0.5s; }
+        .item-4 { animation-delay: 0.6s; }
+        .item-5 { animation-delay: 0.7s; }
+        .item-6 { animation-delay: 0.8s; }
+        .item-7 { animation-delay: 0.9s; }
+
+    </style>
+</head>
+<body>
+
+    <header class="stagger-item item-1">
+        <div class="logo-section">
+            <div class="logo-icon">
+                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <g clip-path="url(#clip0_6_535)">
+                        <path clip-rule="evenodd" d="M47.2426 24L24 47.2426L0.757355 24L24 0.757355L47.2426 24ZM12.2426 21H35.7574L24 9.24264L12.2426 21Z" fill="currentColor" fill-rule="evenodd"></path>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_6_535"><rect fill="white" height="48" width="48"></rect></clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <h2 class="logo-text">CAR STORE</h2>
+        </div>
+        
+        <div class="flex items-center gap-8">
+            <nav class="nav-links">
+                <a class="nav-link" href="#">Inventory</a>
+                <a class="nav-link" href="#">Showroom</a>
+                <a class="nav-link" href="#">Vault</a>
+            </nav>
+            <div class="flex gap-4">
+               <a href="./user_dashboard.html"><button class="icon-btn">
+                    <span class="material-symbols-outlined">account_circle</span>
+                </button></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="invoice-card brushed-border">
+        <div class="watermark">AUTHENTIC</div>
+        
+        <!-- Document Header -->
+        <div class="invoice-header stagger-item item-2">
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center">
+                    <span class="doc-badge">Official Document</span>
+                </div>
+                <h1 class="doc-title">Ownership Certificate</h1>
+                <p class="doc-meta">REF ID: CS-V12-SVJ-2024-992834XL â€¢ ISSUED OCT 24, 2023</p>
+            </div>
+            
+            <div class="flex flex-col items-end">
+                <div class="verified-badge">
+                    <span class="material-symbols-outlined" style="color: var(--primary);">verified</span>
+                    <span class="verified-text">Payment Confirmed</span>
+                </div>
+                <p class="text-white/40" style="color: rgba(255,255,255,0.4); font-size: 0.75rem; text-align: right; margin-top: 0.5rem;">
+                    Encrypted via Blockchain Ledger<br/>Transaction Verified at 14:32:01 UTC
+                </p>
+            </div>
+        </div>
+
+        <!-- Car Details -->
+        <div class="car-details stagger-item item-3">
+            <div class="car-card">
+                <div class="car-image" style='background-image: url("./assets/images/downloaded_asset_34.jpg");'></div>
+                <div class="car-info">
+                    <div>
+                        <span class="section-label">Vehicle Specifications</span>
+                        <h3 class="car-name">2024 Nero Aventador SVJ</h3>
+                    </div>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <span class="spec-label">VIN</span>
+                            <span class="spec-value">1ZH67890SJW2201</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Trim</span>
+                            <span class="spec-value">Performance Carbon Edition</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Engine</span>
+                            <span class="spec-value">6.5L V12 770 CV</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">Drive</span>
+                            <span class="spec-value">All-Wheel Drive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transaction Details -->
+        <div class="transaction-grid">
+            <div class="stagger-item item-4">
+                <h2 class="details-title">
+                    <span class="material-symbols-outlined" style="color: var(--primary);">receipt_long</span>
+                    Transaction Details
+                </h2>
+                <div style="display: flex; flex-direction: column;">
+                    <div class="line-item stagger-item item-5">
+                        <div class="line-item-left">
+                            <span class="material-symbols-outlined line-item-icon">precision_manufacturing</span>
+                            <span class="line-item-name">Base Vehicle Price</span>
+                        </div>
+                        <span class="line-item-price">$517,000.00</span>
+                    </div>
+                    <div class="line-item stagger-item item-6">
+                        <div class="line-item-left">
+                            <span class="material-symbols-outlined line-item-icon">diamond</span>
+                            <span class="line-item-name">Carbon Fiber Package</span>
+                        </div>
+                        <span class="line-item-price">$24,500.00</span>
+                    </div>
+                    <div class="line-item stagger-item item-7">
+                        <div class="line-item-left">
+                            <span class="material-symbols-outlined line-item-icon">gavel</span>
+                            <span class="line-item-name">Luxury Performance Tax</span>
+                        </div>
+                        <span class="line-item-price">$54,150.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="display: flex; flex-direction: column; justify-content: flex-end; stagger-item item-5">
+                <div class="total-card">
+                    <span class="spec-label" style="letter-spacing: 0.3em; margin-bottom: 1rem;">Final Certified Total</span>
+                    <h4 class="total-amount">$600,350.00</h4>
+                    <div style="width: 100%; height: 1px; background-color: rgba(255,255,255,0.1); margin: 1rem 0;"></div>
+                    <div class="security-row">
+                        <div class="icon-stack">
+                            <div><span class="material-symbols-outlined" style="font-size: 10px;">shield</span></div>
+                            <div><span class="material-symbols-outlined" style="font-size: 10px;">lock</span></div>
+                        </div>
+                        <span style="font-size: 10px; text-transform: uppercase; color: rgba(255,255,255,0.4); font-weight: 500;">Secured with 256-bit AES Encryption</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="actions-row stagger-item item-6">
+            <button class="btn btn-primary shine-effect">
+                <span class="material-symbols-outlined">download</span>
+                Download Digital Certificate
+            </button>
+            <button class="btn btn-secondary shine-effect">
+                <span class="material-symbols-outlined">share</span>
+                Secure Share
+            </button>
+            <button class="btn btn-ghost">
+                <span class="material-symbols-outlined">print</span>
+                Print
+            </button>
+        </div>
+    </main>
+
+    <footer class="stagger-item item-7">
+        <p>Â© 2024 Car Store International. All luxury assets are digitally tracked and secured.</p>
+        <p style="margin-top: 0.5rem; font-family: monospace; text-transform: uppercase; letter-spacing: -0.05em;">Verified by Global Automotive Commerce Regulatory Board</p>
+    </footer>
+
+</body>
+</html>
